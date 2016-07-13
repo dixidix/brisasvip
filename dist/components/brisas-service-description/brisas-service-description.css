@@ -1,0 +1,69 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.serviceDescription {
+  margin-top: 30px;
+  margin-bottom: 56px;
+  position: relative; }
+  .serviceDescription .text-center section {
+    padding-bottom: 85px;
+    text-align: center; }
+  .serviceDescription .text-center .title {
+    font-family: "MuseoSans-500", Arial;
+    font-size: 35px; }
+  .serviceDescription .text-center .description {
+    text-align: center;
+    font-family: "MuseoSans-100", Arial;
+    font-size: 25px; }
+  .serviceDescription .services {
+    margin-top: 4%;
+    height: auto; }
+    .serviceDescription .services-image {
+      position: relative;
+      padding-left: 0; }
+    .serviceDescription .services-description {
+      background: rgba(255, 255, 255, 0.8);
+      position: absolute;
+      top: 180px;
+      right: 0%;
+      height: 540px;
+      padding-right: 0;
+      text-align: left; }
+      .serviceDescription .services-description__text {
+        padding: 5%; }
+        .serviceDescription .services-description__text p {
+          font-size: 18px;
+          font-family: "RobotoLight", Arial;
+          padding: 5% 0%;
+          line-height: 2;
+          text-align: justify; }
+        .serviceDescription .services-description__text h3 {
+          color: #de9900;
+          font-size: 35px;
+          font-family: "MuseoSans-500", Arial; }
+  .serviceDescription i {
+    font-size: 15px;
+    vertical-align: -1px;
+    margin-left: 10px; }
+  .serviceDescription .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 10%; }
+    .serviceDescription .btn-brisas, .serviceDescription .btn-brisas:active, .serviceDescription .btn-brisas:focus, .serviceDescription .btn-brisas:active:focus, .serviceDescription .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 200px;
+      height: 40px; }
+    .serviceDescription .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .serviceDescription img {
+    -webkit-filter: brightness(50%);
+    /* Chrome, Safari, Opera */
+    filter: brightness(50%);
+    width: 100%; }
+  .serviceDescription p {
+    font-size: 18px;
+    text-align: justify;
+    font-family: "RobotoLight", Arial; }

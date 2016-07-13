@@ -1,0 +1,18 @@
+@import '../../styles/mixins/main';
+.choferes{
+	margin-top:4%;
+	text-align:justify;
+	p{
+		font-family: $roboto-light;
+		font-size:16px;
+		padding-right:3%;
+	}
+	h1,h3{
+		font-family:$MuseoSans-500;
+	}	
+		.content{
+			img{
+				height:350px;
+			}
+		}
+	}

@@ -1,0 +1,16 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.choferes {
+  margin-top: 4%;
+  text-align: justify; }
+  .choferes p {
+    font-family: "RobotoLight", Arial;
+    font-size: 16px;
+    padding-right: 3%; }
+  .choferes h1, .choferes h3 {
+    font-family: "MuseoSans-500", Arial; }
+  .choferes .content img {
+    height: 350px; }

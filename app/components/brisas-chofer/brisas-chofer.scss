@@ -1,0 +1,52 @@
+@import '../../styles/mixins/main';
+.chofer{
+	.text-center{
+	article{
+		padding-bottom:85px;
+	}
+	.title{
+		font-family:$MuseoSans-500;
+		font-size:35px;
+	}
+	.description{
+		font-family:$MuseoSans-100;
+		font-size:25px;
+	}
+}
+	margin-top: 70px;
+	img{
+		padding:50px 0px;
+		width:220px;
+		-webkit-filter:brightness(0.6);
+		-moz-filter:brightness(0.6);
+		filter:brightness(0.6);
+		transition: all 0.2s ease-in-out;
+		&:hover{
+			cursor:pointer;
+			-webkit-filter:brightness(1);
+			-moz-filter:brightness(1);
+			filter:brightness(1);
+		}
+	}
+	i{
+		font-size: 15px;
+		vertical-align: -1px;
+		margin-left: 10px;
+	}
+	&-card{
+		h2{
+
+		}
+		.btn-brisas{
+			@include btn-brisas(100%, 40px);
+			font-size:16px;
+			margin-top:29px;
+		}
+		p{
+			text-align: center;
+			font-family: $roboto-light;
+			font-size:20px;			
+			margin-bottom: 15px;
+		}
+	}
+}

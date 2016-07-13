@@ -1,0 +1,24 @@
+{
+  "name": "brisas_vip",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "dixidix <nicolas.sigal@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.3",
+    "bootstrap-sass": "~3.3.6"
+  }
+}

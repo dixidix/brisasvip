@@ -1,0 +1,76 @@
+@import '../../styles/mixins/main';
+
+.serviceDescription{
+	margin-top:30px;
+	margin-bottom:56px;
+	position: relative;
+	.text-center{
+
+		section{
+			padding-bottom:85px;
+			text-align: center;
+		}
+		.title{
+			font-family:$MuseoSans-500;
+			font-size:35px;
+		}
+		.description{
+			text-align: center;
+			font-family:$MuseoSans-100;
+			font-size:25px;
+		}
+	}
+	.services{	
+	margin-top:4%;	
+		height: auto;
+		&-image{
+			position: relative;
+			padding-left:0;
+		}
+		&-description{
+			background: rgba(255,255,255,0.8);
+			position: absolute;
+			top:180px;
+			right:0%;
+			height: 540px;
+			padding-right:0;
+			text-align: left;
+			&__text{
+				padding:5%;
+				p{
+					font-size:18px;
+					font-family:$roboto-light;
+					padding:5% 0%;
+					line-height:2;
+					text-align: justify;
+				}
+				h3{
+					color:$premium;
+					font-size:35px;
+					font-family:$MuseoSans-500;
+				}
+			}
+		}
+	}
+	i{
+		font-size: 15px;
+		vertical-align: -1px;
+		margin-left: 10px;
+	}
+	.btn-brisas{
+		@include btn-brisas(200px, 40px);
+		font-size:16px;
+		opacity:1;
+		margin-top: 10%;
+	}
+	img{
+		-webkit-filter: brightness(50%); /* Chrome, Safari, Opera */
+		filter: brightness(50%);
+		width:100%;
+	}
+	p{
+		font-size:18px;
+		text-align: justify;
+		font-family: $roboto-light;
+	}
+}

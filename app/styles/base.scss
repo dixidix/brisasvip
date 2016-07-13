@@ -1,0 +1,37 @@
+@import 'mixins/main';
+@import 'modules/main';
+// @import 'bootstrap-custom';
+
+html{
+	position: relative;
+	min-height: 100%;
+	body{
+		background-color:#f5f5f5;
+		select, option{
+			cursor:pointer;
+		}
+		font-family:$roboto;
+		.header-wrapper{
+			height:480px;
+			@include phone {
+				height:100vh;
+			}
+			@include tablet {
+				height:100vh;
+			}
+		}
+		.header, .body {
+			&-wrapper{
+				position:relative;
+			}
+		}
+		.form-control, .btn{
+			border-radius: 0;
+			&:focus, &:active:focus, &:active{
+				outline:none;
+				border-color:transparent;
+				box-shadow:none;
+			}
+		}
+	}
+}

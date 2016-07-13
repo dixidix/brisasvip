@@ -1,0 +1,20 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.search {
+  width: 100%;
+  background-color: #fff;
+  transition: all linear 0.5s;
+  height: 475px;
+  text-align: center;
+  z-index: 9999;
+  color: #2e2e2e;
+  border: dotted 5px #fff; }
+  .search a {
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px; }
+  .search.ng-hide {
+    height: 0; }

@@ -1,0 +1,61 @@
+@import '../../styles/mixins/main';
+.modal-body{
+	height:550px;
+	margin:0px;
+	padding:10px;
+}
+.modal-header{
+	h4{
+		color:$brisas-green;
+	}
+}
+.close{
+	outline:none;
+}
+.iframe-placeholder
+    {
+       background: url('http://www.eet-uae.com/img/load.GIF') 0px 0px no-repeat;
+       background-size: 120px 120px;
+       background-position: center; 
+    }
+.package-description{
+	margin-top:3%;
+	text-align:justify;
+	p{
+		font-family: $roboto-light;
+		font-size:16px;
+		padding-right:3%;
+	}
+	h1,h3{
+		font-family:$MuseoSans-500;
+	}
+	.content{
+		margin-top:4%;
+		.sub-img{
+			margin-top: 3%;
+			img{
+				-webkit-filter:brightness(0.9);
+				-moz-filter:brightness(0.9);
+				filter:brightness(0.9);
+				&:hover{
+					cursor:pointer;
+					-webkit-filter:brightness(1);
+					-moz-filter:brightness(1);
+					filter:brightness(1);
+				}
+			}
+		}
+		.btn-brisas{
+			@include btn-brisas(100%, 40px);
+			margin-top: 3%;
+			font-size:16px;
+			i{
+				font-size: 17px;
+				margin-right: 10px;
+			}
+		}
+	}
+	img{
+		width:100%;
+	}
+}

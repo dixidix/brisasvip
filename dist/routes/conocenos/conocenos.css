@@ -1,0 +1,16 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.knowus-route {
+  margin-top: 4%;
+  text-align: justify; }
+  .knowus-route p {
+    font-family: "RobotoLight", Arial;
+    font-size: 16px;
+    padding-right: 3%; }
+  .knowus-route h1, .knowus-route h3 {
+    font-family: "MuseoSans-500", Arial; }
+  .knowus-route .content img {
+    height: 275px; }

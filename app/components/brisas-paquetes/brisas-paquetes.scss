@@ -1,0 +1,78 @@
+@import '../../styles/mixins/main';
+.text-center{
+	article{
+		padding-bottom:85px;
+	}
+	.title{
+		font-family:$MuseoSans-500;
+		font-size:35px;
+	}
+	.description{
+		font-family:$MuseoSans-100;
+		font-size:25px;
+	}
+}
+.packages{
+	margin-top:56px;
+	margin-bottom:56px;
+	i{
+		font-size: 15px;
+		vertical-align: -1px;
+		margin-left: 10px;
+	}
+	.btn-brisas{
+		@include btn-brisas(100%, 45px);
+		font-size:16px;
+		opacity:1;
+	}
+	article{
+		text-align: center;
+	}
+	.circles{
+		img{
+			max-width:120px;
+			margin-bottom:5%;
+		}
+	}
+	img{
+		width:100%;
+		max-height:300px;
+	}
+	.circle{
+		margin-bottom:4%;
+		-webkit-filter:brightness(0.8);
+		-moz-filter:brightness(0.8);
+		filter:brightness(0.8);
+		transition: all 0.2s ease-in-out;
+		&:hover{
+			cursor:pointer;
+			-webkit-filter:brightness(1);
+			-moz-filter:brightness(1);
+			filter:brightness(1);
+		}
+	}
+	
+	.col-md-5{
+		text-align: center;
+		span{
+			color:#fff;
+			position:absolute;
+			top:30%;
+			width:90%;
+			padding:0;
+			font-size:36px;
+			left:5%;
+		}
+		margin-bottom:2%;
+		-webkit-filter:brightness(0.9);
+		-moz-filter:brightness(0.9);
+		filter:brightness(0.9);
+		&:hover{
+			cursor:pointer;
+			-webkit-filter:brightness(1);
+			-moz-filter:brightness(1);
+			filter:brightness(1);
+
+		}
+	}	
+}

@@ -1,0 +1,28 @@
+<div class="wrapper navbar-brisas">
+  <link rel="stylesheet" type="text/css" href="./components/navbar-brisas/navbar-brisas.css" async="">
+  <nav class="navbar">
+    <button type="button" class="collapsed pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div id="brand" class="navbar-brand">
+          <a href="#">
+            <img class="img-responsive" src="./../../styles/images/premium2.png">
+          </a>
+        </div>
+        <div id="subbrand" class="subbrand">
+          <span>Excelencia, confort y seguridad</span>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav menu-brisas pull-right">
+          <li data-ng-repeat="item in navbarCtrl.items">
+            <a data-target="{{item.target}}" href="#" ui-sref="{{item.uisref}}" class="{{item.class}}">{{item.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

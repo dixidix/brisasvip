@@ -1,0 +1,71 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.text-center article {
+  padding-bottom: 85px; }
+
+.text-center .title {
+  font-family: "MuseoSans-500", Arial;
+  font-size: 35px; }
+
+.text-center .description {
+  font-family: "MuseoSans-100", Arial;
+  font-size: 25px; }
+
+.packages {
+  margin-top: 56px;
+  margin-bottom: 56px; }
+  .packages i {
+    font-size: 15px;
+    vertical-align: -1px;
+    margin-left: 10px; }
+  .packages .btn-brisas {
+    font-size: 16px;
+    opacity: 1; }
+    .packages .btn-brisas, .packages .btn-brisas:active, .packages .btn-brisas:focus, .packages .btn-brisas:active:focus, .packages .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .packages .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .packages article {
+    text-align: center; }
+  .packages .circles img {
+    max-width: 120px;
+    margin-bottom: 5%; }
+  .packages img {
+    width: 100%;
+    max-height: 300px; }
+  .packages .circle {
+    margin-bottom: 4%;
+    -webkit-filter: brightness(0.8);
+    -moz-filter: brightness(0.8);
+    filter: brightness(0.8);
+    transition: all 0.2s ease-in-out; }
+    .packages .circle:hover {
+      cursor: pointer;
+      -webkit-filter: brightness(1);
+      -moz-filter: brightness(1);
+      filter: brightness(1); }
+  .packages .col-md-5 {
+    text-align: center;
+    margin-bottom: 2%;
+    -webkit-filter: brightness(0.9);
+    -moz-filter: brightness(0.9);
+    filter: brightness(0.9); }
+    .packages .col-md-5 span {
+      color: #fff;
+      position: absolute;
+      top: 30%;
+      width: 90%;
+      padding: 0;
+      font-size: 36px;
+      left: 5%; }
+    .packages .col-md-5:hover {
+      cursor: pointer;
+      -webkit-filter: brightness(1);
+      -moz-filter: brightness(1);
+      filter: brightness(1); }

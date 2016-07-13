@@ -1,0 +1,33 @@
+<div class="brisas-carousel" id="galery">
+	<link rel="stylesheet" type="text/css" href="./components/brisas-carousel/brisas-carousel.css" async>
+	<div class="">
+					<hr><br>
+		<div class="text-center">
+			<article>
+				<header>
+				<span class="title">Te esperamos con lo mejor</span>
+				</header>
+				<p class="description">
+					Ponemos nuestra flota de vehículos, a la cual le aseguramos calidad<br> para 
+					tu completa comodidad y seguridad.
+				</p>
+			</article>
+		</div>
+		<div>
+			<div class="brisas-carousel-component">
+				<uib-carousel class="carousel-fade" style="max-height: 500px;" active="carousel.active" interval="carousel.myInterval" no-wrap="carousel.noWrapSlides">
+				<uib-slide style="max-height:500px;" ng-repeat="slide in carousel.slides track by $index" index="$index">
+				<img ng-src="{{slide.image}}" style="margin:auto;"/>
+				<div class="carousel-caption">
+					<span class="inner-text">{{slide.text}}</span><br>
+					<span class="inner-subtext">{{slide.subtext}}</span>
+				</div>
+			</uib-slide>
+			<div class="carousel-inner"></div>
+			<a class="left carousel-control" ng-click="prev()" ng-show="slides.length > 1"><span class="fa fa-chevron-left"></span></a>
+			<a class="right carousel-control" ng-click="next()" ng-show="slides.length > 1"><span class="fa fa-chevron-right"></span></a>
+		</uib-carousel>
+	</div>
+</div>
+</div>
+</div>

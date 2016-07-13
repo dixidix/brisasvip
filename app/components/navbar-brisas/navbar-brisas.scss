@@ -1,0 +1,127 @@
+@import '../../styles/mixins/main';
+
+.navbar{
+	position:relative;
+	transition: all 0.2s ease-in-out;
+	z-index:999;
+	&-nav{
+		margin-top:12px;
+		font-family:$MuseoSans-100;
+	}
+	.collapsed{
+		display:none;
+	}
+	&-brand{
+		a{
+			text-decoration:none;
+		}
+		img{
+			position: absolute;
+			width:175px;
+			top:5px;	
+		}
+	}
+	&-header{
+		min-height:80px;
+		a, a:hover{
+			color:white;	
+		}
+	}
+	li{
+
+		a{
+			color:white;
+			text-decoration: none;
+			font-size:18px;
+			padding-bottom:5px;
+			&:hover,&:focus{
+				background:none;
+				color:$premium;
+				font-weight: 700;
+				cursor:pointer;	
+			}
+		}
+		.packages{
+		margin-top:8px;
+		padding:5px;
+		border:2px solid white;
+		border-radius:4px;
+		&:hover,&:focus{
+		border-color:$premium;
+		}	
+		}
+	}
+}
+.subbrand{
+	display:none;
+	&-fixed{
+		display: inline-block;
+		margin-left: 210px;
+        width: 100%;
+        margin-top: 22px;
+        font-family: RobotoLight;
+        font-size: 15px;
+        font-style: italic;
+	}
+}
+
+.navbar-fixed{
+	transition: all 0.2s ease-in-out;
+	position:fixed;
+	width:100%;
+	opacity: 0.9;
+	height: 60px;
+	box-shadow: 1px 1px 9px #2e2e2e;
+	z-index:999;
+	background: #fff;
+	&-nav{
+		margin-top:12px;
+		font-family:$MuseoSans-100;
+	}
+	.menu-brisas{
+		margin-top:5px;
+	}
+	.collapsed{
+		display:none;
+	}
+	&-brand{
+		a{
+			text-decoration:none;
+		}
+		img{
+			position: absolute;
+			width:175px;
+			top:12px;	
+		}
+	}
+	&-header{
+		min-height:80px;
+		a, a:hover{
+			color:$premium;
+		}
+	}
+	li{
+
+		a{
+			color:$premium;
+			text-decoration: none;
+			font-size:18px;
+			padding-bottom:5px;
+			&:hover,&:focus{
+				background:none;
+				color:$premium;
+				font-weight: 700;
+				cursor:pointer;	
+			}
+		}
+		.packages{
+		margin-top:8px;
+		padding:5px;
+		border:2px solid $premium;
+		border-radius:4px;
+		&:hover,&:focus{
+		border-color:$premium;
+		}	
+		}
+	}
+}

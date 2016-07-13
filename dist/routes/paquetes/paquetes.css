@@ -1,0 +1,58 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.modal-body {
+  height: 550px;
+  margin: 0px;
+  padding: 10px; }
+
+.modal-header h4 {
+  color: #068c8f; }
+
+.close {
+  outline: none; }
+
+.iframe-placeholder {
+  background: url("http://www.eet-uae.com/img/load.GIF") 0px 0px no-repeat;
+  background-size: 120px 120px;
+  background-position: center; }
+
+.package-description {
+  margin-top: 3%;
+  text-align: justify; }
+  .package-description p {
+    font-family: "RobotoLight", Arial;
+    font-size: 16px;
+    padding-right: 3%; }
+  .package-description h1, .package-description h3 {
+    font-family: "MuseoSans-500", Arial; }
+  .package-description .content {
+    margin-top: 4%; }
+    .package-description .content .sub-img {
+      margin-top: 3%; }
+      .package-description .content .sub-img img {
+        -webkit-filter: brightness(0.9);
+        -moz-filter: brightness(0.9);
+        filter: brightness(0.9); }
+        .package-description .content .sub-img img:hover {
+          cursor: pointer;
+          -webkit-filter: brightness(1);
+          -moz-filter: brightness(1);
+          filter: brightness(1); }
+    .package-description .content .btn-brisas {
+      margin-top: 3%;
+      font-size: 16px; }
+      .package-description .content .btn-brisas, .package-description .content .btn-brisas:active, .package-description .content .btn-brisas:focus, .package-description .content .btn-brisas:active:focus, .package-description .content .btn-brisas:hover {
+        background-color: #068c8f;
+        color: #fff;
+        width: 100%;
+        height: 40px; }
+      .package-description .content .btn-brisas:hover {
+        background-color: #07a4a7; }
+      .package-description .content .btn-brisas i {
+        font-size: 17px;
+        margin-right: 10px; }
+  .package-description img {
+    width: 100%; }

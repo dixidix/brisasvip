@@ -1,0 +1,24 @@
+@import 'variables';
+@import 'responsive';
+
+@mixin sky-blue_button {
+	border-color:$sky-blue-color;
+	border-radius:$button-radius;
+	background-color:$sky-blue-color;
+	color:$white-color;
+	outline: 0;
+	padding: 0.4em 1em;
+	font-family: $roboto;
+}
+
+@mixin btn-brisas ($width, $height){
+	&, &:active,&:focus, &:active:focus, &:hover{
+		background-color: $brisas-green;
+		color:#fff;
+		width:$width;
+		height:$height;
+	}
+	&:hover{
+		background-color: lighten($brisas-green,5%);
+	}
+}

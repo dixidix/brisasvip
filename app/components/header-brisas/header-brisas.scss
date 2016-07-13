@@ -1,0 +1,155 @@
+@import '../../styles/mixins/main';
+.header{
+	.fa-car{
+		@include responsive(phone,tablet,desktop){
+			display:none;
+		}
+		position:absolute;
+		color:#ccc;
+		top:30px;
+		padding-left:8px;
+	}
+	.scrollToTop{
+		transition: 0.3s all ease-in-out;
+		@include responsive(phone,tablet,desktop){
+			display:none;
+		}
+		font-size:35px;
+		cursor:pointer;
+		a, a:hover, a:active {
+			color:$brisas-green;
+		}
+		position:fixed;
+		bottom:80px;
+		right:25px;
+		z-index:998;
+		.tooltip.in {
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+		} 
+	}
+	.stopScroll{
+		top:-20px;
+		transition:all 1s ease-in-out;
+	}
+	background-image:url('./../../styles/images/header_ps2.jpg');
+	background-size:cover;
+	height:480px;	
+	width:100%;
+	position:absolute;
+	top:0;
+	@include responsive(phone, tablet){
+		background-image:url('./../../styles/images/mobile-bg.jpg');
+		height:100vh;
+	}
+	.search{
+		&-container{	
+			@include responsive(phone,tablet){
+				display:none;
+			}		
+			text-align: center;
+			width:100%;
+			background-color: rgba(0, 0, 0, 0.7);
+			position: absolute;
+			bottom:0;
+			form{
+				padding:20px 0px;
+				input[type="text"]{
+					padding-left:30px;
+					width:250px;
+				}
+				@include phone {
+					width:100%;
+					padding:4%;
+					input[type="text"], select{
+						width:96%;
+						margin:2%;
+					}
+					.btn-brisas{
+						width:96%;
+						margin-bottom:2%;
+					}
+					.form-group{
+						margin-bottom:0;
+					}
+				}
+				@include tablet {
+					width:100%;
+					padding:2%;
+					input[type="text"], select, .btn-brisas{
+						min-width:100%;
+						margin-bottom:1%;
+					}
+					.form-group{
+						margin-bottom:0;
+					}
+				}
+			}
+		}
+	}
+
+	.btn-brisas{
+		@include btn-brisas(180px, 34px);
+		font-size:16px;
+	}
+	.leyend{
+		width:100%;	
+		-webkit-filter: brightness(1);
+		&-lg{
+			position:absolute;
+			top:20%;
+			width:100%;
+			text-align: center;
+			@include phone {
+				width:90%;
+				left:5%;
+				top:40%;
+			}
+			@include tablet {
+				width:90%;
+				left:5%;
+				top:40%;
+			}
+			span{
+				font-size:50px;
+				font-weight: 700;
+				color:#fff;
+				text-shadow: 1px 1px #2e2e2e;	
+				@include phone {
+					font-size:30px;
+				}
+				@include tablet {
+					font-size:80px;
+				}
+			}
+		}
+		&-sm{
+			position:absolute;
+			top:35%;
+			width:100%;
+			text-align: center;
+			@include phone {
+				width:90%;
+				left:5%;
+				top:40%;
+			}
+			@include tablet {
+				width:90%;
+				left:5%;
+				top:40%;
+			}
+			span{
+				font-size:35px;
+				font-weight: 700;
+				color:#fff;
+				text-shadow: 1px 1px #2e2e2e;	
+				@include phone {
+					font-size:30px;
+				}
+				@include tablet {
+					font-size:80px;
+				}
+			}
+		}
+	}
+}

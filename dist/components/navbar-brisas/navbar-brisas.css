@@ -1,0 +1,96 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.navbar {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  z-index: 999; }
+  .navbar-nav {
+    margin-top: 12px;
+    font-family: "MuseoSans-100", Arial; }
+  .navbar .collapsed {
+    display: none; }
+  .navbar-brand a {
+    text-decoration: none; }
+  .navbar-brand img {
+    position: absolute;
+    width: 175px;
+    top: 5px; }
+  .navbar-header {
+    min-height: 80px; }
+    .navbar-header a, .navbar-header a:hover {
+      color: white; }
+  .navbar li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding-bottom: 5px; }
+    .navbar li a:hover, .navbar li a:focus {
+      background: none;
+      color: #de9900;
+      font-weight: 700;
+      cursor: pointer; }
+  .navbar li .packages {
+    margin-top: 8px;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 4px; }
+    .navbar li .packages:hover, .navbar li .packages:focus {
+      border-color: #de9900; }
+
+.subbrand {
+  display: none; }
+  .subbrand-fixed {
+    display: inline-block;
+    margin-left: 210px;
+    width: 100%;
+    margin-top: 22px;
+    font-family: RobotoLight;
+    font-size: 15px;
+    font-style: italic; }
+
+.navbar-fixed {
+  transition: all 0.2s ease-in-out;
+  position: fixed;
+  width: 100%;
+  opacity: 0.9;
+  height: 60px;
+  box-shadow: 1px 1px 9px #2e2e2e;
+  z-index: 999;
+  background: #fff; }
+  .navbar-fixed-nav {
+    margin-top: 12px;
+    font-family: "MuseoSans-100", Arial; }
+  .navbar-fixed .menu-brisas {
+    margin-top: 5px; }
+  .navbar-fixed .collapsed {
+    display: none; }
+  .navbar-fixed-brand a {
+    text-decoration: none; }
+  .navbar-fixed-brand img {
+    position: absolute;
+    width: 175px;
+    top: 12px; }
+  .navbar-fixed-header {
+    min-height: 80px; }
+    .navbar-fixed-header a, .navbar-fixed-header a:hover {
+      color: #de9900; }
+  .navbar-fixed li a {
+    color: #de9900;
+    text-decoration: none;
+    font-size: 18px;
+    padding-bottom: 5px; }
+    .navbar-fixed li a:hover, .navbar-fixed li a:focus {
+      background: none;
+      color: #de9900;
+      font-weight: 700;
+      cursor: pointer; }
+  .navbar-fixed li .packages {
+    margin-top: 8px;
+    padding: 5px;
+    border: 2px solid #de9900;
+    border-radius: 4px; }
+    .navbar-fixed li .packages:hover, .navbar-fixed li .packages:focus {
+      border-color: #de9900; }
