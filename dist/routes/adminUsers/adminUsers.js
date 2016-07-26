@@ -18,7 +18,7 @@ function adminUsersController(angular, app) {
           });
         }
         function edit(user){
-          console.log(user);
+          $state.go('home.editUser', {user: user},{});
         }
         function makeAdmin(user){
           console.log(user.id, user.isAdmin);

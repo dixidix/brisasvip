@@ -40,23 +40,31 @@ if($editUser == false){
 		$lastname =   MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['lastname']));
 	}
 	if(!empty($_POST['tel'])){
-		$email = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['tel']));
+		$tel = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['tel']));
 	}
 	if(!empty($_POST['email'])){
-		$tel =   MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['email']));
+		$email =   MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['email']));
 	}
 	if(!empty($_POST['city'])){
 		$city =   MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['city']));
 	}
 	if(!empty($_POST['password'])){
 		$password =   MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['password']));
-	}
-	if (empty($errors)){
-		echo
-		MysqliDB::getInstance()->query("UPDATE `users` SET `name`='".$name."',`lastname`='".$lastname."',`email`='".$email."',`tel`='".$tel."',`city`='".$city."',`password`='".$password."' WHERE `id`=".$id."");
+		if (empty($errors)){
+			echo
+			MysqliDB::getInstance()->query("UPDATE `users` SET `name`='".$name."',`lastname`='".$lastname."',`email`='".$email."',`tel`='".$tel."',`city`='".$city."',`password`='".$password."' WHERE `id`=".$id."");
 
-	}else{
-		print_r($errors);
+		}else{
+			print_r($errors);
+		}
+	} else {
+		if (empty($errors)){
+			echo
+			MysqliDB::getInstance()->query("UPDATE `users` SET `name`='".$name."',`lastname`='".$lastname."',`email`='".$email."',`tel`='".$tel."',`city`='".$city."' WHERE `id`=".$id."");
+		}else{
+			print_r($errors);
+		}
 	}
+
 }
 ?>

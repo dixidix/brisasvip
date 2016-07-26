@@ -1,0 +1,34 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.editUser {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .editUser .form-control:focus, .editUser .form-control:active:focus, .editUser .form-control:active, .editUser .btn:focus, .editUser .btn:active:focus, .editUser .btn:active {
+    outline: #de9900;
+    border-color: #de9900;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .editUser .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .editUser .btn-brisas, .editUser .btn-brisas:active, .editUser .btn-brisas:focus, .editUser .btn-brisas:active:focus, .editUser .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .editUser .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .editUser .btn-brisas-danger {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .editUser .btn-brisas-danger, .editUser .btn-brisas-danger:active, .editUser .btn-brisas-danger:focus, .editUser .btn-brisas-danger:active:focus, .editUser .btn-brisas-danger:hover {
+      background-color: #B0062A;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .editUser .btn-brisas-danger:hover {
+      background-color: #c90730; }
