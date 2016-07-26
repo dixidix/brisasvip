@@ -1,0 +1,35 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.adminUsers {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .adminUsers i {
+    font-size: 18px;
+    margin: 0px 5px; }
+    .adminUsers i:hover {
+      cursor: pointer; }
+  .adminUsers .table {
+    width: 100%;
+    text-align: center; }
+    .adminUsers .table thead {
+      border-radius: 15px;
+      background: #068c8f;
+      color: white; }
+  .adminUsers .form-control:focus, .adminUsers .form-control:active:focus, .adminUsers .form-control:active, .adminUsers .btn:focus, .adminUsers .btn:active:focus, .adminUsers .btn:active {
+    outline: #de9900;
+    border-color: #de9900;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .adminUsers .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .adminUsers .btn-brisas, .adminUsers .btn-brisas:active, .adminUsers .btn-brisas:focus, .adminUsers .btn-brisas:active:focus, .adminUsers .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .adminUsers .btn-brisas:hover {
+      background-color: #07a4a7; }

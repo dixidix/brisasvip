@@ -1,7 +1,6 @@
 function bundle(gulp, $){
 
 	var browserify = require('browserify'),
-	rename   = require('gulp-rename'),
 	source = require('vinyl-source-stream'),
 	glob = require('glob'),
 	path = require('path');
@@ -13,7 +12,6 @@ function bundle(gulp, $){
 		'./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
 		'./node_modules/angular-animate/angular-animate.min.js',
 		'./node_modules/angular-sanitize/angular-sanitize.min.js',
-		'./bower_components/parallax/parallax.min.js',
 		'./bower_components//angular-rangeslider/angular.rangeSlider.js',
 		],
 		app: [

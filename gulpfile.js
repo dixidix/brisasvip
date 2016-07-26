@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
 sass = require('gulp-sass'),
 browserify = require('browserify'),
-rename   = require('gulp-rename'),
 source = require('vinyl-source-stream'),
 path = require('path'),
 $ = require('gulp-load-plugins')();

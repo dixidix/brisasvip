@@ -33,6 +33,14 @@ html {
   html body {
     background-color: #f5f5f5;
     font-family: "RobotoRegular", Arial; }
+    html body .table {
+      width: 100%;
+      text-align: center; }
+      html body .table thead {
+        background: #068c8f;
+        color: white; }
+      html body .table tr td {
+        vertical-align: middle; }
     html body select, html body option {
       cursor: pointer; }
     html body .header-wrapper {
@@ -51,3 +59,13 @@ html {
         outline: none;
         border-color: transparent;
         box-shadow: none; }
+    html body .pagination {
+      float: right; }
+    html body .pagination > .active > a,
+    html body .pagination > .active > a:focus,
+    html body .pagination > .active > a:hover,
+    html body .pagination > .active > span,
+    html body .pagination > .active > span:focus,
+    html body .pagination > .active > span:hover {
+      background-color: #068c8f;
+      border-color: #068c8f; }

@@ -1,0 +1,23 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.reqPackages {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .reqPackages .form-control:focus, .reqPackages .form-control:active:focus, .reqPackages .form-control:active, .reqPackages .btn:focus, .reqPackages .btn:active:focus, .reqPackages .btn:active {
+    outline: #de9900;
+    border-color: #de9900;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .reqPackages .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .reqPackages .btn-brisas, .reqPackages .btn-brisas:active, .reqPackages .btn-brisas:focus, .reqPackages .btn-brisas:active:focus, .reqPackages .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .reqPackages .btn-brisas:hover {
+      background-color: #07a4a7; }

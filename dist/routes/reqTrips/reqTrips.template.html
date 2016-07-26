@@ -1,0 +1,41 @@
+	<div class="reqTrips container">
+		<link rel="stylesheet" type="text/css" href="./dist/routes/reqTrips/reqTrips.css" >
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<article>
+			<div class="content">
+				<div class="content row">
+					<div class="panel panel-default">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<td><span>Nombre</span></td>
+									<td><span>Apellido</span></td>
+									<td style="min-width: 200px;"><span>Fecha de solicitud</span></td>
+									<td style="min-width: 200px;"><span>Fecha de viaje</span></td>
+									<td><span>Hora</span></td>
+									<td><span>Desde</span></td>
+									<td><span>Hasta</span></td>
+									<td><span>Distancia</span></td>
+									<td><span>Precio</span></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="trip in reqTrips.trips track by $index ">
+									<td><span>{{trip.name}}</span></td>
+									<td><span>{{trip.lastname}}</span></td>
+									<td><span>{{trip.request_date}}</span></td>
+									<td><span>{{trip.date}}</span></td>
+									<td><span>{{trip.time}}</span></td>
+									<td><span>{{trip.req_from}}</span></td>
+									<td><span>{{trip.req_to}}</span></td>
+									<td><span>{{trip.distance}} Km.</span></td>
+									<td><span>{{trip.price | currency}}</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<ul uib-pagination previous-text="Anterior" next-text="Siguiente" next-text="&uacute;ltimo" total-items="bigTotalItems" ng-model="bigCurrentPage"  class="pagination-sm" boundary-link-numbers="true" items-per-page="5" rotate="false"></ul>
+				</div>
+			</div>	
+		</article>
+	</div>

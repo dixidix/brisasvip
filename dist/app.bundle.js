@@ -14,26 +14,28 @@
 		.state('home.login', {url: "login", templateUrl: "./dist/routes/login/login.template.html", data: { requireAdmin: false }, controller:"loginCtrl", controllerAs:"login"})
 		.state('home.register', {url: "register", templateUrl: "./dist/routes/register/register.template.html", data: { requireAdmin: false }, controller:"registerCtrl", controllerAs:"register"})
 		.state('home.editPackage', {url: "editar-paquete/{packageId}", templateUrl: "./dist/routes/addPackage/addPackage.template.html",  data: { requireAdmin: true }, controller:"addPackageCtrl", controllerAs:"addPackage"})
-		.state('home.dashboard', {url: "administrar", abstract:true, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html",data: { requireAdmin: true }, controller:"dashboardCtrl", controllerAs:"dashboard"}}})
-		.state('home.dashboard.addPackage', {url: "",params: {pkgedit:{}},views: {
+		.state('home.dashboard', {url: "administrar", abstract:true, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html", controller:"dashboardCtrl", controllerAs:"dashboard"}}})
+		.state('home.dashboard.addPackage', {url: "",params: {pkgedit:{}}, views: {
 		 "tab1": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html", controller:"addPackageCtrl", controllerAs:"addPackage"},
 		 "tab2": {  templateUrl: "./dist/routes/editFares/editFares.template.html", controller:"faresCtrl", controllerAs:"fares"},
-		 "tab3": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html", controller:"addPackageCtrl", controllerAs:"addPackage"},
-		 "tab4": {  templateUrl: "./dist/routes/editFares/editFares.template.html", controller:"faresCtrl", controllerAs:"fares"},
-		 "tab5": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html", controller:"addPackageCtrl", controllerAs:"addPackage"}
+		 "tab3": {  templateUrl: "./dist/routes/adminUsers/adminUsers.template.html", controller:"adminUsersCtrl", controllerAs:"adminUsers"},
+		 "tab4": {  templateUrl: "./dist/routes/reqPackages/reqPackages.template.html", controller:"reqPackagesCtrl", controllerAs:"reqPackages"},
+		 "tab5": {  templateUrl: "./dist/routes/reqTrips/reqTrips.template.html", controller:"reqTripsCtrl", controllerAs:"reqTrips"}
 		}})
-		.state('home.dashboard.editFares', {url: "",params: {pkgedit:{}},views: { "tab2": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html"}, controller:"addPackageCtrl", controllerAs:"addPackage"}})
 		.state('home.choferes', {url: "choferes",templateUrl: "./dist/routes/choferes/choferes.template.html", data: { requireAdmin: false }, controller:"driversCtrl", controllerAs:"drivers"})
-		.state('home.landing', {url: "terminar-compra",templateUrl: "./dist/routes/landingBuyPackage/landing.template.html", data: { requireAdmin: false }, controller:"landingCtrl", controllerAs:"landing"})
+		.state('home.landing', {url: "finalizar-compra",templateUrl: "./dist/routes/landingBuyPackage/landing.template.html", data: { requireAdmin: false }, controller:"landingCtrl", controllerAs:"landing"})
 		.state('home.buyPackage', {url: "comprar", params: { paymentGatewayUrl: null, packageId: null },templateUrl: "./dist/routes/buyPackage/buyPackage.template.html", data: { requireAdmin: false }, controller:"buyPackageCtrl", controllerAs:"buyPackage"});
 	});
 	app.run(function ($rootScope, $http, $state){
 		self.isAdmin  = 0;
+
 		$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+
 			$http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
 				self.isAdmin = response.isAdmin;
 			});
 			var requireAdmin = toState.data.requireAdmin;
+			console.log(requireAdmin, self.isAdmin);
 			if(requireAdmin && self.isAdmin == 0 || requireAdmin && self.isAdmin == undefined){
 				console.log(requireAdmin, self.isAdmin);
 				event.preventDefault();
@@ -59,6 +61,9 @@
 	require('./routes/conocenos/conocenos.js')(angular, app);
 	require('./routes/choferes/choferes.js')(angular, app);
 	require('./routes/editFares/editFares.js')(angular, app);
+	require('./routes/adminUsers/adminUsers.js')(angular, app);
+	require('./routes/reqPackages/reqPackages.js')(angular, app);
+	require('./routes/reqTrips/reqTrips.js')(angular, app);
 	require('./routes/dashboard/dashboard.js')(angular, app);
 	require('./routes/buyPackage/buyPackage.js')(angular, app);
 	require('./routes/landingBuyPackage/landing.js')(angular, app);
@@ -68,7 +73,7 @@
 	require('./routes/tasar/search-brisas.js')(angular, app);
 })();
 
-},{"./components/brisas-carousel/brisas-carousel.js":2,"./components/brisas-chofer/brisas-chofer.js":3,"./components/brisas-contacto/brisas-contacto.js":4,"./components/brisas-footer/brisas-footer.js":5,"./components/brisas-paquetes/brisas-paquetes.js":6,"./components/brisas-seguridad/brisas-seguridad.js":7,"./components/brisas-service-description/brisas-service-description.js":8,"./components/header-brisas/header-brisas.js":9,"./components/navbar-brisas/navbar-brisas.js":10,"./components/uploader/uploader.js":11,"./routes/addPackage/addPackage.js":12,"./routes/buyPackage/buyPackage.js":13,"./routes/choferes/choferes.js":14,"./routes/conocenos/conocenos.js":15,"./routes/dashboard/dashboard.js":16,"./routes/editFares/editFares.js":17,"./routes/home/home.js":18,"./routes/landingBuyPackage/landing.js":19,"./routes/login/login.js":20,"./routes/paquetes-desc/paquetes-desc.js":21,"./routes/paquetes/paquetes.js":22,"./routes/register/register.js":23,"./routes/tasar/search-brisas.js":24,"./services/uploadService.js":25}],2:[function(require,module,exports){
+},{"./components/brisas-carousel/brisas-carousel.js":2,"./components/brisas-chofer/brisas-chofer.js":3,"./components/brisas-contacto/brisas-contacto.js":4,"./components/brisas-footer/brisas-footer.js":5,"./components/brisas-paquetes/brisas-paquetes.js":6,"./components/brisas-seguridad/brisas-seguridad.js":7,"./components/brisas-service-description/brisas-service-description.js":8,"./components/header-brisas/header-brisas.js":9,"./components/navbar-brisas/navbar-brisas.js":10,"./components/uploader/uploader.js":11,"./routes/addPackage/addPackage.js":12,"./routes/adminUsers/adminUsers.js":13,"./routes/buyPackage/buyPackage.js":14,"./routes/choferes/choferes.js":15,"./routes/conocenos/conocenos.js":16,"./routes/dashboard/dashboard.js":17,"./routes/editFares/editFares.js":18,"./routes/home/home.js":19,"./routes/landingBuyPackage/landing.js":20,"./routes/login/login.js":21,"./routes/paquetes-desc/paquetes-desc.js":22,"./routes/paquetes/paquetes.js":23,"./routes/register/register.js":24,"./routes/reqPackages/reqPackages.js":25,"./routes/reqTrips/reqTrips.js":26,"./routes/tasar/search-brisas.js":27,"./services/uploadService.js":28}],2:[function(require,module,exports){
 function BrisasCarouselDirective(angular, app) {
 	'use strict';
 
@@ -602,6 +607,60 @@ function addPackageController(angular, app) {
     };
     module.exports = addPackageController;
 },{}],13:[function(require,module,exports){
+function adminUsersController(angular, app) {
+  'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('adminUsersCtrl', adminUsersCtrl);
+
+    adminUsersCtrl.$inject = ['$state','$scope','$http'];
+
+    function adminUsersCtrl($state, $scope,$http){
+        var self = this; //jshint ignore:line
+        self.users = {};
+        function remove(id){
+          $http.post('./dist/php/delete_user.php', {
+            id: id
+          }).then(function (response){
+            $state.go($state.current,{},{ reload: true });              
+          });
+        }
+        function edit(user){
+          console.log(user);
+        }
+        function makeAdmin(user){
+          console.log(user.id, user.isAdmin);
+          $http.post('./dist/php/edit_user.php', {
+            id: user.id,
+            lockunlock: user.isAdmin,
+            editUser:false
+          }).then(function (response){
+            $state.go($state.current,{},{ reload: true });
+          });
+        }
+        function init(){
+         self.remove = remove;
+         self.edit = edit;
+         self.makeAdmin = makeAdmin;
+         $http.post('./dist/php/get_users.php',{ sskey: sessionStorage.getItem('sskey') }).then(function(response) {    
+          console.log(response.data.users);
+          self.users = response.data.users;
+          $scope.bigTotalItems = Object.keys(self.users).length;
+          $scope.bigCurrentPage = 1;
+          $scope.setPage = function (pageNo) {
+            $scope.currentPage = pageNo;
+          };
+          $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+          };
+        });
+       }
+       init();
+     }
+   };
+   module.exports = adminUsersController;
+},{}],14:[function(require,module,exports){
 function BuyPackageController(angular, app) {
     'use strict';
 
@@ -630,7 +689,7 @@ function BuyPackageController(angular, app) {
     }
 };
 module.exports = BuyPackageController;
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 function driversController(angular, app) {
     'use strict';
 
@@ -651,7 +710,7 @@ function driversController(angular, app) {
    }
 };
 module.exports = driversController;
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 function knowUsController(angular, app) {
     'use strict';
 
@@ -672,7 +731,7 @@ function knowUsController(angular, app) {
    }
 };
 module.exports = knowUsController;
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 function dashboardController(angular, app) {
     'use strict';
 
@@ -700,7 +759,7 @@ function dashboardController(angular, app) {
     }
 };
 module.exports = dashboardController;
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 function faresController(angular, app) {
   'use strict';
 
@@ -741,7 +800,7 @@ function faresController(angular, app) {
      }
    };
    module.exports = faresController;
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 function homeController(angular, app) {
     'use strict';
 
@@ -766,7 +825,7 @@ function homeController(angular, app) {
     }
 };
 module.exports = homeController;
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 function landingController(angular, app) {
     'use strict';
 
@@ -800,7 +859,7 @@ function landingController(angular, app) {
 }
 };
 module.exports = landingController;
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 function loginController(angular, app) {
   'use strict';
 
@@ -842,7 +901,7 @@ function loginController(angular, app) {
      }
    };
    module.exports = loginController;
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 function packageDescController(angular, app) {
 	'use strict';
 
@@ -958,7 +1017,7 @@ function packageDescController(angular, app) {
 }
 };
 module.exports = packageDescController;
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 function packageController(angular, app) {
 	'use strict';
 
@@ -1035,7 +1094,7 @@ function packageController(angular, app) {
 };
 
 module.exports = packageController;
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 function registerController(angular, app) {
     'use strict';
 
@@ -1084,7 +1143,76 @@ function registerController(angular, app) {
  }
 };
 module.exports = registerController;
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
+function reqPackagesController(angular, app) {
+  'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('reqPackagesCtrl', reqPackagesCtrl);
+
+    reqPackagesCtrl.$inject = ['$state','$scope','$http'];
+
+    function reqPackagesCtrl($state, $scope,$http){
+        var self = this; //jshint ignore:line
+        self.packages = {};
+        function update(reqPackage){
+          console.log(reqPackage);
+        }
+        function init(){
+         self.update = update;
+         $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
+          self.packages = response.data.reqPackages;
+          $scope.bigTotalItems = Object.keys(self.packages).length;
+          $scope.bigCurrentPage = 1;
+          $scope.setPage = function (pageNo) {
+            $scope.currentPage = pageNo;
+          };
+          $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+          };
+        });
+       }
+       init();
+     }
+   };
+   module.exports = reqPackagesController;
+},{}],26:[function(require,module,exports){
+function reqTripsController(angular, app) {
+  'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('reqTripsCtrl', reqTripsCtrl);
+
+    reqTripsCtrl.$inject = ['$state','$scope','$http'];
+
+    function reqTripsCtrl($state, $scope,$http){
+        var self = this; //jshint ignore:line
+        self.trips = {};
+        function update(reqTrip){
+          console.log(reqTrip);
+        }
+
+        function init(){
+         self.update = update;
+         $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
+          self.trips = response.data.reqTrips;
+          $scope.bigTotalItems = Object.keys(self.trips).length;
+          $scope.bigCurrentPage = 1;
+          $scope.setPage = function (pageNo) {
+            $scope.currentPage = pageNo;
+          };
+          $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+          };
+        });
+       }
+       init();
+     }
+   };
+   module.exports = reqTripsController;
+},{}],27:[function(require,module,exports){
 function rateController(angular, app) {
 	'use strict';
 
@@ -1339,7 +1467,7 @@ function rateController(angular, app) {
 }
 };
 module.exports = rateController;
-},{}],25:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 function uploadService(angular, app) {
 	'use strict';
 	app.service('uploadService', uploadService);

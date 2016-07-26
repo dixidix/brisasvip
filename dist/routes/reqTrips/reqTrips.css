@@ -1,0 +1,23 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.reqTrips {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .reqTrips .form-control:focus, .reqTrips .form-control:active:focus, .reqTrips .form-control:active, .reqTrips .btn:focus, .reqTrips .btn:active:focus, .reqTrips .btn:active {
+    outline: #de9900;
+    border-color: #de9900;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .reqTrips .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .reqTrips .btn-brisas, .reqTrips .btn-brisas:active, .reqTrips .btn-brisas:focus, .reqTrips .btn-brisas:active:focus, .reqTrips .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .reqTrips .btn-brisas:hover {
+      background-color: #07a4a7; }

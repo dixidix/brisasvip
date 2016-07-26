@@ -1,0 +1,39 @@
+	<div class="reqPackages container">
+		<link rel="stylesheet" type="text/css" href="./dist/routes/reqPackages/reqPackages.css" >
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<article>
+			<div class="content">
+				<div class="content row">
+					<div class="panel panel-default">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<td><span>Nombre</span></td>
+									<td><span>Apellido</span></td>
+									<td><span>E-Mail</span></td>
+									<td><span>Tel.</span></td>
+									<td><span>Fecha</span></td>
+									<td><span>Hora</span></td>
+									<td><span>Titulo de paquete</span></td>
+									<td><span>Precio</span></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="package in reqPackages.packages track by $index">
+									<td><span>{{package.name}}</span></td>
+									<td><span>{{package.lastname}}</span></td>
+									<td><span>{{package.email}}</span></td>
+									<td><span>{{package.tel}}</span></td>
+									<td><span>{{package.date}}</span></td>
+									<td><span>{{package.time}}</span></td>
+									<td><span>{{package.shortTitle}}</span></td>
+									<td><span>{{package.price | currency:undefined:0}}</span></td>								
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<ul uib-pagination previous-text="Anterior" next-text="Siguiente" next-text="&uacute;ltimo" total-items="bigTotalItems" ng-model="bigCurrentPage"  class="pagination-sm" boundary-link-numbers="true" items-per-page="5" rotate="false"></ul>
+				</div>
+			</div>	
+		</article>
+	</div>

@@ -5,9 +5,6 @@
 		<form name="login.loginForm"	class="loginForm"	novalidate	data-ng-submit="login.loginForm.$valid && !loginForm.$pristine && login.loginForm.$submitted && login.login()">
 
 			<div class="row">
-				<div class="col-xs-12 col-md-6 col-md-offset-3">
-					<h3>Ingresar</h3>
-				</div>
 				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': login.loginForm.username.$invalid && login.loginForm.$submitted}">	
 					<label for="username" class="control-label">Usuario</label>	
 					<div class="input-group"> 
