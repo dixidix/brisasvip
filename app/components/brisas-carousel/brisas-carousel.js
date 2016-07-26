@@ -9,7 +9,7 @@ function BrisasCarouselDirective(angular, app) {
     	return {
     		restrict: "E",
     		replace: true,
-    		templateUrl: 'components/brisas-carousel/brisas-carousel.template.html',
+    		templateUrl: './dist/components/brisas-carousel/brisas-carousel.template.html',
     		link: link,
     		controllerAs: 'carousel',
     		controller: controller
@@ -28,22 +28,22 @@ function BrisasCarouselDirective(angular, app) {
     		{
     			text:'UNIDADES DE ALTA GAMA',
                 subtext:'Las mejores unidades, lo ultimo en tecnologia del transporte',
-    			image: './../../styles/images/slide_1.jpg'
+    			image: './dist/styles/images/slide_1.jpg'
     		},
     		{
     			text:'DISPONIBILIDAD DE UNIDADES',
                 subtext:'Vehiculos disponibles 24/7 para todas tus necesidades',
-    			image: './../../styles/images/slide_2.jpg'
+    			image: './dist/styles/images/slide_2.jpg'
     		},
     		{
     			text:'SELECCION DE CONDUCTORES',
                 subtext:'Pedinos tu conductor favorito, lo reservaremos para vos',
-    			image: './../../styles/images/slide_3.jpg'
+    			image: './dist/styles/images/slide_3.jpg'
     		},
     		{
     			text:'PENSADO PARA TU CONFORT',
                 subtext:'Ultimo modelo en unidades, para que disfrutes tus viajes al maximo',
-    			image: './../../styles/images/slide_4.jpg'
+    			image: './dist/styles/images/slide_4.jpg'
     		}
     		];
     	}

@@ -4,7 +4,7 @@
 /** Devices Breakpoints **/
 /** Mixins for responsive content **/
 .brisas-carousel {
-  margin-top: 1%; }
+  padding-top: 56px; }
   .brisas-carousel img {
     -webkit-filter: brightness(55%);
     /* Chrome, Safari, Opera */

@@ -9,7 +9,7 @@ function BrisasChoferDirective(angular, app) {
     	return {
     		restrict: "E",
     		replace: true,
-    		templateUrl: 'components/brisas-chofer/brisas-chofer.template.html',
+    		templateUrl: './dist/components/brisas-chofer/brisas-chofer.template.html',
     		link: link,
     		controllerAs: 'choferCtrl',
     		controller: controller

@@ -1,5 +1,5 @@
 <div class="wrapper navbar-brisas">
-  <link rel="stylesheet" type="text/css" href="./components/navbar-brisas/navbar-brisas.css" async="">
+  <link rel="stylesheet" type="text/css" href="./dist/components/navbar-brisas/navbar-brisas.css" async="">
   <nav class="navbar">
     <button type="button" class="collapsed pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
       <span class="sr-only">Toggle navigation</span>
@@ -9,7 +9,7 @@
       <div class="navbar-header">
         <div id="brand" class="navbar-brand">
           <a href="#">
-            <img class="img-responsive" src="./../../styles/images/premium2.png">
+            <img class="img-responsive" src="./dist/styles/images/premium2.png">
           </a>
         </div>
         <div id="subbrand" class="subbrand">
@@ -18,11 +18,32 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav menu-brisas pull-right">
-          <li data-ng-repeat="item in navbarCtrl.items">
-            <a data-target="{{item.target}}" href="#" ui-sref="{{item.uisref}}" class="{{item.class}}">{{item.name}}</a>
-          </li>
-        </ul>
-      </div>
+          <li>
+           <a href="#" ui-sref="home.paquetes" class="menu packages">Paquetes Tur&iacute;sticos</a> 
+         </li>
+         <li>
+           <a href="#" ui-sref="home.tasar" ui-sref-opts="{reload: true}" class="menu">Tas&aacute; un viaje</a>
+         </li>
+         <li ng-if="navbarCtrl.isAdmin != 1">
+           <a href="#" data-ng-click="navbarCtrl.toContact()" class="menu">contact&aacute;nos</a>
+         </li>    
+         <li ng-if="!navbarCtrl.username">
+          <a data-target="noTarget" href="#" ui-sref="home.login" class="menu">Ingresar</a>
+        </li>
+        <li ng-if="navbarCtrl.isAdmin == 1">
+          <a href="#" ui-sref="home.dashboard.addPackage" class="menu">Administrar sitio</a>
+        </li>
+<!--         <li ng-if="navbarCtrl.isAdmin == 1">
+        <a href="#" ui-sref="home.editFares" class="menu">Editar Tarifa</a>
+        </li> -->
+        <li ng-if="navbarCtrl.username">
+          <a class="menu">{{navbarCtrl.username}} <i class="fa fa-user"></i></a>
+        </li>
+        <li ng-if="navbarCtrl.username">
+          <a data-ng-click="navbarCtrl.exit()" class="menu">Salir</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 </div>

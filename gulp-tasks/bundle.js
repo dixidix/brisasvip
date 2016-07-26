@@ -12,7 +12,9 @@ function bundle(gulp, $){
 		'./node_modules/angular-ui-router/release/angular-ui-router.min.js',
 		'./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
 		'./node_modules/angular-animate/angular-animate.min.js',
-		'./bower_components/parallax/parallax.min.js'
+		'./node_modules/angular-sanitize/angular-sanitize.min.js',
+		'./bower_components/parallax/parallax.min.js',
+		'./bower_components//angular-rangeslider/angular.rangeSlider.js',
 		],
 		app: [
 		'./app/*.js',

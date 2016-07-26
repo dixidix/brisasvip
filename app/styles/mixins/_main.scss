@@ -22,3 +22,14 @@
 		background-color: lighten($brisas-green,5%);
 	}
 }
+@mixin btn-brisas-danger ($width, $height){
+	&, &:active,&:focus, &:active:focus, &:hover{
+		background-color: #B0062A;
+		color:#fff;
+		width:$width;
+		height:$height;
+	}
+	&:hover{
+		background-color: lighten(#B0062A,5%);
+	}
+}

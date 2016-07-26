@@ -1,0 +1,91 @@
+@import '../../styles/mixins/main';
+.login{
+	textarea{
+		resize: none;
+	}
+	.remove-img{
+		cursor: pointer;
+		font-family: $roboto;
+		font-size:14px;
+		color:red;
+		text-decoration: none;
+	}
+	img{
+		width:100%;
+		padding-bottom:3px;
+	}
+	.images-box{
+		background: white;
+		padding: 2px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+		text-align: center;
+	}
+	input[type="file"]::-webkit-file-upload-button{
+		&, &:active,&:focus, &:active:focus, &:hover{
+			background-color: $brisas-green;
+			border:0px;
+			color:#fff;
+			width:200px;
+			height:40px;
+			outline: 0;
+			padding: 0.4em 1em;
+			font-family: $roboto;
+		}
+		&:hover{
+			background-color: lighten($brisas-green,5%);
+			cursor: pointer;
+		}
+	}
+	.example{
+		font-size: 13px;
+		color: gray;
+	}
+	h3{
+		margin-bottom:40px;
+	}
+	.form-control, .btn{
+		border-radius: 0;
+		&:focus, &:active:focus, &:active{
+			outline:$premium;
+			border-color:$premium;
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		}
+
+	}
+	input{
+		height: 40px;
+	}
+	padding-top:80px;
+	margin-bottom:100px;
+	.text-center{
+		article{
+			padding-bottom:55px;
+		}
+		.title{
+			font-family:$MuseoSans-500;
+			font-size:35px;
+		}
+		.description{
+			font-family:$MuseoSans-100;
+			font-size:25px;
+		}
+	}
+	i{
+		font-size: 15px;
+		vertical-align: 0px;
+		margin-left: 10px;
+	}
+	.btn-brisas{
+		@include btn-brisas(100%, 45px);
+		font-size:16px;
+		opacity:1;
+		margin-top:25px;
+	}
+	.btn-brisas-danger{
+		@include btn-brisas-danger(100%, 45px);
+		font-size:16px;
+		opacity:1;
+		margin-top:25px;
+	}
+}

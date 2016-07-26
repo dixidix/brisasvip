@@ -1,5 +1,5 @@
 	<div class="header" id="rate"> 
-		<link rel="stylesheet" type="text/css" href="./components/header-brisas/header-brisas.css" async>
+		<link rel="stylesheet" type="text/css" href="./dist/components/header-brisas/header-brisas.css" async>
 		<div class="leyend-lg">
 			<span>
 				EXCELENCIA, CONFORT Y SEGURIDAD
@@ -11,21 +11,21 @@
 			</span>
 		</div>
 		<div class="search-container">
-			<form class="form-inline" name="headerCtrl.searchForm">
+			<form class="form-inline"  name="headerCtrl.searchForm" data-ng-submit="headerCtrl.searchForm.$valid && !searchForm.$pristine && headerCtrl.searchForm.$submitted && headerCtrl.search()">
 				<div class="form-group">
 					<label for="from"><i class="fa fa-car" aria-hidden="true"></i>
-						<input type="text" id="from" class="form-control" data-ng-model="headerCtrl.data.from" placeholder="¿desde donde quieres viajar?" required>
+						<input type="text" id="from" name="from" class="form-control" data-ng-model="headerCtrl.data.from" placeholder="¿desde donde quieres viajar?" required>
 					</label>
 					<label for="to">
 						<i class="fa fa-car" aria-hidden="true"></i>
-						<input type="text" id="to" class="form-control" data-ng-model="headerCtrl.data.to" placeholder="¿a donde quieres viajar?" required>
+						<input type="text" id="to" name="to" class="form-control" data-ng-model="headerCtrl.data.to" placeholder="¿a donde quieres viajar?" required>
 					</label>
 					<select class="form-control"  data-ng-model="headerCtrl.data.time" required>
 						<option value="" disabled>Selecciona un horario</option>
 						<option value="1">05:00 AM - 22:00 PM</option>
 						<option value="2">22:00 PM - 05	:00 AM</option>
 					</select>
-					<button  data-ui-sref="home.tasar({ from: headerCtrl.data.from, to: headerCtrl.data.to, time: headerCtrl.data.time })" class="btn btn-brisas">Buscar</button>
+					<button type="submit" class="btn btn-brisas" >Buscar</button>
 				</div>
 			</form>
 		</div>

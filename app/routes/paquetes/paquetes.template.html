@@ -1,38 +1,48 @@
-<div class="package-description container">
-	<link rel="stylesheet" type="text/css" href="./routes/paquetes/paquetes.css" >
+<div class="package container-fluid" id="package">
+	<link rel="stylesheet" type="text/css" href="./dist/routes/paquetes/paquetes.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-	<article>
-		<h1>{{package.data.title}} {{package.data.id}}</h1>
-		<div class="content">
-			<div class="col-xs-8">
-				<p>
-					{{package.data.description}}
-				</p><br>
-				<h3>{{package.data.subtitle}}</h3>
-				<p>
-					{{package.data.subdescription}}
-				</p>
+	
+	<div ui-view>
+		<div class="row">
+			<div class="sidebar col-xs-2 col-md-2">
+				<form>
+					<h4>Buscar:</h4>
+					<input type="text" class="form-control" ng-model="searchbox" placeholder="Escribe tu b&uacute;squeda">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<hr>
+					<h4>Buscar por zona:</h4>
+					<label><input type="radio" ng-value="" checked="checked" ng-model="filterZone" name="zone" />Todas las zonas</label><br>
+					<label><input type="radio" ng-value="1" ng-model="filterZone" name="zone" />Bodegas</label><br>
+					<label><input type="radio" ng-value="2" ng-model="filterZone" name="zone" />Alta Monta&ntilde;a</label><br>
+					<label><input type="radio" ng-value="3" ng-model="filterZone" name="zone" />City Tour</label><br>
+					<label><input type="radio" ng-value="4" ng-model="filterZone" name="zone" />Este Mendocino</label><br>
+					<label><input type="radio" ng-value="5" ng-model="filterZone" name="zone" />D&iacute;a de campo</label><br>
+					<hr>
+					<h4>Buscar por precio:</h4>
+					<label>Paquetes entre:</label><br>
+					<div range-slider min="package.minPrice" max="package.maxPrice" model-min="package.userMinPrice" model-max="package.userMaxPrice" step="500"></div>
+					{{package.userMinPrice | currency:undefined:0}} y {{package.userMaxPrice | currency:undefined:0}}
+				</form>
 			</div>
-			<div class="col-xs-4 thumbnail">
-				<img style="max-height:200px" ng-src="{{package.data.imgSelected}}"/>
-				<div class="sub-img">
-					<div class="col-xs-3" style="padding-left: 2px;padding-right: 2px;"ng-repeat="tnail in package.data.tnails">
-						<img  style="max-height:50px" ng-click="package.toBigPicture(tnail)" ng-src="{{tnail}}"/>
+			<div class="col-xs-10 col-md-10">
+				<div class="col-xs-12 col-md-3 package-list-item" ng-repeat="packageList in package.packages | rangeFilter:package | filter:{zone: filterZone } | filter:searchbox">
+					<div  ng-if="package.isAdmin == 1">
+						<div ui-sref="home.editPackage({packageId: {{packageList.id}} })" class="edit"> <i class="fa  fa-pencil"></i> </div>
+						<div ng-click="package.remove(packageList.id, packageList.short_title)" class="delete"> <i class="fa  fa-times"></i> </div>
+					</div>
+					<div ui-sref="home.pckgDescription({packageId: {{packageList.id}} })" class="card" ng-style="{'background-image': 'linear-gradient(rgba(0,0,0,0.5) 10%,rgba(0,0,0,0) 35%), url({{packageList.images[0].url}})'}">				
+						<h4 class="short-title">{{packageList.short_title}}</h4>
+					</div>
+					<div class="promo" ng-if="packageList.hasPromo !== '0'">
+						<h4  ng-if="packageList.porcentaje"><span style="text-decoration: line-through;margin-right:5px;">$ {{packageList.price}}</span><span> -{{ packageList.porcentaje }}% OFF</span></h4>
+						<h4  ng-if="packageList.bonificado"> Bonificado </h4>
+					</div>
+					<div class="price" ng-class="packageList.hasPromo !== '0' ? 'premium-price' : 'price'">
+						<h3 ng-if="packageList.porcentaje">{{packageList.price - ((packageList.price * packageList.porcentaje) / 100) | currency:undefined:0}}</h3>
+						<h3 ng-if="!packageList.porcentaje">{{packageList.price | currency:undefined:0}}</h3>
 					</div>
 				</div>
-				<button  data-ng-click="package.open('lg')" class="btn btn-brisas"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Comprar</button>
+
 			</div>
 		</div>
-	</article>
-</div>
-<script type="text/ng-template" id="myModalContent.html">
-	<div class="modal-header">
-		<button class="close" data-dismiss="modal-open" data-ng-click="$dismiss()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title">Brisas VIP: Comprar paquete tur&iacute;stico</h4>
 	</div>
-	<div class="modal-body">
-
-		<iframe style="border-radius: 15px;" src="https://www.mercadopago.com/mla/checkout/start?pref_id=209883872-f26e6388-c738-431f-9d13-fd4de5931edd" width="100%" height="100%"  class="iframe-placeholder" frameborder="0">
-		</iframe>
-	</div>
-</script>

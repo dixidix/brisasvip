@@ -1,0 +1,20 @@
+@import '../../styles/mixins/main';
+
+.security{
+	h3{
+		font-family:$MuseoSans-500;
+		font-size:22px;
+	}
+	p{
+		font-family:$MuseoSans-100;
+		font-size:18px;
+	}
+	section{
+		text-align: center;
+		margin:40px 0px;
+		article{
+			text-align: left;
+		}
+	}
+
+}

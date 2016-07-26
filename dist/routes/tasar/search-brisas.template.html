@@ -1,45 +1,107 @@
-<div class="search-brisas container">
-	<link rel="stylesheet" type="text/css" href="./routes/tasar/search-brisas.css" async="">
+<div class="search-brisas container" id="tasar">
+	<link rel="stylesheet" type="text/css" href="./dist/routes/tasar/search-brisas.css" async="">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 	<article>
 		<div class="content">
 			<div class="row">
 				<div class="col-xs-8">
 					<div class="search">					
-						<img src="https://www.appliedimage.com/files/qSZVjd/APPLIED%20LARGE%20Google%20map.jpg">
+						<div id="map"></div>
 					</div>
 				</div>
 				<div class="col-xs-4 pull-left">
-					<div class="form-group">
-						<label for="from" class="control-label">Desde:</label>
-						<input type="text"  name="from"  id="from" class="form-control"  disabled  data-ng-model="rate.data.from">
-					</div>
-
-					<div class="form-group">
-						<label for="to" class="control-label">Hasta:</label>
-						<input type="text"  name="to"  id="to" class="form-control"  disabled  data-ng-model="rate.data.to">
-					</div>
-
-					<div class="form-group">
-						<label for="from" class="control-label">Horario:</label>
-						<select class="form-control"  data-ng-model="rate.data.time" disabled>
-							<option value="" disabled>Selecciona un horario</option>
-							<option value="1">05:00 AM - 22:00 PM</option>
-							<option value="2">22:00 PM - 05	:00 AM</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="price" class="control-label">Precio:</label>
-						<div class="input-group"> 
-							<span class="input-group-addon">$</span>
-							<input type="text"  name="price"  id="price" class="form-control"  disabled  data-ng-model="rate.data.pricing">
+						<div class="form-group">
+							<label for="from" class="control-label">Desde:</label>
+							<div class="input-group"> 
+								<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>							
+								<input type="text"  name="from" id="from" class="form-control" required disabled>
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<button class="btn btn-brisas">Solicitar viaje</button>
-					</div>
+
+						<div class="form-group">
+							<label for="to" class="control-label">Hasta:</label>
+							<div class="input-group"> 
+								<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>	
+								<input type="text"  name="to" id="to" class="form-control" required disabled>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="from" class="control-label">Horario:</label>
+							<div class="input-group"> 
+								<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>	
+								<select class="form-control" id="tarifa"  required  disabled>
+									<option value="" disabled>Selecciona un horario</option>
+									<option value="1">05:00 AM - 22:00 PM</option>
+									<option value="2">22:00 PM - 05	:00 AM</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<p id="distance" style="display:none;">Distance:<span id="total"></span></p>
+							<label for="dist" class="control-label">Distancia:</label>
+							<div class="input-group"> 
+								<span class="input-group-addon"><i class="fa fa-map-o"></i></span>	
+								<input type="text"  name="dist" required id="dist" class="form-control"  disabled>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="price" class="control-label">Precio:</label>
+							<div class="input-group"> 
+								<span class="input-group-addon">$</span>
+								<input type="text" id="totalPrice"  required name="totalPrice" class="form-control"  disabled>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="price" class="control-label">Fecha de viaje:</label>
+							<div class="input-group"> 
+								<span class="input-group-addon" ng-click="open1()">
+									<i class="glyphicon glyphicon-calendar" ></i>
+								</span>
+								<input type="text" required id="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" />
+
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="price" class="control-label">Hora de viaje:</label>
+							<div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+						</div>
+
+						<div class="form-group">
+						<span class="disclaimer" ng-if="rate.noSearch" style="font-size:14px;">Debe realizar una busqueda para reservar un viaje.</span>
+						<button class="btn btn-brisas" ng-click="rate.reserve()" ng-style="rate.sending && {'background-color':'lightgray'}"><i ng-if="rate.sending" class="fa fa-spinner fa-spin" style="margin-right:10px;font-size:18px;" aria-hidden="true"></i><i ng-if="!rate.sending" style="margin-right: 10px;" class="fa fa-car" aria-hidden="true"></i>{{rate.btnMsg}} </button>
+						</div>
 				</div>
+			</div>
+			<div class="col-xs-8">
+				<span class="disclaimer">El valor del viaje es un valor aproximado, sujeto a modificacion de la ruta y otras variantes. El sistema de direcciones es proporcionado por el servicio de google maps. Puede no incluir todas las direcciones.</span>
 			</div>
 		</div>
 	</article>
 </div>
+<script type="text/ng-template" id="myModal.html">
+	<div class="search-brisas-modal">
+		<div class="modal-header">
+			<h3 class="modal-title">Solicitar un viaje</h3>
+		</div>
+		<div class="modal-body">
+			<p ng-bind-html="to_trusted(msg)"></p>
+		</div>
+		<div class="modal-footer">
+			<div class="row">
+
+				<div ng-if="isLogged" class="col-xs-4 col-xs-offset-8">
+					<button class="btn btn-brisas form-control" ng-click="close()">Cerrar</button>
+				</div>
+				<div ng-if="!isLogged" class="col-xs-4 col-xs-offset-4">
+					<button class="btn btn-brisas form-control" ng-click="toLogin()">Ingresar</button>
+				</div>
+				<div ng-if="!isLogged" class="col-xs-4">
+					<button class="btn btn-brisas-danger form-control" ng-click="cancel()">Cancelar</button>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+</script>

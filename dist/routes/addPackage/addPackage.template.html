@@ -1,0 +1,175 @@
+<div class="login container" id="addPackage">
+	<link rel="stylesheet" type="text/css" href="./dist/routes/login/login.css" async="">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<div class="row">
+		<form name="addPackage.addPackageForm"	class="loginForm"	novalidate	data-ng-submit="addPackage.addPackageForm.$valid && !addPackageForm.$pristine && addPackage.addPackageForm.$submitted && addPackage.submit()">
+
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-md-offset-3">
+					<h3>{{addPackage.actionLabel}}</h3>
+				</div>
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.short_title.$invalid && addPackage.addPackageForm.$submitted}">
+					<label for="short_title" class="control-label">T&iacute;tulo Corto (*)</label>		
+					<input type="text"	name="short_title"	id="short_title"	class="form-control" placeholder="T&iacute;tulo Corto"	maxlength="45"	autocomplete="off"	required 
+					data-ng-model="addPackage.package.short_title">
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.short_title.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar un T&iacute;tulo Corto.
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.title.$invalid && addPackage.addPackageForm.$submitted}">
+					<label for="title" class="control-label">T&iacute;tulo (*)</label>		
+					<input type="text"	name="title"	id="title"	class="form-control" placeholder="T&iacute;tulo" maxlength="65" autocomplete="off"	required 
+					data-ng-model="addPackage.package.title">
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.title.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar su T&iacute;tulo.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.desc.$invalid && addPackage.addPackageForm.$submitted}">			
+					<label for="desc" class="control-label">Descripci&oacute;n (*)</label>		
+					<textarea name="desc"	rows="7" id="desc"	class="form-control" placeholder="Descripci&oacute;n" maxlength="800"	autocomplete="off"	required 
+					data-ng-model="addPackage.package.desc" ></textarea> 
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.desc.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar una Descripci&oacute;n.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.sub_title.$invalid && addPackage.addPackageForm.$submitted}">
+					<label for="sub_title" class="control-label">Sub-T&iacute;tulo (*)</label>
+					<input type="text"	name="sub_title"	id="tel" class="form-control" placeholder="Sub-T&iacute;tulo" maxlength="65" autocomplete="off"	required data-ng-model="addPackage.package.sub_title">
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.sub_title.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar un Sub-T&iacute;tulo.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.sub_desc.$invalid && addPackage.addPackageForm.$submitted}">		
+					<label for="sub_desc" class="control-label">Sub-Descripci&oacute;n (*)</label>		
+					<textarea name="sub_desc"	rows="7" id="sub_desc"	class="form-control" placeholder="Sub-Descripci&oacute;n" maxlength="800"	autocomplete="off"	required 
+					data-ng-model="addPackage.package.sub_desc"></textarea> 				
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.sub_desc.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar una Sub-Descripci&oacute;n.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.zone.$invalid && addPackage.addPackageForm.$submitted}">
+					<label for="zone" class="control-label">Zona (*)</label>
+					<select id="zone" name="zone" class="form-control" ng-model="addPackage.myZone" required >
+						<option ng-repeat="zona in addPackage.zonas track by zona.value" value="{{zona.value}}" ng-bind-html="zona.name">{{zona.name}}</option>
+					</select>
+					<span class="help-block" data-ng-show="addPackage.addPackageForm.zone.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar una Zona.
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
+					<label for="promo" class="control-label">Promoci&oacute;n</label>
+					<select id="promo" class="form-control" data-ng-model="addPackage.myPromo" ng-options="promo.beneficio for promo in addPackage.promos track by promo.value">
+					</select>
+				</div>
+			</div>
+			<div class="row" ng-if="addPackage.myPromo.value == 1">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.promo.$invalid && addPackage.addPackageForm.$submitted}">
+					<label for="bonificado" class="control-label">Porcentaje (*)</label>
+					<input  type="number" name="porcentaje"  id="porcentaje" class="form-control" placeholder="Ingrese el porcentaje de descuento" maxlength="2" autocomplete="off"	required  data-ng-model="addPackage.package.porcentaje"/>
+				</div>				
+			</div>
+			<div class="row" ng-if="addPackage.myPromo.value == 2">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.promo.$invalid && addPackage.addPackageForm.$submitted}">
+					<label for="bonificado" class="control-label">Bonificado (*) (usa como separador de beneficios la coma)</label>
+					<textarea name="bonificado"	rows="7" id="bonificado" class="form-control" placeholder="Escriba el beneficio" maxlength="255"	autocomplete="off"	required  data-ng-model="addPackage.package.bonificado"></textarea> 	
+					<span class="example">Ej. "Traslado Aeropuerto-hotel , Diario del d&iacute;a, Agua Mineral". </span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.price.$invalid && addPackage.addPackageForm.$submitted}">		
+					<label for="price" class="control-label">Precio (*)</label>		
+					<input type="number"	name="price"	id="price" class="form-control" placeholder="Precio" maxlength="100" autocomplete="off"	required data-ng-model="addPackage.package.price">					
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.price.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar un Precio.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.paymentGatewayUrl.$invalid && addPackage.addPackageForm.$submitted}">		
+					<label for="paymentGatewayUrl" class="control-label">URL Mercadopago (*)</label>		
+					<input type="url"	name="paymentGatewayUrl" id="paymentGatewayUrl" class="form-control" placeholder="Precio" maxlength="100" autocomplete="off"	required data-ng-model="addPackage.package.paymentGatewayUrl">					
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.paymentGatewayUrl.$error.required && addPackage.addPackageForm.$submitted">
+						Debe ingresar la url de mercadopago.
+					</span>
+					<span class="help-block"	data-ng-show="addPackage.addPackageForm.paymentGatewayUrl.$error.url && addPackage.addPackageForm.$submitted">
+						Debe ingresar una url ej. http://mpago.la/(c&oacute;digo del paquete).
+					</span>
+				</div>				
+			</div>
+			<div class="row" ng-if="addPackage.isEditing && addPackage.package.images">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3">	
+					<label class="control-label">Im&aacute;genes (*)</label>
+				</div>
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3">									
+					<div class="col-xs-3" ng-if="img.url" ng-repeat="img in addPackage.package.images track by $index">
+						<div class="images-box" ng-hide="addPackage.changeImg{{$index}}">
+							<img ng-src="{{img.url}}"  alt="" height="80"><br>
+							<a class="remove-img" ng-click="addPackage.changeImg($index, img.id)">Quitar Imagen</a>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div ng-hide="!addPackage.changeImg0 && addPackage.isEditing" class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': addPackage.addPackageForm.img1.$invalid && addPackage.addPackageForm.$submitted}">		
+					<label for="img1" class="control-label">Imagen N° 1 (*)</label>		
+					<input type="file" name="img1" id="img1"  ng-model="addPackage.package.img1" uploader-model="addPackage.package.img1"  ng-required="(addPackage.changeImg0 && addPackage.isEditing) || !addPackage.isEditing"/>
+					<span class="help-block" data-ng-show="addPackage.addPackageForm.img1.$error.required && addPackage.addPackageForm.$submitted">
+						Debe seleccionar una imagen.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" ng-hide="!addPackage.changeImg1 && addPackage.isEditing" data-ng-class="{'has-error': addPackage.addPackageForm.img2.$invalid && addPackage.addPackageForm.$submitted}">		
+					<label for="img2" class="control-label">Imagen N° 2 (*)</label>		
+					<input type="file" name="img2" id="img2"  ng-model="addPackage.package.img2" uploader-model="addPackage.package.img2"  ng-required="(addPackage.changeImg1 && addPackage.isEditing) || !addPackage.isEditing"/>
+					<span class="help-block" data-ng-show="addPackage.addPackageForm.img2.$error.required && addPackage.addPackageForm.$submitted">
+						Debe seleccionar una imagen.
+					</span>
+				</div>				
+			</div>
+			<div class="row" ng-hide="!addPackage.changeImg2 && addPackage.isEditing">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3"  data-ng-class="{'has-error': addPackage.addPackageForm.img3.$invalid && addPackage.addPackageForm.$submitted}">		
+					<label for="img3" class="control-label">Imagen N° 3 (*)</label>		
+					<input type="file" name="img3" id="img3"  ng-model="addPackage.package.img3" uploader-model="addPackage.package.img3"  ng-required="(addPackage.changeImg2 && addPackage.isEditing) || !addPackage.isEditing"/>
+					<span class="help-block" data-ng-show="addPackage.addPackageForm.img3.$error.required && addPackage.addPackageForm.$submitted">
+						Debe seleccionar una imagen.
+					</span>
+				</div>				
+			</div>
+			<div class="row" ng-hide="!addPackage.changeImg3 && addPackage.isEditing">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3"  data-ng-class="{'has-error': addPackage.addPackageForm.img4.$invalid && addPackage.addPackageForm.$submitted}">		
+					<label for="img4" class="control-label">Imagen N° 4 (*)</label>		
+					<input type="file" name="img4" id="img4"  ng-model="addPackage.package.img4" uploader-model="addPackage.package.img4"  ng-required="(addPackage.changeImg3 && addPackage.isEditing) || !addPackage.isEditing"/>
+					<span class="help-block" data-ng-show="addPackage.addPackageForm.img4.$error.required && addPackage.addPackageForm.$submitted">
+						Debe seleccionar una imagen.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 col-xs-offset-3">
+					<label class="control-label">(*) Campos Requeridos.</label>		
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 col-xs-offset-3">
+					<button class="btn btn-brisas pull-right" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> {{addPackage.actionLabel}} </button>
+				</div>
+				<div class="col-xs-3 col-md-3">
+					<button class="btn btn-brisas-danger pull-right" data-ui-sref="home.paquetes" data-ui-sref-opts="{reload: true}"><i class="fa  fa-times" aria-hidden="true"></i> Cancelar </button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

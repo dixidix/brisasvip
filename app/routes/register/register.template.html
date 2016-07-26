@@ -1,0 +1,100 @@
+<div class="login container" id="register">
+	<link rel="stylesheet" type="text/css" href="./dist/routes/login/login.css" async="">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<div class="row">
+		<form name="register.registerForm"	class="loginForm"	novalidate	data-ng-submit="register.registerForm.$valid && !registerForm.$pristine && register.registerForm.$submitted && register.register()">
+
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-md-offset-3">
+					<h3>Registro</h3>
+				</div>
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': register.registerForm.name.$invalid && register.registerForm.$submitted}">
+					<label for="name" class="control-label">Nombre</label>		
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<input type="text"	name="name"	id="name"	class="form-control" placeholder="Nombre"	maxlength="100"	autocomplete="off"	required 
+						data-ng-model="register.user.name">
+					</div>
+					<span class="help-block"	data-ng-show="register.registerForm.name.$error.required && register.registerForm.$submitted">
+						Debe ingresar su Nombre.
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': register.registerForm.lastname.$invalid && register.registerForm.$submitted}">
+					<label for="lastname" class="control-label">Apellido</label>		
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<input type="text"	name="lastname"	id="lastname"	class="form-control" placeholder="Apellido" maxlength="100" autocomplete="off"	required 
+						data-ng-model="register.user.lastname">
+					</div>
+					<span class="help-block"	data-ng-show="register.registerForm.lastname.$error.required && register.registerForm.$submitted">
+						Debe ingresar su Apellido.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': register.registerForm.email.$invalid && register.registerForm.$submitted}">			
+					<label for="email" class="control-label">E-Mail</label>		
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+						<input type="email"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
+						data-ng-model="register.user.email" ng-blur="validateEmail()">
+					</div>
+					<span class="help-block"	data-ng-show="register.registerForm.email.$error.required && register.registerForm.$submitted">
+						Debe ingresar su E-Mail.
+					</span>
+					<span class="help-block"	data-ng-show="register.registerForm.email.$error.email && register.registerForm.$submitted">
+						Debe ingresar un E-Mail v&aacute;lido.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': register.registerForm.tel.$invalid && register.registerForm.$submitted}">
+					<label for="tel" class="control-label">Tel&eacute;fono</label>
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+						<input type="text"	name="tel"	id="tel" class="form-control" placeholder="Tel&eacute;fono" maxlength="100" autocomplete="off"	required 
+						data-ng-model="register.user.tel">
+					</div>
+					<span class="help-block"	data-ng-show="register.registerForm.tel.$error.required && register.registerForm.$submitted">
+						Debe ingresar su Tel&eacute;fono.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': register.registerForm.country.$invalid && register.registerForm.$submitted}">		
+					<label for="country" class="control-label">Ciudad de residencia</label>		
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-map"></i></span>
+						<input type="text"	name="country"	id="country" class="form-control" placeholder="Ciudad de residencia" maxlength="100" autocomplete="off"	required data-ng-model="register.user.country">			
+					</div>		
+					<span class="help-block"	data-ng-show="register.registerForm.country.$error.required && register.registerForm.$submitted">
+						Debe ingresar su ciudad de residencia.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': register.registerForm.password.$invalid && register.registerForm.$submitted}">		
+					<label for="password" class="control-label">Contrase&ntilde;a</label>		
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-key"></i></span>
+						<input type="password"	name="password"	id="password"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="100" autocomplete="off"	required 
+						data-ng-model="register.user.password">
+					</div>
+					<span class="help-block"	data-ng-show="register.registerForm.password.$error.required && register.registerForm.$submitted">
+						Debe ingresar su Contrase&ntilde;a.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 col-xs-offset-3">
+					<button class="btn btn-brisas pull-right" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarme </button>
+				</div>
+				<div class="col-xs-3 col-md-3">
+					<button class="btn btn-brisas-danger pull-right" data-ui-sref="home" data-ui-sref-opts="{reload: true}"><i class="fa  fa-times" aria-hidden="true"></i> Cancelar </button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

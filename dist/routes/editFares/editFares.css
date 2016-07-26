@@ -1,0 +1,25 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.editFares {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .editFares .form-control:focus, .editFares .form-control:active:focus, .editFares .form-control:active, .editFares .btn:focus, .editFares .btn:active:focus, .editFares .btn:active {
+    outline: #de9900;
+    border-color: #de9900;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .editFares .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .editFares .btn-brisas, .editFares .btn-brisas:active, .editFares .btn-brisas:focus, .editFares .btn-brisas:active:focus, .editFares .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .editFares .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .editFares input {
+    width: 200px; }

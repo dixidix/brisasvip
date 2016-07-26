@@ -7,6 +7,10 @@
   position: relative;
   transition: all 0.2s ease-in-out;
   z-index: 999; }
+  .navbar i {
+    font-size: 15px;
+    vertical-align: -1px;
+    margin-left: 5px; }
   .navbar-nav {
     margin-top: 12px;
     font-family: "MuseoSans-100", Arial; }

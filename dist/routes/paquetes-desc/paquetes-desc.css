@@ -1,0 +1,86 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.search-brisas-modal {
+  padding: 0; }
+  .search-brisas-modal .btn-brisas {
+    font-size: 16px; }
+    .search-brisas-modal .btn-brisas, .search-brisas-modal .btn-brisas:active, .search-brisas-modal .btn-brisas:focus, .search-brisas-modal .btn-brisas:active:focus, .search-brisas-modal .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .search-brisas-modal .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .search-brisas-modal .btn-brisas-danger {
+    font-size: 16px;
+    opacity: 1; }
+    .search-brisas-modal .btn-brisas-danger, .search-brisas-modal .btn-brisas-danger:active, .search-brisas-modal .btn-brisas-danger:focus, .search-brisas-modal .btn-brisas-danger:active:focus, .search-brisas-modal .btn-brisas-danger:hover {
+      background-color: #B0062A;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .search-brisas-modal .btn-brisas-danger:hover {
+      background-color: #c90730; }
+  .search-brisas-modal p {
+    font-family: "RobotoRegular", Arial;
+    font-size: 16px; }
+  .search-brisas-modal .form-control, .search-brisas-modal .btn {
+    border-radius: 0; }
+    .search-brisas-modal .form-control:focus, .search-brisas-modal .form-control:active:focus, .search-brisas-modal .form-control:active, .search-brisas-modal .btn:focus, .search-brisas-modal .btn:active:focus, .search-brisas-modal .btn:active {
+      outline: #de9900;
+      border-color: #de9900;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+
+.iframe-placeholder {
+  width: 100%;
+  height: 900px;
+  background: url("../../styles/images/spinner.gif") 0px 0px no-repeat;
+  background-size: 120px 120px;
+  background-position: center 15%; }
+
+.package-description {
+  margin-bottom: 100px;
+  margin-top: 3%;
+  text-align: justify; }
+  .package-description .bonificado {
+    background: red; }
+  .package-description p {
+    font-family: "RobotoLight", Arial;
+    font-size: 16px;
+    padding-right: 3%; }
+  .package-description h1, .package-description h3 {
+    font-family: "MuseoSans-500", Arial; }
+  .package-description .content {
+    margin-top: 4%; }
+    .package-description .content .sub-img {
+      margin-top: 3%; }
+      .package-description .content .sub-img img {
+        -webkit-filter: brightness(0.9);
+        -moz-filter: brightness(0.9);
+        filter: brightness(0.9); }
+        .package-description .content .sub-img img:hover {
+          cursor: pointer;
+          -webkit-filter: brightness(1);
+          -moz-filter: brightness(1);
+          filter: brightness(1); }
+    .package-description .content .btn-brisas {
+      margin-top: 3%;
+      font-size: 16px; }
+      .package-description .content .btn-brisas, .package-description .content .btn-brisas:active, .package-description .content .btn-brisas:focus, .package-description .content .btn-brisas:active:focus, .package-description .content .btn-brisas:hover {
+        background-color: #068c8f;
+        color: #fff;
+        width: 100%;
+        height: 40px; }
+      .package-description .content .btn-brisas:hover {
+        background-color: #07a4a7; }
+      .package-description .content .btn-brisas i {
+        font-size: 17px;
+        margin-right: 10px; }
+  .package-description img {
+    width: 100%; }
+  .package-description article {
+    max-width: 100%;
+    word-wrap: break-word; }

@@ -13,8 +13,15 @@
 	}
 }
 .packages{
-	margin-top:56px;
+	padding-top:80px;
 	margin-bottom:56px;
+	h2{
+		font-family:$MuseoSans-500;
+	}
+	p{
+		font-family:$MuseoSans-100;
+		font-size:18px;
+	}
 	i{
 		font-size: 15px;
 		vertical-align: -1px;
@@ -30,7 +37,7 @@
 	}
 	.circles{
 		img{
-			max-width:120px;
+			width:120px;
 			margin-bottom:5%;
 		}
 	}

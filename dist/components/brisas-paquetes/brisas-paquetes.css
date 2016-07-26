@@ -15,8 +15,13 @@
   font-size: 25px; }
 
 .packages {
-  margin-top: 56px;
+  padding-top: 80px;
   margin-bottom: 56px; }
+  .packages h2 {
+    font-family: "MuseoSans-500", Arial; }
+  .packages p {
+    font-family: "MuseoSans-100", Arial;
+    font-size: 18px; }
   .packages i {
     font-size: 15px;
     vertical-align: -1px;
@@ -34,7 +39,7 @@
   .packages article {
     text-align: center; }
   .packages .circles img {
-    max-width: 120px;
+    width: 120px;
     margin-bottom: 5%; }
   .packages img {
     width: 100%;

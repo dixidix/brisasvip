@@ -5,6 +5,7 @@
 /** Mixins for responsive content **/
 .choferes {
   margin-top: 4%;
+  margin-bottom: 100px;
   text-align: justify; }
   .choferes p {
     font-family: "RobotoLight", Arial;

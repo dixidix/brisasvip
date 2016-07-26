@@ -9,7 +9,7 @@ function BrisasServiceDescriptionDirective(angular, app) {
     	return {
     		restrict: "E",
     		replace: true,
-    		templateUrl: 'components/brisas-service-description/brisas-service-description.template.html',
+    		templateUrl: './dist/components/brisas-service-description/brisas-service-description.template.html',
     		link: link,
     		controllerAs: 'serviceDescriptionCtrl',
     		controller: controller

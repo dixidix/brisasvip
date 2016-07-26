@@ -12,9 +12,5 @@
   z-index: 9999;
   color: #2e2e2e;
   border: dotted 5px #fff; }
-  .search a {
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px; }
   .search.ng-hide {
     height: 0; }

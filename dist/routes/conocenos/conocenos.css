@@ -4,6 +4,7 @@
 /** Devices Breakpoints **/
 /** Mixins for responsive content **/
 .knowus-route {
+  margin-bottom: 100px;
   margin-top: 4%;
   text-align: justify; }
   .knowus-route p {

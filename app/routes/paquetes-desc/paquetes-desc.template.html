@@ -1,0 +1,130 @@
+<div class="package-description container">
+	<link rel="stylesheet" type="text/css" href="./dist/routes/paquetes-desc/paquetes-desc.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<article>
+		<h1>{{packageDesc.data.title}}</h1>
+		<div class="content">
+			<div class="col-xs-8">
+				<p>
+					{{packageDesc.data.desc}}
+				</p><br>
+				<h3>{{packageDesc.data.sub_title}}</h3>
+				<p>
+					{{packageDesc.data.sub_desc}}
+				</p>
+			</div>
+			<div class="col-xs-4 thumbnail">
+				<img style="max-height:200px" ng-src="{{packageDesc.data.imgSelected}}"/>
+				<div class="sub-img">
+					<div class="col-xs-3" style="padding-left: 2px;padding-right: 2px;" ng-repeat="tnail in packageDesc.data.images">
+						<img  style="height:50px" ng-click="packageDesc.toBigPicture(tnail.url)" ng-src="{{tnail.url}}"/>
+					</div>
+				</div>
+				<!-- 				data-ui-sref="home.buyPackage({paymentGatewayUrl: packageDesc.data.paymentGatewayUrl })" -->
+				<button  ng-click="packageDesc.buyPackage()" class="btn btn-brisas"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Comprar</button>
+			</div>
+			<div class="col-xs-8" ng-if="packageDesc.data.hasPromo && packageDesc.data.bonificado">
+				<div style="
+				background: #de9900;
+				box-shadow:0px 0px 2px #2e2e2e;
+				border:3px solid white;
+				color:white;
+				padding: 1px 25px;
+				margin-top: 5%;
+				border-radius: 5px;">
+				<h3 style="margin-top:15px;">Este paquete esta bonificado</h3>
+				<p>
+					Incluye: 
+				</p>
+				<ul>
+					<li ng-repeat="beneficio in packageDesc.data.bonificado track by $index">{{beneficio}}</li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+</article>
+</div>
+<script type="text/ng-template" id="buyModal.html">
+	<div class="search-brisas-modal">
+		<div class="modal-header">
+			<h3 class="modal-title">Comprar Paquete</h3>
+		</div>
+		<form name="buyPckg.buyPckgForm"	class="loginForm"	novalidate	data-ng-submit="buyPckg.buyPckgForm.$valid && !buyPckgForm.$pristine && buyPckg.buyPckgForm.$submitted && buyPckg.buy()">
+			<div class="modal-body">
+				<div class="row">
+					<div class="form-group col-xs-12" data-ng-class="{'has-error': buyPckg.buyPckgForm.name.$invalid && buyPckg.buyPckgForm.$submitted}">
+						<label for="name" class="control-label">Nombre</label>		
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input type="text"	name="name"	id="name"	class="form-control" placeholder="Nombre"	maxlength="100"	autocomplete="off"	required 
+							data-ng-model="buyPckg.pckg.name">
+						</div>
+						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.name.$error.required && buyPckg.buyPckgForm.$submitted">
+							Debe ingresar su Nombre.
+						</span>
+					</div>
+					<div class="form-group col-xs-12 " data-ng-class="{'has-error': buyPckg.buyPckgForm.lastname.$invalid && buyPckg.buyPckgForm.$submitted}">
+						<label for="lastname" class="control-label">Apellido</label>		
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input type="text"	name="lastname"	id="lastname"	class="form-control" placeholder="Apellido" maxlength="100" autocomplete="off"	required 
+							data-ng-model="buyPckg.pckg.lastname">
+						</div>
+						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.lastname.$error.required && buyPckg.buyPckgForm.$submitted">
+							Debe ingresar su Apellido.
+						</span>
+					</div>
+					<div class="form-group col-xs-12" data-ng-class="{'has-error': buyPckg.buyPckgForm.email.$invalid && buyPckg.buyPckgForm.$submitted}">			
+						<label for="email" class="control-label">E-Mail</label>		
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+							<input type="email"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
+							data-ng-model="buyPckg.pckg.email">
+						</div>
+						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.email.$error.required && buyPckg.buyPckgForm.$submitted">
+							Debe ingresar su E-Mail.
+						</span>
+						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.email.$error.email && buyPckg.buyPckgForm.$submitted">
+							Debe ingresar un E-Mail v&aacute;lido.
+						</span>
+					</div>	
+					<div class="form-group col-xs-12" data-ng-class="{'has-error': buyPckg.buyPckgForm.tel.$invalid && buyPckg.buyPckgForm.$submitted}">
+						<label for="tel" class="control-label">Tel&eacute;fono</label>
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+							<input type="text"	name="tel"	id="tel" class="form-control" placeholder="Tel&eacute;fono" maxlength="100" autocomplete="off"	required 
+							data-ng-model="buyPckg.pckg.tel">
+						</div>
+						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.tel.$error.required && buyPckg.buyPckgForm.$submitted">
+							Debe ingresar su Tel&eacute;fono.
+						</span>
+					</div>	
+					<div class="form-group col-xs-12">
+						<label for="price" class="control-label">Fecha de viaje:</label>
+						<div class="input-group"> 
+							<span class="input-group-addon" ng-click="open1()">
+								<i class="glyphicon glyphicon-calendar" ></i>
+							</span>
+							<input type="text" required id="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" />
+
+						</div>
+					</div>
+					<div class="form-group col-xs-12">
+						<label for="price" class="control-label">Hora de viaje:</label>
+						<div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div  class="col-xs-4 col-xs-offset-4">
+						<button class="btn btn-brisas form-control" type="submit">Comprar</button>
+					</div>
+					<div  class="col-xs-4">
+						<button class="btn btn-brisas-danger form-control" ng-click="buyPckg.cancel()">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>

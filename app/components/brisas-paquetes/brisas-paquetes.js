@@ -9,18 +9,13 @@ function BrisasPaquetesDirective(angular, app) {
     	return {
     		restrict: "E",
     		replace: true,
-    		templateUrl: 'components/brisas-paquetes/brisas-paquetes.template.html',
+    		templateUrl: './dist/components/brisas-paquetes/brisas-paquetes.template.html',
     		link: link,
     		controllerAs: 'packagesCtrl',
     		controller: controller
     	};
 
     	function link(scope, ctrl, element, attrs) {
-          $http.get('./../services/packages.json').then(function(response) {
-             scope.packages = response.data.packages;
-         });
-
-
       }
       function controller(){
     		var self = this; //jshint

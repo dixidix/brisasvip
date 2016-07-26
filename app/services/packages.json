@@ -2,6 +2,7 @@
 	"packages": [
 		{
 			"id":1,
+			"price":"2000",
 			"img":"http://www.tripincdn.com.ar/img/Mendoza/Potrerillos/Potrerillos-9.jpg",
 			"shortTitle":"1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 			"tnails":[
@@ -18,6 +19,7 @@
 		},
 		{
 			"id":2,
+			"price":"1560",
 			"img":"http://antartidatravel.com/ch/wp-content/uploads/2014/02/mendoza-2.jpg",
 			"shortTitle":"2 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 			"tnails":[
@@ -34,6 +36,7 @@
 		},
 		{
 			"id":3,
+			"price":"1980",
 			"img":"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
 			"shortTitle":"3 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 			"tnails":[
@@ -50,6 +53,7 @@
 		},
 		{
 			"id":4,
+			"price":"760",
 			"img":"http://www.sancarlosviajes.tur.ar/wp-content/uploads/2015/08/mendoza.jpg",
 			"shortTitle":"4 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 			"tnails":[
@@ -66,6 +70,7 @@
 		}, 
 		{
 			"id":5,
+			"price":"2500",
 			"img":"http://clasticdetritus.files.wordpress.com/2008/10/2005_0405chile0048.jpg",
 			"shortTitle":"5 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 			"tnails":[
@@ -82,6 +87,75 @@
 		}, 
 		{
 			"id":6,
+			"price":"1900",
+			"img":"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+			"shortTitle":"6 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			"tnails":[
+				"http://antartidatravel.com/ch/wp-content/uploads/2014/02/mendoza-2.jpg",
+				"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+				"http://www.sancarlosviajes.tur.ar/wp-content/uploads/2015/08/mendoza.jpg",
+				"http://clasticdetritus.files.wordpress.com/2008/10/2005_0405chile0048.jpg"
+			],			
+			"class":"col-xs-12 col-md-5",
+			"title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Paquete #",
+			"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum pulvinar purus vitae elementum. Nullam a est id sapien dictum luctus eget sollicitudin lectus. Fusce sed mi laoreet risus volutpat cursus. Sed pulvinar auctor libero, sit amet dapibus felis rhoncus quis. Nunc at semper libero, nec pharetra magna. Pellentesque facilisis mauris id ligula lacinia consequat. Nam efficitur neque in nulla eleifend, sit amet faucibus turpis dapibus. Morbi nunc nunc, vehicula sit amet mollis sit amet, dapibus nec dolor. Ut ut hendrerit metus. Duis finibus ante ac felis posuere aliquet. Etiam scelerisque massa eu faucibus dapibus. In luctus sollicitudin mi, vel rhoncus est eleifend ut. Praesent quis quam leo. Mauris eget consectetur dui. Quisque malesuada massa sit amet libero mollis aliquam.",
+			"subtitle":"Lorem ipsum dolor sit amet",
+			"subdescription":"Fusce consequat consectetur hendrerit. Cras pretium a massa ultricies luctus. Sed porttitor rutrum neque, ultricies consequat mi elementum a. Nunc rutrum mi nibh, nec hendrerit erat accumsan non. Phasellus sed nisl eget lacus scelerisque rhoncus et nec diam. Donec eget sem volutpat, hendrerit purus eu, sagittis augue. Proin ut massa tincidunt, commodo lectus sed, malesuada neque."
+		},
+				{
+			"id":7,
+			"price":"2900",
+			"img":"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+			"shortTitle":"6 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			"tnails":[
+				"http://antartidatravel.com/ch/wp-content/uploads/2014/02/mendoza-2.jpg",
+				"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+				"http://www.sancarlosviajes.tur.ar/wp-content/uploads/2015/08/mendoza.jpg",
+				"http://clasticdetritus.files.wordpress.com/2008/10/2005_0405chile0048.jpg"
+			],			
+			"class":"col-xs-12 col-md-5",
+			"title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Paquete #",
+			"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum pulvinar purus vitae elementum. Nullam a est id sapien dictum luctus eget sollicitudin lectus. Fusce sed mi laoreet risus volutpat cursus. Sed pulvinar auctor libero, sit amet dapibus felis rhoncus quis. Nunc at semper libero, nec pharetra magna. Pellentesque facilisis mauris id ligula lacinia consequat. Nam efficitur neque in nulla eleifend, sit amet faucibus turpis dapibus. Morbi nunc nunc, vehicula sit amet mollis sit amet, dapibus nec dolor. Ut ut hendrerit metus. Duis finibus ante ac felis posuere aliquet. Etiam scelerisque massa eu faucibus dapibus. In luctus sollicitudin mi, vel rhoncus est eleifend ut. Praesent quis quam leo. Mauris eget consectetur dui. Quisque malesuada massa sit amet libero mollis aliquam.",
+			"subtitle":"Lorem ipsum dolor sit amet",
+			"subdescription":"Fusce consequat consectetur hendrerit. Cras pretium a massa ultricies luctus. Sed porttitor rutrum neque, ultricies consequat mi elementum a. Nunc rutrum mi nibh, nec hendrerit erat accumsan non. Phasellus sed nisl eget lacus scelerisque rhoncus et nec diam. Donec eget sem volutpat, hendrerit purus eu, sagittis augue. Proin ut massa tincidunt, commodo lectus sed, malesuada neque."
+		},
+				{
+			"id":8,
+			"price":"3900",
+			"img":"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+			"shortTitle":"6 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			"tnails":[
+				"http://antartidatravel.com/ch/wp-content/uploads/2014/02/mendoza-2.jpg",
+				"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+				"http://www.sancarlosviajes.tur.ar/wp-content/uploads/2015/08/mendoza.jpg",
+				"http://clasticdetritus.files.wordpress.com/2008/10/2005_0405chile0048.jpg"
+			],			
+			"class":"col-xs-12 col-md-5",
+			"title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Paquete #",
+			"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum pulvinar purus vitae elementum. Nullam a est id sapien dictum luctus eget sollicitudin lectus. Fusce sed mi laoreet risus volutpat cursus. Sed pulvinar auctor libero, sit amet dapibus felis rhoncus quis. Nunc at semper libero, nec pharetra magna. Pellentesque facilisis mauris id ligula lacinia consequat. Nam efficitur neque in nulla eleifend, sit amet faucibus turpis dapibus. Morbi nunc nunc, vehicula sit amet mollis sit amet, dapibus nec dolor. Ut ut hendrerit metus. Duis finibus ante ac felis posuere aliquet. Etiam scelerisque massa eu faucibus dapibus. In luctus sollicitudin mi, vel rhoncus est eleifend ut. Praesent quis quam leo. Mauris eget consectetur dui. Quisque malesuada massa sit amet libero mollis aliquam.",
+			"subtitle":"Lorem ipsum dolor sit amet",
+			"subdescription":"Fusce consequat consectetur hendrerit. Cras pretium a massa ultricies luctus. Sed porttitor rutrum neque, ultricies consequat mi elementum a. Nunc rutrum mi nibh, nec hendrerit erat accumsan non. Phasellus sed nisl eget lacus scelerisque rhoncus et nec diam. Donec eget sem volutpat, hendrerit purus eu, sagittis augue. Proin ut massa tincidunt, commodo lectus sed, malesuada neque."
+		},
+				{
+			"id":9,
+			"price":"800",
+			"img":"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+			"shortTitle":"6 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			"tnails":[
+				"http://antartidatravel.com/ch/wp-content/uploads/2014/02/mendoza-2.jpg",
+				"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
+				"http://www.sancarlosviajes.tur.ar/wp-content/uploads/2015/08/mendoza.jpg",
+				"http://clasticdetritus.files.wordpress.com/2008/10/2005_0405chile0048.jpg"
+			],			
+			"class":"col-xs-12 col-md-5",
+			"title":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Paquete #",
+			"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum pulvinar purus vitae elementum. Nullam a est id sapien dictum luctus eget sollicitudin lectus. Fusce sed mi laoreet risus volutpat cursus. Sed pulvinar auctor libero, sit amet dapibus felis rhoncus quis. Nunc at semper libero, nec pharetra magna. Pellentesque facilisis mauris id ligula lacinia consequat. Nam efficitur neque in nulla eleifend, sit amet faucibus turpis dapibus. Morbi nunc nunc, vehicula sit amet mollis sit amet, dapibus nec dolor. Ut ut hendrerit metus. Duis finibus ante ac felis posuere aliquet. Etiam scelerisque massa eu faucibus dapibus. In luctus sollicitudin mi, vel rhoncus est eleifend ut. Praesent quis quam leo. Mauris eget consectetur dui. Quisque malesuada massa sit amet libero mollis aliquam.",
+			"subtitle":"Lorem ipsum dolor sit amet",
+			"subdescription":"Fusce consequat consectetur hendrerit. Cras pretium a massa ultricies luctus. Sed porttitor rutrum neque, ultricies consequat mi elementum a. Nunc rutrum mi nibh, nec hendrerit erat accumsan non. Phasellus sed nisl eget lacus scelerisque rhoncus et nec diam. Donec eget sem volutpat, hendrerit purus eu, sagittis augue. Proin ut massa tincidunt, commodo lectus sed, malesuada neque."
+		},
+				{
+			"id":10,
+			"price":"900",
 			"img":"http://i1221.photobucket.com/albums/dd469/spearcopenox/mendoza%20en%20fotos/Mendoza-Argentina-potrerillos.jpg",
 			"shortTitle":"6 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 			"tnails":[

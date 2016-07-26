@@ -4,12 +4,12 @@ function BrisasNavbarDirective(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.directive('brisasNavbar', brisasNavbarDirective);
-
-    function brisasNavbarDirective($state){
+    brisasNavbarDirective.$inject = ['$state','$http'];
+    function brisasNavbarDirective($state,$http){
     	return {
     		restrict: "E",
     		replace: true,
-    		templateUrl: 'components/navbar-brisas/navbar-brisas.template.html',
+    		templateUrl: './dist/components/navbar-brisas/navbar-brisas.template.html',
     		link: link,
     		controllerAs: 'navbarCtrl',
     		controller: controller
@@ -27,7 +27,7 @@ function BrisasNavbarDirective(angular, app) {
                     $("#brand").addClass("navbar-fixed-brand");
                     $("#subbrand").removeClass("subbrand");
                     $("#subbrand").addClass("subbrand-fixed");
-                    $("#brand img").attr("src","./../../styles/images/premium-fixed.png");
+                    $("#brand img").attr("src","./dist/styles/images/premium-fixed.png");
                 } else {
                     scope.logoFixed = false;
                     $("nav").addClass("navbar");
@@ -36,34 +36,44 @@ function BrisasNavbarDirective(angular, app) {
                     $("#brand").removeClass("navbar-fixed-brand");
                     $("#subbrand").addClass("subbrand");
                     $("#subbrand").removeClass("subbrand-fixed");
-                    $("#brand img").attr("src","./../../styles/images/premium2.png");
+                    $("#brand img").attr("src","./dist/styles/images/premium2.png");
                 }
             });
         }
-        function controller(){
+        function controller($state){
     		var self = this; //jshint
             self.logoFixed = false;
-            self.items = [
-            {name:'Paquetes Turísticos',class:'menu packages', target:'packages','uisref':'home'},
-            {name:'Galería', class:'menu', target:'galery','uisref':'home'},
-            {name:'Tasa un viaje',class:'menu', target:'rate','uisref':'home.tasar'},
-            {name:'Contactanos', class:'menu', target:'footer','uisref':'home'}
-            ];
-            $(document).on('click','.menu', function(event) {
-                event.preventDefault();
-                var target = "#" + this.getAttribute('data-target');
-                if(target == "#top"){
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, 1000);
-                } else {                
-                    $state.go('home').then(function(){
-                     $('html, body').animate({
-                        scrollTop: $(target).offset().top
-                    }, 1000);
-                 });
+            self.username = "";
+            $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
+                self.isAdmin = response.isAdmin;
+            });
+            if(sessionStorage.getItem('sskey')){
+                self.isLogged  = true;
+            } else {
+                self.isLogged = false;
+            }
+            if(self.isLogged){
+                self.username = sessionStorage.getItem('username');
+            }
+            self.exit = exit;
+            self.toContact = toContact;
+            function toContact(){
+                if($state.current.name == 'home'){
+                    $('html, body').animate({ scrollTop: 4400}, 'slow');    
+                } else {
+                    $state.go("home").then(function() {
+                        $('html, body').animate({ scrollTop: 4400}, 'slow');
+                    });
                 }
-            }); 
+            }
+            function exit(){
+                $http.post('./dist/php/delete_session.php',{ sskey: sessionStorage.getItem('sskey') }).success(function (response){
+                   if(response.deleted){
+                    sessionStorage.clear();
+                    $state.go("home", {}, {reload:true});
+                   }
+               });
+            }
         }
     }
 }

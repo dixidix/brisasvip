@@ -1,0 +1,84 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.login {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .login textarea {
+    resize: none; }
+  .login .remove-img {
+    cursor: pointer;
+    font-family: "RobotoRegular", Arial;
+    font-size: 14px;
+    color: red;
+    text-decoration: none; }
+  .login img {
+    width: 100%;
+    padding-bottom: 3px; }
+  .login .images-box {
+    background: white;
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center; }
+  .login input[type="file"]::-webkit-file-upload-button, .login input[type="file"]::-webkit-file-upload-button:active, .login input[type="file"]::-webkit-file-upload-button:focus, .login input[type="file"]::-webkit-file-upload-button:active:focus, .login input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #068c8f;
+    border: 0px;
+    color: #fff;
+    width: 200px;
+    height: 40px;
+    outline: 0;
+    padding: 0.4em 1em;
+    font-family: "RobotoRegular", Arial; }
+  .login input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #07a4a7;
+    cursor: pointer; }
+  .login .example {
+    font-size: 13px;
+    color: gray; }
+  .login h3 {
+    margin-bottom: 40px; }
+  .login .form-control, .login .btn {
+    border-radius: 0; }
+    .login .form-control:focus, .login .form-control:active:focus, .login .form-control:active, .login .btn:focus, .login .btn:active:focus, .login .btn:active {
+      outline: #de9900;
+      border-color: #de9900;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .login input {
+    height: 40px; }
+  .login .text-center article {
+    padding-bottom: 55px; }
+  .login .text-center .title {
+    font-family: "MuseoSans-500", Arial;
+    font-size: 35px; }
+  .login .text-center .description {
+    font-family: "MuseoSans-100", Arial;
+    font-size: 25px; }
+  .login i {
+    font-size: 15px;
+    vertical-align: 0px;
+    margin-left: 10px; }
+  .login .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .login .btn-brisas, .login .btn-brisas:active, .login .btn-brisas:focus, .login .btn-brisas:active:focus, .login .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .login .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .login .btn-brisas-danger {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .login .btn-brisas-danger, .login .btn-brisas-danger:active, .login .btn-brisas-danger:focus, .login .btn-brisas-danger:active:focus, .login .btn-brisas-danger:hover {
+      background-color: #B0062A;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .login .btn-brisas-danger:hover {
+      background-color: #c90730; }

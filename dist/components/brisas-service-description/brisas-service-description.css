@@ -28,7 +28,7 @@
       position: absolute;
       top: 180px;
       right: 0%;
-      height: 540px;
+      height: 539px;
       padding-right: 0;
       text-align: left; }
       .serviceDescription .services-description__text {
@@ -63,7 +63,3 @@
     /* Chrome, Safari, Opera */
     filter: brightness(50%);
     width: 100%; }
-  .serviceDescription p {
-    font-size: 18px;
-    text-align: justify;
-    font-family: "RobotoLight", Arial; }

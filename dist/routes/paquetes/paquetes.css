@@ -3,6 +3,132 @@
 /* Fonts */
 /** Devices Breakpoints **/
 /** Mixins for responsive content **/
+.package {
+  margin: 0 30px;
+  margin-bottom: 100px;
+  margin-top: 50px;
+  text-decoration: none; }
+  .package .package-list-item.ng-enter {
+    -ms-opacity: 0;
+    opacity: 0; }
+  .package .package-list-item.ng-enter.ng-enter-active {
+    -ms-opacity: 1;
+    opacity: 1; }
+  .package .package-list-item.ng-leave {
+    -webkit-transition: 0.2s linear all;
+    -moz-transition: 0.2s linear all;
+    -ms-transition: 0.2s linear all;
+    -o-transition: 0.2s linear all;
+    transition: 0.2s linear all;
+    -ms-opacity: 1;
+    opacity: 1; }
+  .package .package-list-item.ng-leave.ng-leave-active {
+    -ms-opacity: 0;
+    opacity: 0; }
+  .package .ngrs-range-slider {
+    margin: 10px 0 10px; }
+  .package .sidebar {
+    top: 0;
+    padding: 15px;
+    box-shadow: 1px 5px 7px #2e2e2e;
+    margin-top: 9px;
+    background: #ccc; }
+    .package .sidebar h4 {
+      font-size: 16px; }
+    .package .sidebar .fa-search {
+      position: absolute;
+      top: 62px;
+      left: 25px;
+      color: #068c8f; }
+    .package .sidebar .form-control, .package .sidebar .btn {
+      border-radius: 0;
+      padding-left: 30px;
+      box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075); }
+      .package .sidebar .form-control:focus, .package .sidebar .form-control:active:focus, .package .sidebar .form-control:active, .package .sidebar .btn:focus, .package .sidebar .btn:active:focus, .package .sidebar .btn:active {
+        outline: #de9900;
+        border-color: #de9900;
+        box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075); }
+  .package .delete {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 70%;
+    z-index: 999;
+    left: 86%;
+    cursor: pointer; }
+  .package .edit {
+    color: white;
+    font-size: 18px;
+    position: absolute;
+    top: 171px;
+    z-index: 999;
+    left: 76%;
+    cursor: pointer; }
+  .package .card {
+    box-shadow: 1px 5px 7px #2e2e2e;
+    height: 200px;
+    width: 100%;
+    margin-bottom: 30px;
+    background-size: cover;
+    -webkit-filter: brightness(80%);
+    /* Chrome, Safari, Opera */
+    filter: brightness(80%); }
+    .package .card:hover {
+      cursor: pointer;
+      -webkit-filter: brightness(100%);
+      /* Chrome, Safari, Opera */
+      filter: brightness(100%); }
+    .package .card h4 {
+      -webkit-filter: brightness(100%) !important;
+      /* Chrome, Safari, Opera */
+      filter: brightness(100%) !important;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      padding-top: 25px; }
+    .package .card .short-title {
+      text-shadow: 0 0 4px #000;
+      max-width: 220px;
+      word-break: break-word; }
+  .package .price {
+    background: #b0062a;
+    height: 40px;
+    width: 93%;
+    position: absolute;
+    top: 68%;
+    left: 10px; }
+    .package .price h3 {
+      margin-top: 9px;
+      text-align: center;
+      color: white;
+      top: 0; }
+  .package .premium-price {
+    background: #de9900;
+    height: 40px;
+    width: 93%;
+    position: absolute;
+    top: 68%;
+    left: 10px; }
+    .package .premium-price h3 {
+      margin-top: 9px;
+      text-align: center;
+      color: white;
+      top: 0; }
+  .package .promo {
+    background: rgba(6, 140, 143, 0.6);
+    height: 30px;
+    min-width: 45%;
+    padding: 0px 5%;
+    position: absolute;
+    top: 54%;
+    right: 8px; }
+    .package .promo h4 {
+      font-size: 14px;
+      margin-top: 9px;
+      text-align: center;
+      color: white;
+      top: 0; }
+
 .modal-body {
   height: 550px;
   margin: 0px;
@@ -20,6 +146,7 @@
   background-position: center; }
 
 .package-description {
+  margin-bottom: 100px;
   margin-top: 3%;
   text-align: justify; }
   .package-description p {

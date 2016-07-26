@@ -4,7 +4,7 @@ function scripts(gulp, $){
 
 	$.paths.js = {
 		app: ['app/**/*.js','app/routes/**/*.js','app/components/**/*.js'],
-		moveToDist : ['app/**/*.js','app/routes/**/*.js','app/components/**/*.js'],
+		moveToDist : ['app/**/*.js','app/routes/**/*.js','app/components/**/*.js','app/**/*.php'],
 		components:[
 		'app/components/**/*.js',
 		'app/routes/**/*.js'

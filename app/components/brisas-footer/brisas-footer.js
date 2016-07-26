@@ -9,7 +9,7 @@ function BrisasFooterDirective(angular, app) {
     	return {
     		restrict: "E",
     		replace: true,
-    		templateUrl: 'components/brisas-footer/brisas-footer.template.html',
+    		templateUrl: './dist/components/brisas-footer/brisas-footer.template.html',
     		link: link,
     		controllerAs: 'footerCtrl',
     		controller: controller

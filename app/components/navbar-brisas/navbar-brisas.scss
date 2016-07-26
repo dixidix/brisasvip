@@ -1,6 +1,11 @@
 @import '../../styles/mixins/main';
 
 .navbar{
+	i{
+		font-size: 15px;
+		vertical-align: -1px;
+		margin-left: 5px;
+	}
 	position:relative;
 	transition: all 0.2s ease-in-out;
 	z-index:999;
@@ -42,13 +47,13 @@
 			}
 		}
 		.packages{
-		margin-top:8px;
-		padding:5px;
-		border:2px solid white;
-		border-radius:4px;
-		&:hover,&:focus{
-		border-color:$premium;
-		}	
+			margin-top:8px;
+			padding:5px;
+			border:2px solid white;
+			border-radius:4px;
+			&:hover,&:focus{
+				border-color:$premium;
+			}	
 		}
 	}
 }
@@ -57,11 +62,11 @@
 	&-fixed{
 		display: inline-block;
 		margin-left: 210px;
-        width: 100%;
-        margin-top: 22px;
-        font-family: RobotoLight;
-        font-size: 15px;
-        font-style: italic;
+		width: 100%;
+		margin-top: 22px;
+		font-family: RobotoLight;
+		font-size: 15px;
+		font-style: italic;
 	}
 }
 
@@ -115,13 +120,13 @@
 			}
 		}
 		.packages{
-		margin-top:8px;
-		padding:5px;
-		border:2px solid $premium;
-		border-radius:4px;
-		&:hover,&:focus{
-		border-color:$premium;
-		}	
+			margin-top:8px;
+			padding:5px;
+			border:2px solid $premium;
+			border-radius:4px;
+			&:hover,&:focus{
+				border-color:$premium;
+			}	
 		}
 	}
 }

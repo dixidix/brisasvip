@@ -9,7 +9,7 @@ function BrisasSearchDirective(angular, app) {
     	return {
     		restrict: "E",
     		replace: true,
-    		templateUrl: 'components/search-brisas/search-brisas.template.html',
+    		templateUrl: './dist/components/search-brisas/search-brisas.template.html',
     		link: link,
     		controllerAs: 'searchCtrl',
     		controller: controller

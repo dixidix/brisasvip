@@ -1,0 +1,40 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.contacto {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .contacto .form-control, .contacto .btn {
+    border-radius: 0; }
+    .contacto .form-control:focus, .contacto .form-control:active:focus, .contacto .form-control:active, .contacto .btn:focus, .contacto .btn:active:focus, .contacto .btn:active {
+      outline: #de9900;
+      border-color: #de9900;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .contacto input[type="text"] {
+    height: 50px; }
+  .contacto .text-center article {
+    padding-bottom: 55px; }
+  .contacto .text-center .title {
+    font-family: "MuseoSans-500", Arial;
+    font-size: 35px; }
+  .contacto .text-center .description {
+    font-family: "MuseoSans-100", Arial;
+    font-size: 25px; }
+  .contacto textarea {
+    resize: none; }
+  .contacto i {
+    font-size: 15px;
+    vertical-align: -1px;
+    margin-left: 10px; }
+  .contacto .btn-brisas {
+    font-size: 16px;
+    opacity: 1; }
+    .contacto .btn-brisas, .contacto .btn-brisas:active, .contacto .btn-brisas:focus, .contacto .btn-brisas:active:focus, .contacto .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .contacto .btn-brisas:hover {
+      background-color: #07a4a7; }
