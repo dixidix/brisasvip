@@ -14,13 +14,13 @@
 		.state('home.editUser', {url: "editar-usuario",params: {user:{}}, templateUrl: "./dist/routes/editUser/editUser.template.html", data: { requireAdmin: false }, controller:"editUsersCtrl", controllerAs:"editUser"})
 		.state('home.register', {url: "register", templateUrl: "./dist/routes/register/register.template.html", data: { requireAdmin: false }, controller:"registerCtrl", controllerAs:"register"})
 		.state('home.editPackage', {url: "editar-paquete/{packageId}", templateUrl: "./dist/routes/addPackage/addPackage.template.html",  data: { requireAdmin: true }, controller:"addPackageCtrl", controllerAs:"addPackage"})
-		.state('home.dashboard', {url: "administrar", abstract:true, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html", controller:"dashboardCtrl", controllerAs:"dashboard"}}})
+		.state('home.dashboard', {url: "administrar", abstract:true,  data: { requireAdmin: true }, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html",  data: { requireAdmin: true }, controller:"dashboardCtrl", controllerAs:"dashboard"}}})
 		.state('home.dashboard.addPackage', {url: "",params: {pkgedit:{}}, views: {
-		 "tab1": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html", controller:"addPackageCtrl", controllerAs:"addPackage"},
-		 "tab2": {  templateUrl: "./dist/routes/editFares/editFares.template.html", controller:"faresCtrl", controllerAs:"fares"},
-		 "tab3": {  templateUrl: "./dist/routes/adminUsers/adminUsers.template.html", controller:"adminUsersCtrl", controllerAs:"adminUsers"},
-		 "tab4": {  templateUrl: "./dist/routes/reqPackages/reqPackages.template.html", controller:"reqPackagesCtrl", controllerAs:"reqPackages"},
-		 "tab5": {  templateUrl: "./dist/routes/reqTrips/reqTrips.template.html", controller:"reqTripsCtrl", controllerAs:"reqTrips"}
+			"tab1": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html", controller:"addPackageCtrl", controllerAs:"addPackage"},
+			"tab2": {  templateUrl: "./dist/routes/editFares/editFares.template.html", controller:"faresCtrl", controllerAs:"fares"},
+			"tab3": {  templateUrl: "./dist/routes/adminUsers/adminUsers.template.html", controller:"adminUsersCtrl", controllerAs:"adminUsers"},
+			"tab4": {  templateUrl: "./dist/routes/reqPackages/reqPackages.template.html", controller:"reqPackagesCtrl", controllerAs:"reqPackages"},
+			"tab5": {  templateUrl: "./dist/routes/reqTrips/reqTrips.template.html", controller:"reqTripsCtrl", controllerAs:"reqTrips"}
 		}})
 		.state('home.choferes', {url: "choferes",templateUrl: "./dist/routes/choferes/choferes.template.html", data: { requireAdmin: false }, controller:"driversCtrl", controllerAs:"drivers"})
 		.state('home.landing', {url: "finalizar-compra",templateUrl: "./dist/routes/landingBuyPackage/landing.template.html", data: { requireAdmin: false }, controller:"landingCtrl", controllerAs:"landing"})
@@ -33,13 +33,13 @@
 
 			$http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
 				self.isAdmin = response.isAdmin;
-			});
-			var requireAdmin = toState.data.requireAdmin;
-			console.log(requireAdmin, self.isAdmin);
-			if(requireAdmin && self.isAdmin == 0 || requireAdmin && self.isAdmin == undefined){
+				var requireAdmin = toState.data.requireAdmin;
 				console.log(requireAdmin, self.isAdmin);
-				event.preventDefault();
-			}
+				if(requireAdmin && self.isAdmin == 0 || requireAdmin && self.isAdmin == undefined){
+					event.preventDefault();
+					$state.go('home',{reload:true});
+				}
+			});
 		});
 	});
 

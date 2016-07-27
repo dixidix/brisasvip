@@ -1,6 +1,5 @@
 	<div class="adminUsers container">
 		<link rel="stylesheet" type="text/css" href="./dist/routes/adminUsers/adminUsers.css" >
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 		<article>
 			<div class="content row">
 				<div class="panel panel-default">
@@ -22,7 +21,7 @@
 								<td><span>{{user.email}}</span></td>
 								<td><span>{{user.tel}}</span></td>
 								<td><span>{{user.city}}</span></td>
-								<td><i ng-if="user.id !== user.loggedId" class="fa fa-times" tooltip-placement="left" uib-tooltip="Eliminar" ng-click="adminUsers.remove(user.id)"> </i> <i tooltip-placement="top" uib-tooltip="Editar" class="fa fa-pencil-square-o" ng-click="adminUsers.edit(user)"></i> <i tooltip-placement="right" uib-tooltip="{{user.isAdmin == 1 ? 'Quitar Admin':'Hacer Admin'}}" class="fa" ng-class="user.isAdmin == 1 ? 'fa-unlock':'fa-lock'" ng-click="adminUsers.makeAdmin(user)"></i></td>
+								<td><div class="actions"><i ng-if="user.id !== user.loggedId" class="fa fa-times" tooltip-placement="left" uib-tooltip="Eliminar" ng-click="adminUsers.remove(user.id)"> </i> <i tooltip-placement="top" uib-tooltip="Editar" class="fa fa-pencil-square-o" ng-click="adminUsers.edit(user)"></i> <i tooltip-placement="right" uib-tooltip="{{user.isAdmin == 1 ? 'Quitar Admin':'Hacer Admin'}}" class="fa" ng-class="user.isAdmin == 1 ? 'fa-unlock':'fa-lock'" ng-click="adminUsers.makeAdmin(user)"></i></div></td>
 							</tr>
 						</tbody>
 					</table>

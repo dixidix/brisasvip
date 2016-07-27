@@ -30,7 +30,7 @@ if(!empty($_POST['contactForm'])){
 	$to = "brisasvipprueba@gmail.com";
 	$subject = "Consulta Web de: $fullname";
 	$consulta = "<div> <h3>Consulta Web :: Brisas Vip</h3> <span><b>Nombre: </b></span><span>$fullname</span><br /> <span><b>E-Mail: </b></span><span>$from</span><br /><span><b>Tel: </b></span><span>$tel</span><br /><b>Consulta: </b><br/><p>$consulta</p><br /></div>";
-
+	$mail->CharSet = 'UTF-8';
 	$mail->AddReplyTo($from, $fullname);
 	$mail->SetFrom($from, $name);
 	$mail->Subject = $subject;
@@ -58,7 +58,7 @@ if(!empty($_POST['contactForm'])){
 
 	$subject = "Reserva Web de: $user";
 	$consulta = "<div> <h3>Reserva Web :: Brisas Vip</h3><h4>Fecha de solicitud: $requestDate</h4> <span><b>Nombre: </b></span><span>$user</span><br /><span><b>E-Mail: </b></span><span>$userEmail</span><br /><span><b>Tel: </b></span><span>$userTel</span><br /> <span><b>Fecha de reserva: </b></span><span>$date</span><br /><span><b>Hora de reserva: </b></span><span>$time hs</span><br /><b>Desde: </b><br/><span>$from</span><br /><b>Hasta: </b><br/><span>$to</span><br /><b>Distancia: </b><br/><span>$distance Km.</span><br /><b>Precio: </b><br/><span>$ $price</span><br /></div>";
-
+	$mail->CharSet = 'UTF-8';
 	$mail->AddReplyTo($userEmail, $user);
 	$mail->SetFrom($correo, $user);
 	$mail->Subject = $subject;
@@ -66,6 +66,51 @@ if(!empty($_POST['contactForm'])){
 	$mail->Body    = $consulta;
 	$mail->AltBody = "de:$user,tel: $date, E-mail: $time,Consulta: $from";
 
+} else if(!empty($_POST['confirm'])){
+	$body = file_get_contents('./emails/confirm.template.html', FILE_USE_INCLUDE_PATH);
+	$email = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['email']));
+	$msg = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['msg']));
+	$date = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['date']));
+	$time = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['time']));
+	$from = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['from']));
+	$to = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['to']));
+	$id = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['id']));
+
+
+	$to = "brisasvipprueba@gmail.com";
+	$name = "Brisas VIP";
+	$subject = "Confirmación de solicitud de servicio";
+	$mail->CharSet = 'UTF-8';
+	$mail->AddReplyTo($to);
+	$mail->SetFrom($to, $name);
+	$mail->Subject = $subject;
+	$mail->AddAddress($email);
+	$mail->Body    = $body;
+	$mail->AltBody = "Confirmación de solicitud de servicio: $msg";
+
+	MysqliDB::getInstance()->query("UPDATE `requested_trips` SET `state`= 1 WHERE `id`= ".$id."");	
+
+} else if(!empty($_POST['revoke'])){
+
+	$body = file_get_contents('./emails/revoke.template.html', FILE_USE_INCLUDE_PATH);
+
+	$email = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['email']));
+	$msg = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['msg']));
+	$id = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['id']));
+
+	$to = "brisasvipprueba@gmail.com";
+	$name = "Brisas VIP";
+	$subject = "Rechazo de solicitud de servicio";
+	$consulta = "<div> <h3>Rechazo de solicitud de servicio :: Brisas Vip</h3><p>$msg</p><br /></div>";
+	$mail->CharSet = 'UTF-8';
+	$mail->AddReplyTo($to);
+	$mail->SetFrom($to, $name);
+	$mail->Subject = $subject;
+	$mail->AddAddress($email);
+	$mail->Body    = $body;
+	$mail->AltBody = "Rechazo de solicitud de servicio: $msg";
+
+	MysqliDB::getInstance()->query("UPDATE `requested_trips` SET `state`= 2 WHERE `id`= ".$id."");	
 }
 if(!$mail->send()) {
 	echo 'Message could not be sent.';

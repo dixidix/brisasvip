@@ -3,6 +3,9 @@
 /* Fonts */
 /** Devices Breakpoints **/
 /** Mixins for responsive content **/
+.fa-unlock:before {
+  margin-right: -5px !important; }
+
 .adminUsers {
   padding-top: 80px;
   margin-bottom: 100px; }
@@ -11,6 +14,8 @@
     margin: 0px 5px; }
     .adminUsers i:hover {
       cursor: pointer; }
+  .adminUsers .actions {
+    float: right; }
   .adminUsers .table {
     width: 100%;
     text-align: center; }

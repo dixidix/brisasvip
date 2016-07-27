@@ -79,7 +79,6 @@ function addPackageController(angular, app) {
 
           self.actionLabel = "Crear Paquete";
           if( $state.params.packageId ){
-            console.log($state.params.packageId);
             $http.get('./dist/php/get_packages.php').then(function(response) {           
               self.package = $filter('filter')(response.data.packages, {id: $state.params.packageId})[0];
               self.actionLabel = "Modificar Paquete";

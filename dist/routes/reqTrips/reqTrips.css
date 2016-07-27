@@ -6,6 +6,11 @@
 .reqTrips {
   padding-top: 80px;
   margin-bottom: 100px; }
+  .reqTrips i {
+    font-size: 18px;
+    margin: 0px 2px; }
+    .reqTrips i:hover {
+      cursor: pointer; }
   .reqTrips .form-control:focus, .reqTrips .form-control:active:focus, .reqTrips .form-control:active, .reqTrips .btn:focus, .reqTrips .btn:active:focus, .reqTrips .btn:active {
     outline: #de9900;
     border-color: #de9900;

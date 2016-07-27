@@ -167,7 +167,6 @@ function rateController(angular, app) {
                 self.userId = response.userId;
                 self.userEmail = response.userEmail;
                 self.userTel = response.userTel;
-                console.log(self.userId,self.userEmail,self.userTel);
                 $http.post('./dist/php/sendMail.php', {
                  from : $state.params.from,
                  to : $state.params.to,

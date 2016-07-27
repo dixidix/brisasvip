@@ -10,11 +10,7 @@ function reqPackagesController(angular, app) {
     function reqPackagesCtrl($state, $scope,$http){
         var self = this; //jshint ignore:line
         self.packages = {};
-        function update(reqPackage){
-          console.log(reqPackage);
-        }
         function init(){
-         self.update = update;
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
           $scope.bigTotalItems = Object.keys(self.packages).length;
@@ -23,7 +19,7 @@ function reqPackagesController(angular, app) {
             $scope.currentPage = pageNo;
           };
           $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
+
           };
         });
        }

@@ -27,7 +27,6 @@ function editUsersController(angular, app) {
         function init(){
           $('html, body').animate({ scrollTop: 500 }, 'slow'); 
           self.update = update;
-          console.log($state.params);
           self.user = $state.params.user;
           var input1 = document.getElementById('country');
           var autocomplete = new google.maps.places.Autocomplete(input1);

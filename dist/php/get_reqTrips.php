@@ -15,6 +15,7 @@ while($rs = $res->fetch_array(MYSQLI_ASSOC)) {
 	$outp .= '"req_from":"'  . $rs["req_from"] . '",';
 	$outp .= '"req_to":"'  . $rs["req_to"] . '",';
 	$outp .= '"distance":"'  . $rs["distance"] . '",';
+	$outp .= '"state":"'  . $rs["state"] . '",';
 	$uname = MysqliDB::getInstance()->query("SELECT * FROM users WHERE id=" . $rs["userId"]);
 	while($rss = $uname->fetch_array(MYSQLI_ASSOC)) {
 		$outp .= '"name":"'  . $rss["name"] . '",';

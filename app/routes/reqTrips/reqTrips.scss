@@ -3,6 +3,14 @@
 .reqTrips{
 	padding-top:80px;
 	margin-bottom:100px;
+	i{
+		&:hover{
+			cursor:pointer;
+		}
+		font-size: 18px;
+		margin: 0px 2px
+
+	}
 
 	.form-control, .btn{		
 		&:focus, &:active:focus, &:active{

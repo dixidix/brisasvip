@@ -21,7 +21,7 @@ function adminUsersController(angular, app) {
           $state.go('home.editUser', {user: user},{});
         }
         function makeAdmin(user){
-          console.log(user.id, user.isAdmin);
+
           $http.post('./dist/php/edit_user.php', {
             id: user.id,
             lockunlock: user.isAdmin,
@@ -35,7 +35,7 @@ function adminUsersController(angular, app) {
          self.edit = edit;
          self.makeAdmin = makeAdmin;
          $http.post('./dist/php/get_users.php',{ sskey: sessionStorage.getItem('sskey') }).then(function(response) {    
-          console.log(response.data.users);
+
           self.users = response.data.users;
           $scope.bigTotalItems = Object.keys(self.users).length;
           $scope.bigCurrentPage = 1;
@@ -43,7 +43,7 @@ function adminUsersController(angular, app) {
             $scope.currentPage = pageNo;
           };
           $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
+
           };
         });
        }

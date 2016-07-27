@@ -1,6 +1,5 @@
 	<div class="reqTrips container">
-		<link rel="stylesheet" type="text/css" href="./dist/routes/reqTrips/reqTrips.css" >
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="./dist/routes/reqTrips/reqTrips.css" >		
 		<article>
 			<div class="content">
 				<div class="content row">
@@ -10,17 +9,18 @@
 								<tr>
 									<td><span>Nombre</span></td>
 									<td><span>Apellido</span></td>
-									<td style="min-width: 200px;"><span>Fecha de solicitud</span></td>
-									<td style="min-width: 200px;"><span>Fecha de viaje</span></td>
+									<td style="min-width: 130px;"><span>Fecha de solicitud</span></td>
+									<td style="min-width: 130px;"><span>Fecha de viaje</span></td>
 									<td><span>Hora</span></td>
 									<td><span>Desde</span></td>
 									<td><span>Hasta</span></td>
 									<td><span>Distancia</span></td>
 									<td><span>Precio</span></td>
+									<td><span>Contestar</span></td>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="trip in reqTrips.trips track by $index ">
+								<tr ng-repeat="trip in reqTrips.trips track by $index " ng-style="trip.state == 1 && {'background-color':'rgba(39, 255, 104, 0.1)'}  || trip.state == 2 && {'background-color':'rgba(255, 28, 28, 0.1)'}">
 									<td><span>{{trip.name}}</span></td>
 									<td><span>{{trip.lastname}}</span></td>
 									<td><span>{{trip.request_date}}</span></td>
@@ -30,6 +30,7 @@
 									<td><span>{{trip.req_to}}</span></td>
 									<td><span>{{trip.distance}} Km.</span></td>
 									<td><span>{{trip.price | currency}}</span></td>
+									<td><div ng-if="trip.state != 0">Contestado</div><div ng-if="trip.state ==0" class="actions"><i class="fa fa-check-square-o" style="color:green;" tooltip-placement="left" uib-tooltip="Confirmar viaje" ng-click="reqTrips.confirm(trip)"> </i> <i tooltip-placement="top" style="color:red;" uib-tooltip="Revocar viaje" class="fa fa-times" ng-click="reqTrips.revoke(trip)"></i></div></td>
 								</tr>
 							</tbody>
 						</table>

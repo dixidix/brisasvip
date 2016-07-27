@@ -1,5 +1,7 @@
 @import '../../styles/mixins/main';
-
+.fa-unlock:before {
+	margin-right:-5px !important;
+}
 .adminUsers{
 	padding-top:80px;
 	margin-bottom:100px;
@@ -9,6 +11,10 @@
 		}
 		font-size:18px;
 		margin:0px 5px;
+
+	}
+	.actions{
+		float:right;
 	}
 	.table{
 		width:100%;

@@ -15,13 +15,13 @@
 		.state('home.editUser', {url: "editar-usuario",params: {user:{}}, templateUrl: "./dist/routes/editUser/editUser.template.html", data: { requireAdmin: false }, controller:"editUsersCtrl", controllerAs:"editUser"})
 		.state('home.register', {url: "register", templateUrl: "./dist/routes/register/register.template.html", data: { requireAdmin: false }, controller:"registerCtrl", controllerAs:"register"})
 		.state('home.editPackage', {url: "editar-paquete/{packageId}", templateUrl: "./dist/routes/addPackage/addPackage.template.html",  data: { requireAdmin: true }, controller:"addPackageCtrl", controllerAs:"addPackage"})
-		.state('home.dashboard', {url: "administrar", abstract:true, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html", controller:"dashboardCtrl", controllerAs:"dashboard"}}})
+		.state('home.dashboard', {url: "administrar", abstract:true,  data: { requireAdmin: true }, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html",  data: { requireAdmin: true }, controller:"dashboardCtrl", controllerAs:"dashboard"}}})
 		.state('home.dashboard.addPackage', {url: "",params: {pkgedit:{}}, views: {
-		 "tab1": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html", controller:"addPackageCtrl", controllerAs:"addPackage"},
-		 "tab2": {  templateUrl: "./dist/routes/editFares/editFares.template.html", controller:"faresCtrl", controllerAs:"fares"},
-		 "tab3": {  templateUrl: "./dist/routes/adminUsers/adminUsers.template.html", controller:"adminUsersCtrl", controllerAs:"adminUsers"},
-		 "tab4": {  templateUrl: "./dist/routes/reqPackages/reqPackages.template.html", controller:"reqPackagesCtrl", controllerAs:"reqPackages"},
-		 "tab5": {  templateUrl: "./dist/routes/reqTrips/reqTrips.template.html", controller:"reqTripsCtrl", controllerAs:"reqTrips"}
+			"tab1": {  templateUrl: "./dist/routes/addPackage/addPackage.template.html", controller:"addPackageCtrl", controllerAs:"addPackage"},
+			"tab2": {  templateUrl: "./dist/routes/editFares/editFares.template.html", controller:"faresCtrl", controllerAs:"fares"},
+			"tab3": {  templateUrl: "./dist/routes/adminUsers/adminUsers.template.html", controller:"adminUsersCtrl", controllerAs:"adminUsers"},
+			"tab4": {  templateUrl: "./dist/routes/reqPackages/reqPackages.template.html", controller:"reqPackagesCtrl", controllerAs:"reqPackages"},
+			"tab5": {  templateUrl: "./dist/routes/reqTrips/reqTrips.template.html", controller:"reqTripsCtrl", controllerAs:"reqTrips"}
 		}})
 		.state('home.choferes', {url: "choferes",templateUrl: "./dist/routes/choferes/choferes.template.html", data: { requireAdmin: false }, controller:"driversCtrl", controllerAs:"drivers"})
 		.state('home.landing', {url: "finalizar-compra",templateUrl: "./dist/routes/landingBuyPackage/landing.template.html", data: { requireAdmin: false }, controller:"landingCtrl", controllerAs:"landing"})
@@ -34,13 +34,13 @@
 
 			$http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
 				self.isAdmin = response.isAdmin;
-			});
-			var requireAdmin = toState.data.requireAdmin;
-			console.log(requireAdmin, self.isAdmin);
-			if(requireAdmin && self.isAdmin == 0 || requireAdmin && self.isAdmin == undefined){
+				var requireAdmin = toState.data.requireAdmin;
 				console.log(requireAdmin, self.isAdmin);
-				event.preventDefault();
-			}
+				if(requireAdmin && self.isAdmin == 0 || requireAdmin && self.isAdmin == undefined){
+					event.preventDefault();
+					$state.go('home',{reload:true});
+				}
+			});
 		});
 	});
 
@@ -587,7 +587,6 @@ function addPackageController(angular, app) {
 
           self.actionLabel = "Crear Paquete";
           if( $state.params.packageId ){
-            console.log($state.params.packageId);
             $http.get('./dist/php/get_packages.php').then(function(response) {           
               self.package = $filter('filter')(response.data.packages, {id: $state.params.packageId})[0];
               self.actionLabel = "Modificar Paquete";
@@ -632,7 +631,7 @@ function adminUsersController(angular, app) {
           $state.go('home.editUser', {user: user},{});
         }
         function makeAdmin(user){
-          console.log(user.id, user.isAdmin);
+
           $http.post('./dist/php/edit_user.php', {
             id: user.id,
             lockunlock: user.isAdmin,
@@ -646,7 +645,7 @@ function adminUsersController(angular, app) {
          self.edit = edit;
          self.makeAdmin = makeAdmin;
          $http.post('./dist/php/get_users.php',{ sskey: sessionStorage.getItem('sskey') }).then(function(response) {    
-          console.log(response.data.users);
+
           self.users = response.data.users;
           $scope.bigTotalItems = Object.keys(self.users).length;
           $scope.bigCurrentPage = 1;
@@ -654,7 +653,7 @@ function adminUsersController(angular, app) {
             $scope.currentPage = pageNo;
           };
           $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
+
           };
         });
        }
@@ -832,7 +831,6 @@ function editUsersController(angular, app) {
         function init(){
           $('html, body').animate({ scrollTop: 500 }, 'slow'); 
           self.update = update;
-          console.log($state.params);
           self.user = $state.params.user;
           var input1 = document.getElementById('country');
           var autocomplete = new google.maps.places.Autocomplete(input1);
@@ -1197,11 +1195,7 @@ function reqPackagesController(angular, app) {
     function reqPackagesCtrl($state, $scope,$http){
         var self = this; //jshint ignore:line
         self.packages = {};
-        function update(reqPackage){
-          console.log(reqPackage);
-        }
         function init(){
-         self.update = update;
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
           $scope.bigTotalItems = Object.keys(self.packages).length;
@@ -1210,7 +1204,7 @@ function reqPackagesController(angular, app) {
             $scope.currentPage = pageNo;
           };
           $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
+
           };
         });
        }
@@ -1231,12 +1225,31 @@ function reqTripsController(angular, app) {
     function reqTripsCtrl($state, $scope,$http){
         var self = this; //jshint ignore:line
         self.trips = {};
-        function update(reqTrip){
-          console.log(reqTrip);
+        function confirm(trip){
+          console.log(trip);
+          $http.post('./dist/php/sendMail.php', {
+            email:trip.email,
+            msg:"El viaje ha sido agendado. Muchas gracias por utilizar nuestros servicios.",
+            from:trip.req_from,
+            to:trip.req_to,
+            date:trip.date,
+            time:trip.time,
+            id:trip.id,
+            confirm: true
+          }).then(function (response){  });
         }
-
+        function revoke(trip){
+          console.log(trip);
+          $http.post('./dist/php/sendMail.php', {
+            email:trip.email,
+            id:trip.id,
+            msg:"Hubo un problema al procesar su solicitud de  viaje. Por favor comunicate a los siguientes tel&eacute;fonos para solicitar tu traslado: +54 9 0261 4309100 - +54 9 0261 4376499 - +54 9 0261 4378080. Muchas gracias.",
+            revoke: true
+          }).then(function (response){ });
+        }
         function init(){
-         self.update = update;
+          self.revoke = revoke;
+          self.confirm = confirm;
          $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
           self.trips = response.data.reqTrips;
           $scope.bigTotalItems = Object.keys(self.trips).length;
@@ -1245,7 +1258,7 @@ function reqTripsController(angular, app) {
             $scope.currentPage = pageNo;
           };
           $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
+
           };
         });
        }
@@ -1423,7 +1436,6 @@ function rateController(angular, app) {
                 self.userId = response.userId;
                 self.userEmail = response.userEmail;
                 self.userTel = response.userTel;
-                console.log(self.userId,self.userEmail,self.userTel);
                 $http.post('./dist/php/sendMail.php', {
                  from : $state.params.from,
                  to : $state.params.to,
