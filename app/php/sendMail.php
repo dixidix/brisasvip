@@ -74,8 +74,13 @@ if(!empty($_POST['contactForm'])){
 	$time = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['time']));
 	$from = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['from']));
 	$to = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['to']));
+	$price = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['price']));
 	$id = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['id']));
 
+	$htmlStringToReplace = array('$from', '$to', '$date','$time','$price');
+	$replaceWith   = array("$from", "$to", "$date", "$time", "$price");
+
+	$body = str_replace($htmlStringToReplace, $replaceWith, $body);
 
 	$to = "brisasvipprueba@gmail.com";
 	$name = "Brisas VIP";

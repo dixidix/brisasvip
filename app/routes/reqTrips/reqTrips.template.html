@@ -3,6 +3,14 @@
 		<article>
 			<div class="content">
 				<div class="content row">
+					<input type="text" class="form-control " name="search" id="search" ng-model="search" placeholder="Escribe tu b&uacute;squeda">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<div id="statefilters">
+						<label class="radioLabel"><input type="radio" ng-value="" ng-model="filterState" name="filterState" checked="checked">Todos</label>
+						<label class="radioLabel"><input type="radio" ng-value="0" ng-model="filterState" name="filterState">No Contestados</label>
+						<label class="radioLabel"><input type="radio" ng-value="1" ng-model="filterState" name="filterState">Aprobados</label>
+						<label class="radioLabel"><input type="radio" ng-value="2" ng-model="filterState" name="filterState">Rechazados</label>
+					</div>
 					<div class="panel panel-default">
 						<table class="table table-bordered table-striped">
 							<thead>
@@ -20,7 +28,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="trip in reqTrips.trips track by $index " ng-style="trip.state == 1 && {'background-color':'rgba(39, 255, 104, 0.1)'}  || trip.state == 2 && {'background-color':'rgba(255, 28, 28, 0.1)'}">
+								<tr class="trip-list-item" ng-repeat="trip in reqTrips.trips.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))| filter:{state: filterState } | filter:search  | filter : paginate track by $index" ng-style="trip.state == 1 && {'background-color':'rgba(39, 255, 104, 0.1)'}  || trip.state == 2 && {'background-color':'rgba(255, 28, 28, 0.1)'}">
 									<td><span>{{trip.name}}</span></td>
 									<td><span>{{trip.lastname}}</span></td>
 									<td><span>{{trip.request_date}}</span></td>
@@ -35,8 +43,29 @@
 							</tbody>
 						</table>
 					</div>
-					<ul uib-pagination previous-text="Anterior" next-text="Siguiente" next-text="&uacute;ltimo" total-items="bigTotalItems" ng-model="bigCurrentPage"  class="pagination-sm" boundary-link-numbers="true" items-per-page="5" rotate="false"></ul>
+					<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></uib-pagination>
 				</div>
 			</div>	
 		</article>
 	</div>
+	<script type="text/ng-template" id="confirmTripModal.html">
+		<div class="reqTrips-brisas-modal">
+			<div class="modal-header">
+				<h3 class="modal-title">Confirmaci&oacute;n de solicitud</h3>
+			</div>
+			<div class="modal-body">
+				<p>¿Est&aacute; seguro que desea <span style="font-weight: bold;" ng-style="modalTrip.action == 'confirmar' && {'color':'green'} || {'color': 'red'}">{{modalTrip.action}}</span> la solicitud de servicio?</p>
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col-xs-4 col-xs-offset-4">
+						<button class="btn btn-brisas form-control" ng-click="modalTrip.confirm()"><i ng-if="modalTrip.sendingEmail" class="fa fa-spinner fa-spin"></i><span ng-if="!modalTrip.sendingEmail">{{modalTrip.action}}</span><span ng-if="modalTrip.sendingEmail">{{modalTrip.sendingMsg}}</span></button>
+					</div>
+					<div class="col-xs-4">
+						<button class="btn btn-brisas-danger form-control" ng-click="modalTrip.cancel()">Cancelar</button>
+					</div>
+				</div>		
+
+			</div>
+		</div>
+	</script>

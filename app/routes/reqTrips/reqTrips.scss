@@ -1,8 +1,94 @@
 @import '../../styles/mixins/main';
+.modal{
+	margin-top: 6%;
+}
+.reqTrips-brisas-modal{
+	i{
+		font-size: 20px;
+		color: white;
+		position: absolute;
+		left: 30px;
+		top: 12px;
+	}
 
+	.btn-brisas{
+		@include btn-brisas(100%, 45px);
+		font-size:16px;
+	}
+	.btn-brisas-danger{
+		@include btn-brisas-danger(100%, 45px);
+		font-size:16px;
+		opacity:1;
+	}
+	p{
+		font-family:$roboto;
+		font-size: 16px;
+	}
+	padding:0;
+}
 .reqTrips{
+	.trip-list-item.ng-enter {
+		-ms-opacity: 0;
+		opacity: 0;
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+	}
+
+
+	.trip-list-item.ng-enter.ng-enter-active {
+		-ms-opacity: 1;
+		opacity: 1;
+	}
+
+	.trip-list-item.ng-leave {
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+
+		-ms-opacity: 1;
+		opacity: 1;
+	}
+	.trip-list-item.ng-leave.ng-leave-active {
+		-ms-opacity: 0;
+		opacity: 0;
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+	}
 	padding-top:80px;
 	margin-bottom:100px;
+	.radioLabel{
+		cursor:pointer;
+		margin-right: 2%;
+	}
+	input[type=radio] {
+		width: 25px;
+    vertical-align: -2px;
+}
+	#statefilters{
+		width: 100%;
+	}
+	.fa-search{
+		position: absolute;
+		top: 17.9%;
+		left: 13.7%;
+		color: $brisas-green;
+		font-size: 18px;
+	}
+	#search{
+		border-radius: 40px;
+		padding-left:35px;
+		width:100%;
+		margin-bottom: 2%;
+
+	}
 	i{
 		&:hover{
 			cursor:pointer;

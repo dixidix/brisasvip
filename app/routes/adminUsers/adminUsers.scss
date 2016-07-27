@@ -2,7 +2,82 @@
 .fa-unlock:before {
 	margin-right:-5px !important;
 }
+.modal{
+	margin-top: 6%;
+}
+.adminUsers-brisas-modal{
+	i{
+		font-size: 20px;
+		color: white;
+		position: absolute;
+		left: 30px;
+		top: 12px;
+	}
+
+	.btn-brisas{
+		@include btn-brisas(100%, 45px);
+		font-size:16px;
+	}
+	.btn-brisas-danger{
+		@include btn-brisas-danger(100%, 45px);
+		font-size:16px;
+		opacity:1;
+	}
+	p{
+		font-family:$roboto;
+		font-size: 16px;
+	}
+	padding:0;
+}
 .adminUsers{
+	.adminUsers-list-item.ng-enter {
+		-ms-opacity: 0;
+		opacity: 0;
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+	}
+
+
+	.adminUsers-list-item.ng-enter.ng-enter-active {
+		-ms-opacity: 1;
+		opacity: 1;
+	}
+
+	.adminUsers-list-item.ng-leave {
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+
+		-ms-opacity: 1;
+		opacity: 1;
+	}
+	.adminUsers-list-item.ng-leave.ng-leave-active {
+		-ms-opacity: 0;
+		opacity: 0;
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+	}
+	.fa-search{
+		position: absolute;
+		top: 17.9%;
+		left: 13.5%;
+		color:$brisas-green;
+	}
+	#search{
+		border-radius: 40px;
+		padding-left:35px;
+		width:100%;
+		margin-bottom: 2%;
+
+	}
 	padding-top:80px;
 	margin-bottom:100px;
 	i{

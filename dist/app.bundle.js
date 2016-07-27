@@ -614,18 +614,17 @@ function adminUsersController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('adminUsersCtrl', adminUsersCtrl);
+    adminUsersCtrl.$inject = ['$state','$scope','$http','$uibModal'];
+    app.controller('modalUserCtrl', modalUserCtrl);
+    modalUserCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
 
-    adminUsersCtrl.$inject = ['$state','$scope','$http'];
-
-    function adminUsersCtrl($state, $scope,$http){
+    function adminUsersCtrl($state, $scope, $http, $uibModal){
         var self = this; //jshint ignore:line
         self.users = {};
-        function remove(id){
-          $http.post('./dist/php/delete_user.php', {
-            id: id
-          }).then(function (response){
-            $state.go($state.current,{},{ reload: true });              
-          });
+        self.user = {};
+        function remove(user){
+          self.user = user;
+          self.openModal('md');
         }
         function edit(user){
           $state.go('home.editUser', {user: user},{});
@@ -640,15 +639,31 @@ function adminUsersController(angular, app) {
             $state.go($state.current,{},{ reload: true });
           });
         }
-        function init(){
+        function openModal(size){
+         var modalInstance = $uibModal.open({
+          templateUrl: 'confirmRemove.html',
+          controller: 'modalUserCtrl',
+          controllerAs:'modalUser',
+          size: size,
+          resolve: {
+            items: function () {
+              return self.user;
+            }
+          }
+
+        });
+       }
+       function init(){
          self.remove = remove;
          self.edit = edit;
          self.makeAdmin = makeAdmin;
+         self.openModal = openModal;
          $http.post('./dist/php/get_users.php',{ sskey: sessionStorage.getItem('sskey') }).then(function(response) {    
 
           self.users = response.data.users;
-          $scope.bigTotalItems = Object.keys(self.users).length;
-          $scope.bigCurrentPage = 1;
+          $scope.totalItems = Object.keys(self.users).length;
+          $scope.currentPage = 1;
+          $scope.itemsPerPage = 5;
           $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
           };
@@ -659,8 +674,32 @@ function adminUsersController(angular, app) {
        }
        init();
      }
-   };
-   module.exports = adminUsersController;
+     function modalUserCtrl($scope,$state,$http, $filter, $uibModalInstance, $rootScope, items){
+
+      var self = this;
+      
+      function confirm(){       
+        $http.post('./dist/php/delete_user.php', {
+          id: self.user.id
+        }).then(function (response){
+         $uibModalInstance.dismiss('cancel');
+         $state.go($state.current,{},{ reload: true });              
+       });
+      }
+      function cancel(){
+       $uibModalInstance.dismiss('cancel');
+     }
+     function init(){
+      console.log(items);
+      self.user = items;
+      self.confirm = confirm;
+      self.cancel = cancel;
+    }
+
+    init();
+  }
+};
+module.exports = adminUsersController;
 },{}],14:[function(require,module,exports){
 function BuyPackageController(angular, app) {
     'use strict';
@@ -1198,8 +1237,10 @@ function reqPackagesController(angular, app) {
         function init(){
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
-          $scope.bigTotalItems = Object.keys(self.packages).length;
-          $scope.bigCurrentPage = 1;
+          $scope.totalItems = Object.keys(self.packages).length;
+          $scope.currentPage = 1;
+          $scope.itemsPerPage = 5;
+          $scope.maxSize = 5;
           $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
           };
@@ -1219,41 +1260,51 @@ function reqTripsController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('reqTripsCtrl', reqTripsCtrl);
+    reqTripsCtrl.$inject = ['$state','$scope','$http','$uibModal'];
+    app.controller('modalTripCtrl', modalTripCtrl);
+    modalTripCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
+    
 
-    reqTripsCtrl.$inject = ['$state','$scope','$http'];
-
-    function reqTripsCtrl($state, $scope,$http){
+    function reqTripsCtrl($state, $scope,$http,$uibModal){
         var self = this; //jshint ignore:line
         self.trips = {};
+        self.trip = {};
         function confirm(trip){
-          console.log(trip);
-          $http.post('./dist/php/sendMail.php', {
-            email:trip.email,
-            msg:"El viaje ha sido agendado. Muchas gracias por utilizar nuestros servicios.",
-            from:trip.req_from,
-            to:trip.req_to,
-            date:trip.date,
-            time:trip.time,
-            id:trip.id,
-            confirm: true
-          }).then(function (response){  });
-        }
-        function revoke(trip){
-          console.log(trip);
-          $http.post('./dist/php/sendMail.php', {
-            email:trip.email,
-            id:trip.id,
-            msg:"Hubo un problema al procesar su solicitud de  viaje. Por favor comunicate a los siguientes tel&eacute;fonos para solicitar tu traslado: +54 9 0261 4309100 - +54 9 0261 4376499 - +54 9 0261 4378080. Muchas gracias.",
-            revoke: true
-          }).then(function (response){ });
-        }
-        function init(){
-          self.revoke = revoke;
-          self.confirm = confirm;
-         $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
+         self.trip = trip;
+         self.trip.confirmTrip = true;
+         self.openModal('md');
+
+       }
+       function revoke(trip){
+        self.trip = trip;
+        self.trip.confirmTrip = false;
+        self.openModal('md');
+
+      }
+      function openModal(size){
+         var modalInstance = $uibModal.open({
+          templateUrl: 'confirmTripModal.html',
+          controller: 'modalTripCtrl',
+          controllerAs:'modalTrip',
+          size: size,
+          resolve: {
+            items: function () {
+              return self.trip;
+            }
+          }
+
+        });
+      }
+      function init(){
+        self.openModal = openModal;
+        self.revoke = revoke;
+        self.confirm = confirm;
+        $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
           self.trips = response.data.reqTrips;
-          $scope.bigTotalItems = Object.keys(self.trips).length;
-          $scope.bigCurrentPage = 1;
+          $scope.totalItems = Object.keys(self.trips).length;
+          $scope.currentPage = 1;
+          $scope.itemsPerPage = 5;
+          $scope.maxSize = 5;
           $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
           };
@@ -1261,11 +1312,68 @@ function reqTripsController(angular, app) {
 
           };
         });
-       }
-       init();
+      }
+      init();
+    }
+    function modalTripCtrl($scope,$state,$http, $filter, $uibModalInstance, $rootScope, items){
+
+      var self = this;
+      
+      function confirm(){
+        var trip = items;
+        self.sendingEmail = true;
+        if(items.confirmTrip){
+          $http.post('./dist/php/sendMail.php', {
+            email:trip.email,
+            msg:"El viaje ha sido agendado. Muchas gracias por utilizar nuestros servicios.",
+            from:trip.req_from,
+            to:trip.req_to,
+            date:trip.date,
+            time:trip.time,
+            price:trip.price,
+            id:trip.id,
+            confirm: true
+          }).then(function (response){
+            self.sendingEmail = false;
+            self.action = "confirmar";
+            $uibModalInstance.dismiss('cancel');
+            $state.go($state.current,{},{ reload: true });
+          });
+        } else {
+          self.sendingEmail = true;
+          $http.post('./dist/php/sendMail.php', {
+            email:trip.email,
+            id:trip.id,
+            msg:"Hubo un problema al procesar su solicitud de  viaje. Por favor comunicate a los siguientes tel&eacute;fonos para solicitar tu traslado: +54 9 0261 4309100 - +54 9 0261 4376499 - +54 9 0261 4378080. Muchas gracias.",
+            revoke: true
+          }).then(function (response){
+            self.sendingEmail = false;
+            self.action = "rechazar";
+            $uibModalInstance.dismiss('cancel');
+            $state.go($state.current,{},{ reload: true });
+          });
+        }
+      }
+      function cancel(){
+       $uibModalInstance.dismiss('cancel');
      }
-   };
-   module.exports = reqTripsController;
+     function init(){
+      self.sendingMsg = "Enviando...";
+      self.sendingEmail = false;
+      console.log(items);
+      self.confirm = confirm;
+      self.cancel = cancel;
+      if(items.confirmTrip){
+        self.action = "confirmar";
+      }else{
+        self.action = "rechazar";
+      }
+    }
+
+    init();
+  }
+};
+module.exports = reqTripsController;
 },{}],28:[function(require,module,exports){
 function rateController(angular, app) {
 	'use strict';
@@ -1393,8 +1501,9 @@ function rateController(angular, app) {
         	$('#dist').val(val);
         }
         function recalc() {
-        	var calculatedDistance = $('#dist').val().replace(",", "");
+        	var calculatedDistance = $('#dist').val().replace(".", "");
         	var calculatedDistance = parseFloat(calculatedDistance);
+          console.log(calculatedDistance);
         	var selection = $('#tarifa').val();
 
         	$http.post('./dist/php/get_fares.php', {

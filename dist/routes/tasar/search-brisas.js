@@ -124,8 +124,9 @@ function rateController(angular, app) {
         	$('#dist').val(val);
         }
         function recalc() {
-        	var calculatedDistance = $('#dist').val().replace(",", "");
+        	var calculatedDistance = $('#dist').val().replace(".", "");
         	var calculatedDistance = parseFloat(calculatedDistance);
+          console.log(calculatedDistance);
         	var selection = $('#tarifa').val();
 
         	$http.post('./dist/php/get_fares.php', {

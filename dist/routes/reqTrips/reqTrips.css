@@ -3,9 +3,89 @@
 /* Fonts */
 /** Devices Breakpoints **/
 /** Mixins for responsive content **/
+.modal {
+  margin-top: 6%; }
+
+.reqTrips-brisas-modal {
+  padding: 0; }
+  .reqTrips-brisas-modal i {
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    left: 30px;
+    top: 12px; }
+  .reqTrips-brisas-modal .btn-brisas {
+    font-size: 16px; }
+    .reqTrips-brisas-modal .btn-brisas, .reqTrips-brisas-modal .btn-brisas:active, .reqTrips-brisas-modal .btn-brisas:focus, .reqTrips-brisas-modal .btn-brisas:active:focus, .reqTrips-brisas-modal .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .reqTrips-brisas-modal .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .reqTrips-brisas-modal .btn-brisas-danger {
+    font-size: 16px;
+    opacity: 1; }
+    .reqTrips-brisas-modal .btn-brisas-danger, .reqTrips-brisas-modal .btn-brisas-danger:active, .reqTrips-brisas-modal .btn-brisas-danger:focus, .reqTrips-brisas-modal .btn-brisas-danger:active:focus, .reqTrips-brisas-modal .btn-brisas-danger:hover {
+      background-color: #B0062A;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .reqTrips-brisas-modal .btn-brisas-danger:hover {
+      background-color: #c90730; }
+  .reqTrips-brisas-modal p {
+    font-family: "RobotoRegular", Arial;
+    font-size: 16px; }
+
 .reqTrips {
   padding-top: 80px;
   margin-bottom: 100px; }
+  .reqTrips .trip-list-item.ng-enter {
+    -ms-opacity: 0;
+    opacity: 0;
+    -webkit-transition: 0.2s linear all;
+    -moz-transition: 0.2s linear all;
+    -ms-transition: 0.2s linear all;
+    -o-transition: 0.2s linear all;
+    transition: 0.2s linear all; }
+  .reqTrips .trip-list-item.ng-enter.ng-enter-active {
+    -ms-opacity: 1;
+    opacity: 1; }
+  .reqTrips .trip-list-item.ng-leave {
+    -webkit-transition: 0.2s linear all;
+    -moz-transition: 0.2s linear all;
+    -ms-transition: 0.2s linear all;
+    -o-transition: 0.2s linear all;
+    transition: 0.2s linear all;
+    -ms-opacity: 1;
+    opacity: 1; }
+  .reqTrips .trip-list-item.ng-leave.ng-leave-active {
+    -ms-opacity: 0;
+    opacity: 0;
+    -webkit-transition: 0.2s linear all;
+    -moz-transition: 0.2s linear all;
+    -ms-transition: 0.2s linear all;
+    -o-transition: 0.2s linear all;
+    transition: 0.2s linear all; }
+  .reqTrips .radioLabel {
+    cursor: pointer;
+    margin-right: 2%; }
+  .reqTrips input[type=radio] {
+    width: 25px;
+    vertical-align: -2px; }
+  .reqTrips #statefilters {
+    width: 100%; }
+  .reqTrips .fa-search {
+    position: absolute;
+    top: 17.9%;
+    left: 13.7%;
+    color: #068c8f;
+    font-size: 18px; }
+  .reqTrips #search {
+    border-radius: 40px;
+    padding-left: 35px;
+    width: 100%;
+    margin-bottom: 2%; }
   .reqTrips i {
     font-size: 18px;
     margin: 0px 2px; }

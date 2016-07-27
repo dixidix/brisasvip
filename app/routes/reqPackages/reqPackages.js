@@ -13,8 +13,10 @@ function reqPackagesController(angular, app) {
         function init(){
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
-          $scope.bigTotalItems = Object.keys(self.packages).length;
-          $scope.bigCurrentPage = 1;
+          $scope.totalItems = Object.keys(self.packages).length;
+          $scope.currentPage = 1;
+          $scope.itemsPerPage = 5;
+          $scope.maxSize = 5;
           $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
           };

@@ -3,6 +3,55 @@
 .reqPackages{
 	padding-top:80px;
 	margin-bottom:100px;
+	.reqPackages-list-item.ng-enter {
+		-ms-opacity: 0;
+		opacity: 0;
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+	}
+
+
+	.reqPackages-list-item.ng-enter.ng-enter-active {
+		-ms-opacity: 1;
+		opacity: 1;
+	}
+
+	.reqPackages-list-item.ng-leave {
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+
+		-ms-opacity: 1;
+		opacity: 1;
+	}
+	.reqPackages-list-item.ng-leave.ng-leave-active {
+		-ms-opacity: 0;
+		opacity: 0;
+		-webkit-transition:0.2s linear all;
+		-moz-transition:0.2s linear all;
+		-ms-transition:0.2s linear all;
+		-o-transition:0.2s linear all;
+		transition:0.2s linear all;
+	}
+	.fa-search{
+		position: absolute;
+		top: 17.9%;
+		left: 13.8%;
+		color: $brisas-green;
+		font-size: 18px;
+	}
+	#search{
+		border-radius: 40px;
+		padding-left:35px;
+		width:100%;
+		margin-bottom: 2%;
+
+	}
 	.form-control, .btn{		
 		&:focus, &:active:focus, &:active{
 			outline:$premium;
