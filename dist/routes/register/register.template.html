@@ -38,13 +38,16 @@
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 						<input type="email"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
-						data-ng-model="register.user.email" ng-blur="validateEmail()">
+						data-ng-model="register.user.email" ng-change="register.resetEmail()">
 					</div>
 					<span class="help-block"	data-ng-show="register.registerForm.email.$error.required && register.registerForm.$submitted">
 						Debe ingresar su E-Mail.
 					</span>
-					<span class="help-block"	data-ng-show="register.registerForm.email.$error.email && register.registerForm.$submitted">
+					<span class="help-block"	data-ng-show="!register.error.registerError && register.registerForm.email.$error.email && register.registerForm.$submitted">
 						Debe ingresar un E-Mail v&aacute;lido.
+					</span>
+					<span class="help-block" data-ng-show="register.error.registerError && register.registerForm.$submitted">
+						{{register.error.registerError}}
 					</span>
 				</div>				
 			</div>
@@ -78,11 +81,14 @@
 					<label for="password" class="control-label">Contrase&ntilde;a</label>		
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-key"></i></span>
-						<input type="password"	name="password"	id="password"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="100" autocomplete="off"	required 
+						<input type="password" ng-minlength="6"	ng-maxlength="14" name="password"	id="password"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="100" autocomplete="off"	required 
 						data-ng-model="register.user.password">
 					</div>
 					<span class="help-block"	data-ng-show="register.registerForm.password.$error.required && register.registerForm.$submitted">
 						Debe ingresar su Contrase&ntilde;a.
+					</span>
+					<span class="help-block"	data-ng-show="register.registerForm.password.$error.minlength && register.registerForm.$submitted || register.registerForm.password.$error.maxlength && register.registerForm.$submitted">
+						Debe ingresar una contrase&ntilde;a entre 6 y 14 caracteres.
 					</span>
 				</div>				
 			</div>

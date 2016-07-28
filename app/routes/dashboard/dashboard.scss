@@ -4,6 +4,15 @@
 	padding: 50px;
 	padding-bottom:100px;
 	font-family:$roboto;
+	.badge{
+		background: red;
+		position: absolute;
+		left: 10%;
+		span{
+			font-size: 11px;
+			color: white;
+		}
+	}
 	.btn-brisas{
 		@include btn-brisas(100%, 45px);
 		font-size:16px;
@@ -17,6 +26,12 @@
 		background-color: #eee;
 		border-top: 1px solid #ddd;
 		border-right: 1px solid #ddd;
+	}
+	.nav-tabs>li.active>a,
+	.nav-tabs>li.active>a:focus,
+	.nav-tabs>li.active>a:hover{
+		color:$brisas-green;
+		font-weight: bold;
 	}
 	.viewContainer{
 		min-height: 750px;

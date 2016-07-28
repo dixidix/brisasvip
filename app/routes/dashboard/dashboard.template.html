@@ -3,8 +3,11 @@
 		
 		<article>
 			<div class="content">
-			<uib-tabset justified="true">
-					<uib-tab ng-repeat="tab in dashboard.tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+				<uib-tabset justified="true">
+					<uib-tab ng-repeat="tab in dashboard.tabs" active="tab.active" disable="tab.disabled">
+						<uib-tab-heading>
+							<div ng-if="tab.route == 'tab5'" class="badge"><span>{{tripsToContest}}<span></div> {{tab.title}}
+						</uib-tab-heading>
 						<div class="viewContainer">
 							<div ui-view="{{tab.route}}"></div>
 						</div>

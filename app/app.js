@@ -42,7 +42,13 @@
 			});
 		});
 	});
-
+    app.filter('start', function () {
+      return function (input, start) {
+        if (!input || !input.length) { return; }
+        start = +start;
+        return input.slice(start);
+      };
+    });
 	
 	require('./routes/home/home.js')(angular, app);
 	require('./components/navbar-brisas/navbar-brisas.js')(angular, app);

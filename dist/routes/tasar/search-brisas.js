@@ -15,6 +15,7 @@ function rateController(angular, app) {
         var options = {
         	componentRestrictions: {country: "ar"}
         };
+        var dist = 0.00;
         var rendererOptions = {
         	'map': map,
         	'draggable':false
@@ -96,47 +97,49 @@ function rateController(angular, app) {
         	var request = {
         		origin: start,
         		destination: end,
-        		travelMode: google.maps.DirectionsTravelMode.DRIVING
-        	};
-        	directionsService.route(request, function (response, status) {
-        		if (status == google.maps.DirectionsStatus.OK) {
-        			directionsDisplay.setDirections(response);
-        			var dist = response.routes[0].legs[0].distance.text;
-        			stripint(dist);
-        			recalc();
-        		}
-        	});
+           unitSystem: google.maps.UnitSystem.METRIC,
+           travelMode: google.maps.DirectionsTravelMode.DRIVING
+         };
+         directionsService.route(request, function (response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+           directionsDisplay.setDirections(response);
+           console.log(response.routes[0].legs[0].distance);
+           dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
+           stripint(dist);
+           recalc();
+         }
+       });
+       }
+       function computeTotalDistance(result) {
+         var total = 0;
+         var myroute = result.routes[0];
+         for (var i = 0; i < myroute.legs.length; i++) {
+          total += myroute.legs[i].distance.value;
         }
-        function computeTotalDistance(result) {
-        	var total = 0;
-        	var myroute = result.routes[0];
-        	for (var i = 0; i < myroute.legs.length; i++) {
-        		total += myroute.legs[i].distance.value;
-        	}
-        	total = total/1000;
+        total = total/1000;
 
-        	document.getElementById('total').innerHTML = total + ' km';
-        }
+        document.getElementById('total').innerHTML = total + ' km';
+      }
 
-        google.maps.event.addDomListener(window, 'load', initMap);
-        function stripint(val) {
+      google.maps.event.addDomListener(window, 'load', initMap);
+      function stripint(val) {
 
-        	$('#dist').val(val);
-        }
-        function recalc() {
-        	var calculatedDistance = $('#dist').val().replace(".", "");
-        	var calculatedDistance = parseFloat(calculatedDistance);
-          console.log(calculatedDistance);
-        	var selection = $('#tarifa').val();
+       $('#dist').val(val + ' Km.');
+     }
+     function recalc() {
+        	// var calculatedDistance = $('#dist').val().replace(".", "");
+        	// var calculatedDistance = parseFloat(calculatedDistance);
+          console.log(dist);
+          var selection = $('#tarifa').val();
 
-        	$http.post('./dist/php/get_fares.php', {
-        		daytime: selection
-        	}).then(function (response){
-        		if(response.data.fares.length){
-        			var total = ((calculatedDistance * parseFloat(response.data.fares[0].km)) + parseFloat(response.data.fares[0].bajada_bandera)).toFixed(2);
-        			$('#totalPrice').val(total);
-        		}
-        	});
+          $http.post('./dist/php/get_fares.php', {
+            daytime: selection
+          }).then(function (response){
+            if(response.data.fares.length){
+             var total = ((dist * parseFloat(response.data.fares[0].km)) + parseFloat(response.data.fares[0].bajada_bandera)).toFixed(2);
+             $('#totalPrice').val(total);
+           }
+         });
         }
 
         google.maps.event.addDomListener(window, 'load', initMap);
@@ -231,7 +234,7 @@ function rateController(angular, app) {
       $scope.isLogged = true;
       $scope.msg = "<span> El viaje ha sido solicitado satisfactoriamente, por favor espera la confirmaci&oacute;n de la reserva en tu correo.</span>";
       $scope.close = function(){
-       // $state.go('home',{},{reload:true});
+       $state.go('home',{},{reload:true});
        $uibModalInstance.dismiss('cancel');
      };
    }else{

@@ -5,11 +5,12 @@ function reqPackagesController(angular, app) {
 
     app.controller('reqPackagesCtrl', reqPackagesCtrl);
 
-    reqPackagesCtrl.$inject = ['$state','$scope','$http'];
+    reqPackagesCtrl.$inject = ['$state','$scope','$http','$filter'];
 
-    function reqPackagesCtrl($state, $scope,$http){
+    function reqPackagesCtrl($state, $scope,$http,$filter){
         var self = this; //jshint ignore:line
-        self.packages = {};
+        self.packages = [];
+        $scope.filtered = [];
         function init(){
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
@@ -23,6 +24,11 @@ function reqPackagesController(angular, app) {
           $scope.pageChanged = function() {
 
           };
+          $scope.$watch('search', function (term) {
+            var obj = term;
+            $scope.filtered = $filter('filter')(self.packages, obj);
+            $scope.currentPage = 1;
+          }); 
         });
        }
        init();

@@ -1,5 +1,5 @@
 function registerController(angular, app) {
-    'use strict';
+  'use strict';
 
     'use angular template'; //jshint ignore:line
 
@@ -11,38 +11,42 @@ function registerController(angular, app) {
         var self = this; //jshint ignore:line        
         self.user = {};
         function register(){
-            self.user.country = $('#country').val();
-            $http.post('./dist/php/register.php', {
-                name: self.user.name,
-                lastname: self.user.lastname,
-                email: self.user.email,
-                tel: self.user.tel,
-                city: self.user.country,
-                password: self.user.password
-            })
-            .then(function (response){
-                self.error = '';
-                if(!response.data.errors){
-                  self.registerForm.$setPristine();
-                  self.user = {};
-                  $state.go("home",{},{reload: true});
-              } else {
-                  self.error = response.data.errors;
-                  self.registerForm.$setPristine();
-                  self.user = {};
-              }
+          self.user.country = $('#country').val();
+          $http.post('./dist/php/register.php', {
+            name: self.user.name,
+            lastname: self.user.lastname,
+            email: self.user.email,
+            tel: self.user.tel,
+            city: self.user.country,
+            password: self.user.password
+          })
+          .then(function (response){
+            console.log(response);
+            self.error = '';
+            if(!response.data.errors){
+              self.registerForm.$setPristine();
+              self.user = {};
+              $state.go("home",{},{reload: true});
+            } else {
+              self.error = response.data.errors;
+              self.registerForm.email.$setValidity("email", false);
+            }
           });
         }
+        function resetEmail(){
+          self.error = "";
+        }
         function init(){         
-           $('html, body').animate({
-            scrollTop: $("#register").offset().top
+         $('html, body').animate({
+          scrollTop: $("#register").offset().top
         }, 1000); 
-           self.register = register;
+         self.register = register;
+         self.resetEmail = resetEmail;
          var input1 = document.getElementById('country');
          var autocomplete = new google.maps.places.Autocomplete(input1);
-     }
+       }
 
-     init();
- }
-};
-module.exports = registerController;
+       init();
+     }
+   };
+   module.exports = registerController;

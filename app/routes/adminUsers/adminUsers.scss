@@ -30,6 +30,9 @@
 	padding:0;
 }
 .adminUsers{
+	.input-group{
+		width:100%;
+	}
 	.adminUsers-list-item.ng-enter {
 		-ms-opacity: 0;
 		opacity: 0;
@@ -67,8 +70,9 @@
 	}
 	.fa-search{
 		position: absolute;
-		top: 17.9%;
-		left: 13.5%;
+		top: 8px;
+		z-index: 9999999;
+		left: 7px;
 		color:$brisas-green;
 	}
 	#search{

@@ -70,17 +70,21 @@
 	}
 	input[type=radio] {
 		width: 25px;
-    vertical-align: -2px;
-}
+		vertical-align: -2px;
+	}
 	#statefilters{
 		width: 100%;
 	}
 	.fa-search{
 		position: absolute;
-		top: 17.9%;
-		left: 13.7%;
+		top: 8px;
+		z-index: 9999999;
+		left: 10px;
 		color: $brisas-green;
 		font-size: 18px;
+	}
+	.input-group{
+		width:100%;
 	}
 	#search{
 		border-radius: 40px;

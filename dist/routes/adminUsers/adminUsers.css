@@ -43,6 +43,8 @@
 .adminUsers {
   padding-top: 80px;
   margin-bottom: 100px; }
+  .adminUsers .input-group {
+    width: 100%; }
   .adminUsers .adminUsers-list-item.ng-enter {
     -ms-opacity: 0;
     opacity: 0;
@@ -72,8 +74,9 @@
     transition: 0.2s linear all; }
   .adminUsers .fa-search {
     position: absolute;
-    top: 17.9%;
-    left: 13.5%;
+    top: 8px;
+    z-index: 9999999;
+    left: 7px;
     color: #068c8f; }
   .adminUsers #search {
     border-radius: 40px;

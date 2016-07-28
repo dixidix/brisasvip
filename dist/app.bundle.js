@@ -43,7 +43,13 @@
 			});
 		});
 	});
-
+    app.filter('start', function () {
+      return function (input, start) {
+        if (!input || !input.length) { return; }
+        start = +start;
+        return input.slice(start);
+      };
+    });
 	
 	require('./routes/home/home.js')(angular, app);
 	require('./components/navbar-brisas/navbar-brisas.js')(angular, app);
@@ -614,13 +620,13 @@ function adminUsersController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('adminUsersCtrl', adminUsersCtrl);
-    adminUsersCtrl.$inject = ['$state','$scope','$http','$uibModal'];
+    adminUsersCtrl.$inject = ['$state','$scope','$http','$uibModal','$filter'];
     app.controller('modalUserCtrl', modalUserCtrl);
     modalUserCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
 
-    function adminUsersCtrl($state, $scope, $http, $uibModal){
+    function adminUsersCtrl($state, $scope, $http, $uibModal, $filter){
         var self = this; //jshint ignore:line
-        self.users = {};
+        self.users = [];
         self.user = {};
         function remove(user){
           self.user = user;
@@ -658,18 +664,25 @@ function adminUsersController(angular, app) {
          self.edit = edit;
          self.makeAdmin = makeAdmin;
          self.openModal = openModal;
+         $scope.filtered = [];
          $http.post('./dist/php/get_users.php',{ sskey: sessionStorage.getItem('sskey') }).then(function(response) {    
 
           self.users = response.data.users;
           $scope.totalItems = Object.keys(self.users).length;
           $scope.currentPage = 1;
           $scope.itemsPerPage = 5;
+          $scope.maxSize = 5;
           $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
           };
           $scope.pageChanged = function() {
 
           };
+          $scope.$watch('search', function (term) {
+            var obj = term;
+            $scope.filtered = $filter('filter')(self.users, obj);
+            $scope.currentPage = 1;
+          }); 
         });
        }
        init();
@@ -785,6 +798,7 @@ function dashboardController(angular, app) {
         var self = this; //jshint ignore:line
 
         function init(){
+            $rootScope.tripsToContest = $scope.tripsToContest;
             $('html, body').animate({ scrollTop: 420 }, 'slow');    
             self.tabs = [
             { title: "Crear paquetes", route: "tab1", active: true },
@@ -1174,7 +1188,7 @@ function packageController(angular, app) {
 module.exports = packageController;
 },{}],25:[function(require,module,exports){
 function registerController(angular, app) {
-    'use strict';
+  'use strict';
 
     'use angular template'; //jshint ignore:line
 
@@ -1186,41 +1200,45 @@ function registerController(angular, app) {
         var self = this; //jshint ignore:line        
         self.user = {};
         function register(){
-            self.user.country = $('#country').val();
-            $http.post('./dist/php/register.php', {
-                name: self.user.name,
-                lastname: self.user.lastname,
-                email: self.user.email,
-                tel: self.user.tel,
-                city: self.user.country,
-                password: self.user.password
-            })
-            .then(function (response){
-                self.error = '';
-                if(!response.data.errors){
-                  self.registerForm.$setPristine();
-                  self.user = {};
-                  $state.go("home",{},{reload: true});
-              } else {
-                  self.error = response.data.errors;
-                  self.registerForm.$setPristine();
-                  self.user = {};
-              }
+          self.user.country = $('#country').val();
+          $http.post('./dist/php/register.php', {
+            name: self.user.name,
+            lastname: self.user.lastname,
+            email: self.user.email,
+            tel: self.user.tel,
+            city: self.user.country,
+            password: self.user.password
+          })
+          .then(function (response){
+            console.log(response);
+            self.error = '';
+            if(!response.data.errors){
+              self.registerForm.$setPristine();
+              self.user = {};
+              $state.go("home",{},{reload: true});
+            } else {
+              self.error = response.data.errors;
+              self.registerForm.email.$setValidity("email", false);
+            }
           });
         }
+        function resetEmail(){
+          self.error = "";
+        }
         function init(){         
-           $('html, body').animate({
-            scrollTop: $("#register").offset().top
+         $('html, body').animate({
+          scrollTop: $("#register").offset().top
         }, 1000); 
-           self.register = register;
+         self.register = register;
+         self.resetEmail = resetEmail;
          var input1 = document.getElementById('country');
          var autocomplete = new google.maps.places.Autocomplete(input1);
-     }
+       }
 
-     init();
- }
-};
-module.exports = registerController;
+       init();
+     }
+   };
+   module.exports = registerController;
 },{}],26:[function(require,module,exports){
 function reqPackagesController(angular, app) {
   'use strict';
@@ -1229,11 +1247,12 @@ function reqPackagesController(angular, app) {
 
     app.controller('reqPackagesCtrl', reqPackagesCtrl);
 
-    reqPackagesCtrl.$inject = ['$state','$scope','$http'];
+    reqPackagesCtrl.$inject = ['$state','$scope','$http','$filter'];
 
-    function reqPackagesCtrl($state, $scope,$http){
+    function reqPackagesCtrl($state, $scope,$http,$filter){
         var self = this; //jshint ignore:line
-        self.packages = {};
+        self.packages = [];
+        $scope.filtered = [];
         function init(){
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
@@ -1247,6 +1266,11 @@ function reqPackagesController(angular, app) {
           $scope.pageChanged = function() {
 
           };
+          $scope.$watch('search', function (term) {
+            var obj = term;
+            $scope.filtered = $filter('filter')(self.packages, obj);
+            $scope.currentPage = 1;
+          }); 
         });
        }
        init();
@@ -1260,14 +1284,13 @@ function reqTripsController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('reqTripsCtrl', reqTripsCtrl);
-    reqTripsCtrl.$inject = ['$state','$scope','$http','$uibModal'];
+    reqTripsCtrl.$inject = ['$state','$scope','$rootScope','$http','$uibModal','$filter'];
     app.controller('modalTripCtrl', modalTripCtrl);
     modalTripCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
-    
 
-    function reqTripsCtrl($state, $scope,$http,$uibModal){
+    function reqTripsCtrl($state, $scope,$rootScope,$http,$uibModal,$filter){
         var self = this; //jshint ignore:line
-        self.trips = {};
+        self.trips = [];
         self.trip = {};
         function confirm(trip){
          self.trip = trip;
@@ -1282,97 +1305,106 @@ function reqTripsController(angular, app) {
 
       }
       function openModal(size){
-         var modalInstance = $uibModal.open({
-          templateUrl: 'confirmTripModal.html',
-          controller: 'modalTripCtrl',
-          controllerAs:'modalTrip',
-          size: size,
-          resolve: {
-            items: function () {
-              return self.trip;
-            }
+       var modalInstance = $uibModal.open({
+        templateUrl: 'confirmTripModal.html',
+        controller: 'modalTripCtrl',
+        controllerAs:'modalTrip',
+        size: size,
+        resolve: {
+          items: function () {
+            return self.trip;
           }
-
-        });
-      }
-      function init(){
-        self.openModal = openModal;
-        self.revoke = revoke;
-        self.confirm = confirm;
-        $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
-          self.trips = response.data.reqTrips;
-          $scope.totalItems = Object.keys(self.trips).length;
-          $scope.currentPage = 1;
-          $scope.itemsPerPage = 5;
-          $scope.maxSize = 5;
-          $scope.setPage = function (pageNo) {
-            $scope.currentPage = pageNo;
-          };
-          $scope.pageChanged = function() {
-
-          };
-        });
-      }
-      init();
-    }
-    function modalTripCtrl($scope,$state,$http, $filter, $uibModalInstance, $rootScope, items){
-
-      var self = this;
-      
-      function confirm(){
-        var trip = items;
-        self.sendingEmail = true;
-        if(items.confirmTrip){
-          $http.post('./dist/php/sendMail.php', {
-            email:trip.email,
-            msg:"El viaje ha sido agendado. Muchas gracias por utilizar nuestros servicios.",
-            from:trip.req_from,
-            to:trip.req_to,
-            date:trip.date,
-            time:trip.time,
-            price:trip.price,
-            id:trip.id,
-            confirm: true
-          }).then(function (response){
-            self.sendingEmail = false;
-            self.action = "confirmar";
-            $uibModalInstance.dismiss('cancel');
-            $state.go($state.current,{},{ reload: true });
-          });
-        } else {
-          self.sendingEmail = true;
-          $http.post('./dist/php/sendMail.php', {
-            email:trip.email,
-            id:trip.id,
-            msg:"Hubo un problema al procesar su solicitud de  viaje. Por favor comunicate a los siguientes tel&eacute;fonos para solicitar tu traslado: +54 9 0261 4309100 - +54 9 0261 4376499 - +54 9 0261 4378080. Muchas gracias.",
-            revoke: true
-          }).then(function (response){
-            self.sendingEmail = false;
-            self.action = "rechazar";
-            $uibModalInstance.dismiss('cancel');
-            $state.go($state.current,{},{ reload: true });
-          });
         }
-      }
-      function cancel(){
-       $uibModalInstance.dismiss('cancel');
+
+      });
      }
      function init(){
-      self.sendingMsg = "Enviando...";
-      self.sendingEmail = false;
-      console.log(items);
+      $scope.filtered = [];
+      self.openModal = openModal;
+      self.revoke = revoke;
       self.confirm = confirm;
-      self.cancel = cancel;
-      if(items.confirmTrip){
-        self.action = "confirmar";
-      }else{
-        self.action = "rechazar";
-      }
-    }
+      $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
+        self.trips = response.data.reqTrips;
+        $rootScope.tripsToContest = $filter('filter')(self.trips, {state:0}).length;
+        console.log($rootScope.tripsToContest);
+        $scope.totalItems = Object.keys(self.trips).length;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = 5;
+        $scope.maxSize = 5;
+        $scope.setPage = function (pageNo) {
+          $scope.currentPage = pageNo;
+        };
+        $scope.pageChanged = function() {
 
+        };
+        $scope.$watch('search', function (term) {
+          var obj = term;
+          $scope.filtered = $filter('filter')(self.trips, obj);
+          $scope.currentPage = 1;
+        }); 
+      });
+    }
     init();
   }
+  function modalTripCtrl($scope,$state,$http, $filter, $uibModalInstance, $rootScope, items){
+
+    var self = this;
+
+    function confirm(){
+      var trip = items;
+      self.sendingEmail = true;
+      if(items.confirmTrip){
+        $http.post('./dist/php/sendMail.php', {
+          email:trip.email,
+          msg:"El viaje ha sido agendado. Muchas gracias por utilizar nuestros servicios.",
+          from:trip.req_from,
+          to:trip.req_to,
+          date:trip.date,
+          time:trip.time,
+          price:trip.price,
+          id:trip.id,
+          confirm: true
+        }).then(function (response){
+          self.sendingEmail = false;
+          self.action = "confirmar";
+          $uibModalInstance.dismiss('cancel');
+          $state.go($state.current,{},{ reload: true });
+        });
+      } else {
+        self.sendingEmail = true;
+        $http.post('./dist/php/sendMail.php', {
+          email:trip.email,
+          id:trip.id,
+          msg:"Hubo un problema al procesar su solicitud de  viaje. Por favor comunicate a los siguientes tel&eacute;fonos para solicitar tu traslado: +54 9 0261 4309100 - +54 9 0261 4376499 - +54 9 0261 4378080. Muchas gracias.",
+          revoke: true
+        }).then(function (response){
+          self.sendingEmail = false;
+          self.action = "rechazar";
+          $uibModalInstance.dismiss('cancel');
+          $state.go($state.current,{},{ reload: true });
+        });
+      }
+    }
+    function cancel(){
+     $uibModalInstance.dismiss('cancel');
+   }
+   function init(){
+    self.sendingMsg = "Enviando...";
+    self.sendingEmail = false;
+    console.log(items);
+    self.confirm = confirm;
+    self.cancel = cancel;
+    if(items.confirmTrip){
+      self.action = "confirmar";
+    }else{
+      self.action = "rechazar";
+    }
+  }
+
+  init();
+}
 };
+
 module.exports = reqTripsController;
 },{}],28:[function(require,module,exports){
 function rateController(angular, app) {
@@ -1392,6 +1424,7 @@ function rateController(angular, app) {
         var options = {
         	componentRestrictions: {country: "ar"}
         };
+        var dist = 0.00;
         var rendererOptions = {
         	'map': map,
         	'draggable':false
@@ -1473,47 +1506,49 @@ function rateController(angular, app) {
         	var request = {
         		origin: start,
         		destination: end,
-        		travelMode: google.maps.DirectionsTravelMode.DRIVING
-        	};
-        	directionsService.route(request, function (response, status) {
-        		if (status == google.maps.DirectionsStatus.OK) {
-        			directionsDisplay.setDirections(response);
-        			var dist = response.routes[0].legs[0].distance.text;
-        			stripint(dist);
-        			recalc();
-        		}
-        	});
+           unitSystem: google.maps.UnitSystem.METRIC,
+           travelMode: google.maps.DirectionsTravelMode.DRIVING
+         };
+         directionsService.route(request, function (response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+           directionsDisplay.setDirections(response);
+           console.log(response.routes[0].legs[0].distance);
+           dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
+           stripint(dist);
+           recalc();
+         }
+       });
+       }
+       function computeTotalDistance(result) {
+         var total = 0;
+         var myroute = result.routes[0];
+         for (var i = 0; i < myroute.legs.length; i++) {
+          total += myroute.legs[i].distance.value;
         }
-        function computeTotalDistance(result) {
-        	var total = 0;
-        	var myroute = result.routes[0];
-        	for (var i = 0; i < myroute.legs.length; i++) {
-        		total += myroute.legs[i].distance.value;
-        	}
-        	total = total/1000;
+        total = total/1000;
 
-        	document.getElementById('total').innerHTML = total + ' km';
-        }
+        document.getElementById('total').innerHTML = total + ' km';
+      }
 
-        google.maps.event.addDomListener(window, 'load', initMap);
-        function stripint(val) {
+      google.maps.event.addDomListener(window, 'load', initMap);
+      function stripint(val) {
 
-        	$('#dist').val(val);
-        }
-        function recalc() {
-        	var calculatedDistance = $('#dist').val().replace(".", "");
-        	var calculatedDistance = parseFloat(calculatedDistance);
-          console.log(calculatedDistance);
-        	var selection = $('#tarifa').val();
+       $('#dist').val(val + ' Km.');
+     }
+     function recalc() {
+        	// var calculatedDistance = $('#dist').val().replace(".", "");
+        	// var calculatedDistance = parseFloat(calculatedDistance);
+          console.log(dist);
+          var selection = $('#tarifa').val();
 
-        	$http.post('./dist/php/get_fares.php', {
-        		daytime: selection
-        	}).then(function (response){
-        		if(response.data.fares.length){
-        			var total = ((calculatedDistance * parseFloat(response.data.fares[0].km)) + parseFloat(response.data.fares[0].bajada_bandera)).toFixed(2);
-        			$('#totalPrice').val(total);
-        		}
-        	});
+          $http.post('./dist/php/get_fares.php', {
+            daytime: selection
+          }).then(function (response){
+            if(response.data.fares.length){
+             var total = ((dist * parseFloat(response.data.fares[0].km)) + parseFloat(response.data.fares[0].bajada_bandera)).toFixed(2);
+             $('#totalPrice').val(total);
+           }
+         });
         }
 
         google.maps.event.addDomListener(window, 'load', initMap);
@@ -1608,7 +1643,7 @@ function rateController(angular, app) {
       $scope.isLogged = true;
       $scope.msg = "<span> El viaje ha sido solicitado satisfactoriamente, por favor espera la confirmaci&oacute;n de la reserva en tu correo.</span>";
       $scope.close = function(){
-       // $state.go('home',{},{reload:true});
+       $state.go('home',{},{reload:true});
        $uibModalInstance.dismiss('cancel');
      };
    }else{

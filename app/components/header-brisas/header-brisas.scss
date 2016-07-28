@@ -32,16 +32,12 @@
 		top:-20px;
 		transition:all 1s ease-in-out;
 	}
-	background-image:url('./../../styles/images/header_ps2.jpg');
+	background-image: linear-gradient(rgba(0,0,0,0.6) 10%,rgba(0,0,0,0) 35%), url('./../../styles/images/header_ps2.jpg');
 	background-size:cover;
 	height:480px;	
 	width:100%;
 	position:absolute;
 	top:0;
-	@include responsive(phone, tablet){
-		background-image:url('./../../styles/images/mobile-bg.jpg');
-		height:100vh;
-	}
 	.search{
 		&-container{	
 			@include responsive(phone,tablet){

@@ -38,10 +38,14 @@
 		-o-transition:0.2s linear all;
 		transition:0.2s linear all;
 	}
+	.input-group{
+		width:100%;
+	}
 	.fa-search{
 		position: absolute;
-		top: 17.9%;
-		left: 13.8%;
+		top: 8px;
+		z-index: 9999999;
+		left: 12px;
 		color: $brisas-green;
 		font-size: 18px;
 	}

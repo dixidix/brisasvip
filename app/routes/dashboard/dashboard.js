@@ -11,6 +11,7 @@ function dashboardController(angular, app) {
         var self = this; //jshint ignore:line
 
         function init(){
+            $rootScope.tripsToContest = $scope.tripsToContest;
             $('html, body').animate({ scrollTop: 420 }, 'slow');    
             self.tabs = [
             { title: "Crear paquetes", route: "tab1", active: true },

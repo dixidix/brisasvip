@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-07-2016 a las 23:21:02
--- Versión del servidor: 10.1.8-MariaDB
--- Versión de PHP: 5.6.14
+-- Tiempo de generación: 28-07-2016 a las 04:55:08
+-- Versión del servidor: 5.7.13-log
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -135,7 +135,7 @@ CREATE TABLE `requested_trips` (
   `req_to` varchar(255) NOT NULL,
   `distance` varchar(100) NOT NULL,
   `price` varchar(100) NOT NULL,
-  `state` int(1) NOT NULL
+  `state` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -144,10 +144,30 @@ CREATE TABLE `requested_trips` (
 
 INSERT INTO `requested_trips` (`id`, `userId`, `request_date`, `date`, `time`, `req_from`, `req_to`, `distance`, `price`, `state`) VALUES
 (4, 1, '25-07-16 16:54', '27-07-2016', '21:53', 'Tabanera 3385, Mendoza, Argentina', 'Mendoza Plaza Shopping - Acceso Este Lateral Sue, Mendoza, Argentina', '10.8', '117.80', 1),
-(5, 1, '25-07-16 17:44', '25-07-2016', '17:44', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.8', '49.37', 2),
+(5, 1, '25-07-16 17:44', '25-07-2016', '17:44', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.8', '49.37', 0),
 (6, 9, '27-07-16 00:03', '28-07-2016', '02:02', 'Cadetes Chilenos 173, Mendoza, Argentina', 'Tabanera 3385, Mendoza, Argentina', '2.2', '42.53', 0),
-(7, 11, '27-07-16 09:26', '28-07-2016', '10:25', 'Mitre 179, MaipÃº, Mendoza, Argentina', 'Mendoza Plaza Shopping - Acceso Este Lateral Sue, Mendoza, Argentina', '170', '1955.45', 2),
-(8, 12, '27-07-16 10:47', '31-07-2016', '14:46', 'Mitre 173, LujÃ¡n de Cuyo, Mendoza, Argentina', 'Mitre 870, Mendoza, Argentina', '169', '167.52', 2);
+(7, 11, '27-07-16 09:26', '28-07-2016', '10:25', 'Mitre 179, MaipÃº, Mendoza, Argentina', 'Mendoza Plaza Shopping - Acceso Este Lateral Sue, Mendoza, Argentina', '170', '1955.45', 0),
+(8, 12, '27-07-16 10:47', '31-07-2016', '14:46', 'Mitre 173, LujÃ¡n de Cuyo, Mendoza, Argentina', 'Mitre 870, Mendoza, Argentina', '169', '167.52', 0),
+(9, 14, '27-07-16 21:23', '28-07-2016', '22:20', 'Tabanera 3385, Mendoza, Argentina', 'Aguado A. 380, Mendoza, Argentina', '1.25', '26.51', 0),
+(10, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(11, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(12, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(13, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(14, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(15, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(16, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(17, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(18, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(19, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(20, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(21, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(22, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(23, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(24, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(25, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(26, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(27, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0),
+(28, 1, '27-07-16 23:00', '27-07-2016', '23:00', 'Tabanera 3385, Mendoza, Argentina', 'Cadetes Chilenos 173, Mendoza, Argentina', '2.79', '49.26', 0);
 
 -- --------------------------------------------------------
 
@@ -174,7 +194,9 @@ INSERT INTO `soldpackages` (`id`, `name`, `lastname`, `email`, `tel`, `date`, `t
 (1, 'nicolas', 'sigal', 'nicolas.sigal@gmail.com', '12345123', '26-07-2016', '18:17', 39),
 (2, 'juan', 'perez', 'juanperez@gmail.com', '123456', '27-07-2016', '18:26', 39),
 (3, 'asdasdasd', 'asdasd', 'asdaasd@asdasd.com', '23423423', '27-07-2016', '18:28', 39),
-(4, 'nicolas', 'sigal', 'nicolas.sigal@gmail.com', '123123123123', '28-07-2016', '20:40', 39);
+(4, 'nicolas', 'sigal', 'nicolas.sigal@gmail.com', '123123123123', '28-07-2016', '20:40', 39),
+(5, 'roberto', 'perez', 'roberto.perez@gmail.com', '123123123', '27-07-2016', '20:53', 43),
+(6, 'Romina', 'Altamira', 'romina.altamira@gmail.com', '1235123123', '27-07-2016', '20:54', 44);
 
 -- --------------------------------------------------------
 
@@ -200,13 +222,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `tel`, `city`, `password`, `deleted`, `isAdmin`, `sskey`) VALUES
-(1, 'nicolas', 'sigal', 'nicolas.sigal@gmail.com', '153013907', 'Mendoza, Argentina', 'admin', 0, 1, 'c01001e9dd0e9faf0f9978f27a0f2a75'),
+(1, 'nicolas', 'sigal', 'nicolas.sigal@gmail.com', '153013907', 'Mendoza, Argentina', 'admin', 0, 1, NULL),
 (2, 'carlos', 'pascolo', 'carlos.pascolo@gmail.com', '123456789', 'Mendoza, Argentina', 'carlosp', 1, 0, NULL),
 (9, 'Johanna', 'Belmonte', 'johannabelmonte@gmail.com', '12345', 'Mendoza, Argentina', '1234', 0, 1, '2eee09d6cf101bcc49adc6e4ba3d8ff5'),
 (10, 'Carlos', 'Funes', 'carlos.funes@gmail.com', '1234', 'Cordoba, Argentina', '12345', 0, 1, NULL),
 (11, 'Juan', 'Berdugo', 'eljuancho@gmail.com', '153050505', 'Mendoza, Argentina', '1234', 0, 0, NULL),
 (12, 'Federico', 'Zanatta', 'fedemza6@gmail.com', '123456', 'Mendoza, Argentina', '1234', 0, 0, NULL),
-(13, 'Marta', 'Amadei', 'mawwadei@gmail.com', '123456', 'Mendoza, Argentina', '1234', 0, 0, NULL);
+(13, 'Marta', 'Amadei', 'mawwadei@hotmail.com', '123456', 'Mendoza, Argentina', '1234', 0, 0, NULL),
+(14, 'Agustin', 'Sigal', 'sigalagus@gmail.com', '11231231', 'Mendoza, Argentina', '1234', 0, 0, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -271,17 +294,17 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT de la tabla `requested_trips`
 --
 ALTER TABLE `requested_trips`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `soldpackages`
 --
 ALTER TABLE `soldpackages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -3,8 +3,10 @@
 		<article>
 			<div class="content">
 				<div class="content row">
-					<input type="text" class="form-control " name="search" id="search" ng-model="search" placeholder="Escribe tu b&uacute;squeda">
-					<i class="fa fa-search" aria-hidden="true"></i>
+					<div class="input-group">
+						<input type="text" class="form-control " name="search" id="search" ng-model="search" placeholder="Escribe tu b&uacute;squeda">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</div>
 					<div class="panel panel-default">
 						<table class="table table-bordered table-striped">
 							<thead>
@@ -20,7 +22,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="reqPackages-list-item" ng-repeat="package in reqPackages.packages.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter : search | filter : paginate track by $index">
+								<tr class="reqPackages-list-item" ng-repeat="package in filtered =  (reqPackages.packages | filter:search) | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage | filter : paginate track by $index">
 									<td><span>{{package.name}}</span></td>
 									<td><span>{{package.lastname}}</span></td>
 									<td><span>{{package.email}}</span></td>
@@ -33,7 +35,7 @@
 							</tbody>
 						</table>
 					</div>
-					<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></uib-pagination>
+					<uib-pagination next-text="Siguiente" previous-text="Anterior" total-items="filtered.length" data-num-pages="reqTrips.noOfPages" ng-model="currentPage" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true"></uib-pagination>
 				</div>
 			</div>	
 		</article>

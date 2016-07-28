@@ -4,13 +4,13 @@ function adminUsersController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('adminUsersCtrl', adminUsersCtrl);
-    adminUsersCtrl.$inject = ['$state','$scope','$http','$uibModal'];
+    adminUsersCtrl.$inject = ['$state','$scope','$http','$uibModal','$filter'];
     app.controller('modalUserCtrl', modalUserCtrl);
     modalUserCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
 
-    function adminUsersCtrl($state, $scope, $http, $uibModal){
+    function adminUsersCtrl($state, $scope, $http, $uibModal, $filter){
         var self = this; //jshint ignore:line
-        self.users = {};
+        self.users = [];
         self.user = {};
         function remove(user){
           self.user = user;
@@ -48,18 +48,25 @@ function adminUsersController(angular, app) {
          self.edit = edit;
          self.makeAdmin = makeAdmin;
          self.openModal = openModal;
+         $scope.filtered = [];
          $http.post('./dist/php/get_users.php',{ sskey: sessionStorage.getItem('sskey') }).then(function(response) {    
 
           self.users = response.data.users;
           $scope.totalItems = Object.keys(self.users).length;
           $scope.currentPage = 1;
           $scope.itemsPerPage = 5;
+          $scope.maxSize = 5;
           $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
           };
           $scope.pageChanged = function() {
 
           };
+          $scope.$watch('search', function (term) {
+            var obj = term;
+            $scope.filtered = $filter('filter')(self.users, obj);
+            $scope.currentPage = 1;
+          }); 
         });
        }
        init();

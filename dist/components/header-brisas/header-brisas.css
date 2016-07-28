@@ -4,7 +4,7 @@
 /** Devices Breakpoints **/
 /** Mixins for responsive content **/
 .header {
-  background-image: url("./../../styles/images/header_ps2.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6) 10%, transparent 35%), url("./../../styles/images/header_ps2.jpg");
   background-size: cover;
   height: 480px;
   width: 100%;
@@ -49,14 +49,6 @@
   .header .stopScroll {
     top: -20px;
     transition: all 1s ease-in-out; }
-  @media screen and (max-width: 767px) {
-    .header {
-      background-image: url("./../../styles/images/mobile-bg.jpg");
-      height: 100vh; } }
-  @media screen and (min-width: 768px) and (max-width: 991px) {
-    .header {
-      background-image: url("./../../styles/images/mobile-bg.jpg");
-      height: 100vh; } }
   .header .search-container {
     text-align: center;
     width: 100%;
