@@ -1,5 +1,5 @@
 <?php
-
+ini_set('default_charset', 'UTF-8');
 class MysqliDB{
 
 
@@ -59,7 +59,6 @@ class MysqliDB{
 	{
 
 		$this->_mysqli = new mysqli ($this->host, $this->user, $this->passwd, $this->db);
-
 		if (mysqli_connect_errno()) {
 
 			die( "Fallo la conexión a MySQL: (" . mysqli_connect_errno() . ") " . mysqli_connect_error());

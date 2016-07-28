@@ -1,0 +1,40 @@
+/*Colours*/
+/*Variables*/
+/* Fonts */
+/** Devices Breakpoints **/
+/** Mixins for responsive content **/
+.fpwd {
+  padding-top: 80px;
+  margin-bottom: 100px; }
+  .fpwd .form-control, .fpwd .btn {
+    border-radius: 0; }
+    .fpwd .form-control:focus, .fpwd .form-control:active:focus, .fpwd .form-control:active, .fpwd .btn:focus, .fpwd .btn:active:focus, .fpwd .btn:active {
+      outline: #de9900;
+      border-color: #de9900;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .fpwd input {
+    height: 40px; }
+  .fpwd i {
+    margin-right: 5px; }
+  .fpwd .btn-brisas {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .fpwd .btn-brisas, .fpwd .btn-brisas:active, .fpwd .btn-brisas:focus, .fpwd .btn-brisas:active:focus, .fpwd .btn-brisas:hover {
+      background-color: #068c8f;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .fpwd .btn-brisas:hover {
+      background-color: #07a4a7; }
+  .fpwd .btn-brisas-danger {
+    font-size: 16px;
+    opacity: 1;
+    margin-top: 25px; }
+    .fpwd .btn-brisas-danger, .fpwd .btn-brisas-danger:active, .fpwd .btn-brisas-danger:focus, .fpwd .btn-brisas-danger:active:focus, .fpwd .btn-brisas-danger:hover {
+      background-color: #B0062A;
+      color: #fff;
+      width: 100%;
+      height: 45px; }
+    .fpwd .btn-brisas-danger:hover {
+      background-color: #c90730; }

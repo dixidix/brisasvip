@@ -5,9 +5,9 @@ function packageController(angular, app) {
 
     app.controller('packageCtrl', packageCtrl);
     app.filter('rangeFilter',rangeFilter);
-    packageCtrl.$inject = ['$http','$state','$filter'];
+    packageCtrl.$inject = ['$http','$state','$filter','$sce'];
 
-    function packageCtrl($http,$state,$filter){
+    function packageCtrl($http,$state,$filter,$sce){
         var self = this, data = {}  ; //jshint ignore:line
         $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false  }).success(function (response){
           self.isAdmin = response.isAdmin;

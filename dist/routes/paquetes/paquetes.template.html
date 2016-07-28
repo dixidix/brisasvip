@@ -29,7 +29,7 @@
 						<div ng-click="package.remove(packageList.id, packageList.short_title)" class="delete"> <i class="fa  fa-times"></i> </div>
 					</div>
 					<div ui-sref="home.pckgDescription({packageId: {{packageList.id}} })" class="card" ng-style="{'background-image': 'linear-gradient(rgba(0,0,0,0.5) 10%,rgba(0,0,0,0) 35%), url({{packageList.images[0].url}})'}">				
-						<h4 class="short-title">{{packageList.short_title}}</h4>
+						<h4 charset="UTF-8" class="short-title">{{packageList.short_title}}</h4>
 					</div>
 					<div class="promo" ng-if="packageList.hasPromo !== '0'">
 						<h4  ng-if="packageList.porcentaje"><span style="text-decoration: line-through;margin-right:5px;">$ {{packageList.price}}</span><span> -{{ packageList.porcentaje }}% OFF</span></h4>

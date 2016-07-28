@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-07-2016 a las 04:55:08
--- Versión del servidor: 5.7.13-log
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 28-07-2016 a las 20:38:52
+-- Versión del servidor: 10.1.8-MariaDB
+-- Versión de PHP: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -214,22 +214,24 @@ CREATE TABLE `users` (
   `password` varchar(120) DEFAULT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `isAdmin` tinyint(1) NOT NULL DEFAULT '0',
-  `sskey` varchar(255) DEFAULT NULL
+  `sskey` varchar(255) DEFAULT NULL,
+  `fpswdToken` varchar(255) DEFAULT NULL,
+  `registerToken` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `tel`, `city`, `password`, `deleted`, `isAdmin`, `sskey`) VALUES
-(1, 'nicolas', 'sigal', 'nicolas.sigal@gmail.com', '153013907', 'Mendoza, Argentina', 'admin', 0, 1, NULL),
-(2, 'carlos', 'pascolo', 'carlos.pascolo@gmail.com', '123456789', 'Mendoza, Argentina', 'carlosp', 1, 0, NULL),
-(9, 'Johanna', 'Belmonte', 'johannabelmonte@gmail.com', '12345', 'Mendoza, Argentina', '1234', 0, 1, '2eee09d6cf101bcc49adc6e4ba3d8ff5'),
-(10, 'Carlos', 'Funes', 'carlos.funes@gmail.com', '1234', 'Cordoba, Argentina', '12345', 0, 1, NULL),
-(11, 'Juan', 'Berdugo', 'eljuancho@gmail.com', '153050505', 'Mendoza, Argentina', '1234', 0, 0, NULL),
-(12, 'Federico', 'Zanatta', 'fedemza6@gmail.com', '123456', 'Mendoza, Argentina', '1234', 0, 0, NULL),
-(13, 'Marta', 'Amadei', 'mawwadei@hotmail.com', '123456', 'Mendoza, Argentina', '1234', 0, 0, NULL),
-(14, 'Agustin', 'Sigal', 'sigalagus@gmail.com', '11231231', 'Mendoza, Argentina', '1234', 0, 0, NULL);
+INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `tel`, `city`, `password`, `deleted`, `isAdmin`, `sskey`, `fpswdToken`, `registerToken`) VALUES
+(1, 'nicolas', 'sigal', 'nicolas.sigal@gmail.com', '153013907', 'Mendoza, Argentina', 'admina', 0, 1, NULL, NULL, NULL),
+(2, 'carlos', 'pascolo', 'carlos.pascolo@gmail.com', '123456789', 'Mendoza, Argentina', 'carlosp', 1, 0, NULL, NULL, NULL),
+(9, 'Johanna', 'Belmonte', 'johannabelmonte@gmail.com', '12345', 'Mendoza, Argentina', '1234', 0, 1, '2eee09d6cf101bcc49adc6e4ba3d8ff5', NULL, NULL),
+(10, 'Carlos', 'Funes', 'carlos.funes@gmail.com', '1234', 'Cordoba, Argentina', '12345', 0, 1, NULL, NULL, NULL),
+(11, 'Juan', 'Berdugo', 'eljuancho@gmail.com', '153050505', 'Mendoza, Argentina', '1234', 0, 0, NULL, NULL, NULL),
+(12, 'Federico', 'Zanatta', 'fedemza6@gmail.com', '123456', 'Mendoza, Argentina', '1234', 0, 0, NULL, NULL, NULL),
+(13, 'Marta', 'Amadei', 'mawwadei@hotmail.com', '123456', 'Mendoza, Argentina', '1234', 0, 0, NULL, NULL, NULL),
+(14, 'Agustin', 'Sigal', 'sigalagus@gmail.com', '11231231', 'Mendoza, Argentina', '1234', 0, 0, NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas

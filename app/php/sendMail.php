@@ -116,6 +116,29 @@ if(!empty($_POST['contactForm'])){
 	$mail->AltBody = "Rechazo de solicitud de servicio: $msg";
 
 	MysqliDB::getInstance()->query("UPDATE `requested_trips` SET `state`= 2 WHERE `id`= ".$id."");	
+
+} else if(!empty($_POST['resetPwd'])){
+	$body = file_get_contents('./emails/fpwd.template.html', FILE_USE_INCLUDE_PATH);
+
+	$email = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['email']));
+	$token = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['token']));
+	$msg = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['msg']));
+
+	$token = "http://localhost:8080/brisas_vip/#/reset-pwd/$token";
+
+	$htmlStringToReplace = array('$email', '$token');
+	$replaceWith   = array("$email", "$token");
+	$body = str_replace($htmlStringToReplace, $replaceWith, $body);
+	$to = "brisasvipprueba@gmail.com";
+	$name = "Brisas VIP";
+	$subject = "Recuperación de contraseña";
+	$mail->CharSet = 'UTF-8';
+	$mail->AddReplyTo($to);
+	$mail->SetFrom($to, $name);
+	$mail->Subject = $subject;
+	$mail->AddAddress($email);
+	$mail->Body    = $body;
+	$mail->AltBody = "Recuperación de contraseña: $msg";
 }
 if(!$mail->send()) {
 	echo 'Message could not be sent.';

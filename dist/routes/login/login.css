@@ -8,6 +8,9 @@
   margin-bottom: 100px; }
   .login textarea {
     resize: none; }
+  .login .fpwd a {
+    float: right;
+    margin-top: 10px; }
   .login .remove-img {
     cursor: pointer;
     font-family: "RobotoRegular", Arial;

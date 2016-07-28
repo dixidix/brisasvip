@@ -1,0 +1,95 @@
+	<div class="fpwd container-fluid">
+		<link rel="stylesheet" type="text/css" href="./dist/routes/fpwd/fpwd.css" >
+		
+		<article>
+			<div class="content">
+				<form ng-show="fpwd.validToken && !fpwd.successChangingPwd" name="fpwd.fpwdForm"	class="fpwdForm"	novalidate	data-ng-submit="fpwd.fpwdForm.$valid && !fpwdForm.$pristine && fpwd.fpwdForm.$submitted && fpwd.validatePwd(fpwd.pwd1, fpwd.pwd2)">
+					<div class="row">
+						<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
+							<h4>Cambiar Contrase&ntilde;a</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error':fpwd.match && fpwd.fpwdForm.$submitted || fpwd.fpwdForm.pwd1.$invalid && fpwd.fpwdForm.$submitted}">		
+							<label for="pwd1" class="control-label">Contrase&ntilde;a</label>		
+							<div class="input-group"> 
+								<span class="input-group-addon"><i class="fa fa-key"></i></span>		
+								<input type="password"	name="pwd1"	id="pwd1" ng-minlength="6"	ng-maxlength="14"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="14" autocomplete="off"	required 
+								data-ng-model="fpwd.pwd1">
+							</div>
+							<span class="help-block"	data-ng-show="fpwd.fpwdForm.pwd1.$error.required && fpwd.fpwdForm.$submitted">
+								Debe ingresar su Contrase&ntilde;a.
+							</span>
+							<span class="help-block"	data-ng-show="fpwd.fpwdForm.pwd1.$error.minlength && fpwd.fpwdForm.$submitted || fpwd.fpwdForm.pwd1.$error.maxlength && fpwd.fpwdForm.$submitted">
+								Debe ingresar una contrase&ntilde;a entre 6 y 14 caracteres.
+							</span>
+						</div>				
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error':fpwd.match && fpwd.fpwdForm.$submitted ||  fpwd.fpwdForm.pwd2.$invalid && fpwd.fpwdForm.$submitted}">		
+							<label for="pwd2" class="control-label">Repetir Contrase&ntilde;a</label>		
+							<div class="input-group"> 
+								<span class="input-group-addon"><i class="fa fa-key"></i></span>		
+								<input type="password"	name="pwd2"	id="pwd2"	class="form-control" placeholder="Repite la Contrase&ntilde;a" ng-minlength="6"	ng-maxlength="14" autocomplete="off"	required 
+								data-ng-model="fpwd.pwd2">
+							</div>
+							<span class="help-block"	data-ng-show="fpwd.fpwdForm.pwd2.$error.required && fpwd.fpwdForm.$submitted">
+								Debe ingresar su Contrase&ntilde;a.
+							</span>
+							<span class="help-block"	data-ng-show="fpwd.fpwdForm.pwd2.$error.minlength && fpwd.fpwdForm.$submitted || fpwd.fpwdForm.pwd2.$error.maxlength && fpwd.fpwdForm.$submitted">
+								Debe ingresar una contrase&ntilde;a entre 6 y 14 caracteres.
+							</span>
+						</div>				
+					</div>
+					<div class="row">
+						<div class="col-xs-3 col-md-3 col-xs-offset-3" data-ng-show="fpwd.match && fpwd.fpwdForm.$submitted"  data-ng-class="{'has-error':fpwd.match && fpwd.fpwdForm.$submitted}">	
+							<span class="help-block">
+								<label class="control-label">Las Contrase&ntilde;as no coinciden.</label>								
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3 col-md-3 col-xs-offset-3">
+							<button class="btn btn-brisas pull-right" type="submit"><i class="fa fa-check"></i> Cambiar contrase&ntilde;a<i class="" aria-hidden="true"></i> </button>
+						</div>
+						<div class="col-xs-3 col-md-3">
+							<button class="btn btn-brisas-danger pull-right" ng-click="removeToken()"><i class="fa fa-times"></i>Cancelar<i class="" aria-hidden="true"></i> </button>
+						</div>
+					</div>
+				</form>
+				<div ng-show="!fpwd.validToken">
+					<div class="row">
+						<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
+							<h3>Cambiar Contrase&ntilde;a</h3>
+							<h5>
+								El C&oacute;digo de renovaci&oacute;n de contrase&ntilde;a es inv&aacute;lido.<br>
+								Por favor intente nuevamente.<br>
+								Muchas gracias.
+							</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-md-6 col-xs-offset-3">
+							<button class="btn btn-brisas pull-right" ui-sref="home"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver a la p&aacute;gina principal </button>
+						</div>
+					</div>
+				</div>
+				<div ng-show="fpwd.successChangingPwd">
+					<div class="row">
+						<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
+							<h3>Cambiar Contrase&ntilde;a</h3>
+							<h5>
+								Se ha cambiado la contrase&ntilde;a correctamente.<br>
+								Ya puede ingresar al sitio.
+							</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-md-6 col-xs-offset-3">
+							<button class="btn btn-brisas pull-right" ui-sref="home.login"><i class="fa fa-user" aria-hidden="true"></i> Ingresar </button>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</article>
+	</div>

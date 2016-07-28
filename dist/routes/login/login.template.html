@@ -2,7 +2,7 @@
 	<link rel="stylesheet" type="text/css" href="./dist/routes/login/login.css" async="">
 	
 	<div class="row">
-		<form name="login.loginForm"	class="loginForm"	novalidate	data-ng-submit="login.loginForm.$valid && !loginForm.$pristine && login.loginForm.$submitted && login.login()">
+		<form ng-show="!login.fpwdshow" name="login.loginForm"	class="loginForm"	novalidate	data-ng-submit="login.loginForm.$valid && !loginForm.$pristine && login.loginForm.$submitted && login.login()">
 
 			<div class="row">
 				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': login.loginForm.username.$invalid && login.loginForm.$submitted}">	
@@ -46,5 +46,57 @@
 				</div>
 			</div>
 		</form>
+		<form ng-show="login.fpwdshow && !login.showfpwdSuccessMsg" name="login.fpwdForm"	class="loginForm"	novalidate	data-ng-submit="login.fpwdForm.$valid && !fpwdForm.$pristine && login.fpwdForm.$submitted && login.pwdreset()">
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
+					<h4>Recuperar Contrase&ntilde;a</h4>
+					<p style="color:gray;">Ingres&aacute; el correo electr&oacute;nico con el que te has registrado</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': login.fpwdForm.email.$invalid && login.fpwdForm.$submitted}">			
+					<label for="email" class="control-label">E-Mail</label>		
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+						<input type="email"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
+						data-ng-model="login.fpwduser.email">
+					</div>
+					<span class="help-block"	data-ng-show="login.fpwdForm.email.$error.required && login.fpwdForm.$submitted">
+						Debe ingresar su E-Mail.
+					</span>
+					<span class="help-block"	data-ng-show="!login.error.error && login.fpwdForm.email.$error.email && login.fpwdForm.$submitted">
+						Debe ingresar un E-Mail v&aacute;lido.
+					</span>
+					<span class="help-block" data-ng-show="login.error.error && login.fpwdForm.$submitted">
+						{{register.error.error}}
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 col-xs-offset-3">
+					<button class="btn btn-brisas pull-right" type="submit"><i class="fa fa-key"></i> Resetear contrase&ntilde;a<i class="" aria-hidden="true"></i> </button>
+				</div>
+				<div class="col-xs-3 col-md-3">
+					<button class="btn btn-brisas pull-right" ui-sref="home"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver a la p&aacute;gina principal </button>
+				</div>
+			</div>
+		</form>
+		<div class="row" ng-show="login.showfpwdSuccessMsg">
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
+					<h3>Recuperar Contrase&ntilde;a</h3>
+					<h4>Te enviamos un enlace para que puedas cambiar tu contrase&ntilde;a. Por favor ingresa a tu correo para seguir con el proceso de recuperaci&oacute;n</h4>
+				</div>
+				<div class=" col-xs-12 col-md-6 col-md-offset-3">
+					<button class="btn btn-brisas pull-right" ui-sref="home"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver a la p&aacute;gina principal </button>
+				</div>
+			</div>
+		</div>
+		<div  ng-show="!login.fpwdshow && !login.showfpwdSuccessMsg" class="row fpwd">
+			<div class="col-xs-12 col-md-6 col-md-offset-3">
+				<a href="" ng-click="login.fpwdshow = 'true'">¿Has olvidado tu contrase&ntilde;a?</a>
+				
+			</div>
+		</div>
 	</div>
 </div>

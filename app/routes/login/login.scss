@@ -3,6 +3,12 @@
 	textarea{
 		resize: none;
 	}
+	.fpwd{
+		a{
+			float: right;
+			margin-top: 10px;
+		}
+	}
 	.remove-img{
 		cursor: pointer;
 		font-family: $roboto;

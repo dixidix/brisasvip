@@ -23,6 +23,7 @@
 			"tab5": {  templateUrl: "./dist/routes/reqTrips/reqTrips.template.html", controller:"reqTripsCtrl", controllerAs:"reqTrips"}
 		}})
 		.state('home.choferes', {url: "choferes",templateUrl: "./dist/routes/choferes/choferes.template.html", data: { requireAdmin: false }, controller:"driversCtrl", controllerAs:"drivers"})
+		.state('home.fpwd', {url: "reset-pwd/:token",templateUrl: "./dist/routes/fpwd/fpwd.template.html", data: { requireAdmin: false }, controller:"fpwdCtrl", controllerAs:"fpwd"})
 		.state('home.landing', {url: "finalizar-compra",templateUrl: "./dist/routes/landingBuyPackage/landing.template.html", data: { requireAdmin: false }, controller:"landingCtrl", controllerAs:"landing"})
 		.state('home.buyPackage', {url: "comprar", params: { paymentGatewayUrl: null, packageId: null },templateUrl: "./dist/routes/buyPackage/buyPackage.template.html", data: { requireAdmin: false }, controller:"buyPackageCtrl", controllerAs:"buyPackage"});
 	});
@@ -75,6 +76,7 @@
 	require('./routes/buyPackage/buyPackage.js')(angular, app);
 	require('./routes/landingBuyPackage/landing.js')(angular, app);
 	require('./routes/login/login.js')(angular, app);
+	require('./routes/fpwd/fpwd.js')(angular, app);
 	require('./routes/register/register.js')(angular, app);
 	require('./routes/addPackage/addPackage.js')(angular, app);
 	require('./routes/tasar/search-brisas.js')(angular, app);

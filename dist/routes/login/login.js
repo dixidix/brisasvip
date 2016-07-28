@@ -10,6 +10,7 @@ function loginController(angular, app) {
     function loginCtrl($state, $scope, $rootScope,$http){
         var self = this; //jshint ignore:line
         self.user = {};
+        self.fpwduser = {};
         self.error = '';
         self.loginError = "";
         function login(){
@@ -29,10 +30,32 @@ function loginController(angular, app) {
             }
           });
         }
+        function pwdreset(){
+          $http
+          .post('./dist/php/reset_pwd.php', { email: self.fpwduser.email, toReset: false })
+          .then(function (response){
+            self.error = '';
+            if(!response.data.errors){
+              $http.post('./dist/php/sendMail.php', {
+                email:self.fpwduser.email,
+                token:response.data.fpswdToken,
+                msg:"se ha solicitado la renovacion de contraseña para " + self.fpwduser.email + ",por favor ingresa en: http://localhost:8080/brisas_vip/#/reset-pwd/q"+response.data.fpswdToken + "para continuar con el proceso.",
+                resetPwd: true
+              }).then(function (response){
+                self.showfpwdSuccessMsg = true;
+              });              
+            } else {
+              self.fpwd.error = response.data.errors;
+              self.registerForm.email.$setValidity("email", false);
+            }
+          });
+        }
         function init(){
          $('html, body').animate({
           scrollTop: $("#login").offset().top
         }, 1000);
+         self.fpwdshow = false;
+         self.pwdreset = pwdreset;
          self.login = login;
        }
        init();

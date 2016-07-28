@@ -24,6 +24,7 @@
 			"tab5": {  templateUrl: "./dist/routes/reqTrips/reqTrips.template.html", controller:"reqTripsCtrl", controllerAs:"reqTrips"}
 		}})
 		.state('home.choferes', {url: "choferes",templateUrl: "./dist/routes/choferes/choferes.template.html", data: { requireAdmin: false }, controller:"driversCtrl", controllerAs:"drivers"})
+		.state('home.fpwd', {url: "reset-pwd/:token",templateUrl: "./dist/routes/fpwd/fpwd.template.html", data: { requireAdmin: false }, controller:"fpwdCtrl", controllerAs:"fpwd"})
 		.state('home.landing', {url: "finalizar-compra",templateUrl: "./dist/routes/landingBuyPackage/landing.template.html", data: { requireAdmin: false }, controller:"landingCtrl", controllerAs:"landing"})
 		.state('home.buyPackage', {url: "comprar", params: { paymentGatewayUrl: null, packageId: null },templateUrl: "./dist/routes/buyPackage/buyPackage.template.html", data: { requireAdmin: false }, controller:"buyPackageCtrl", controllerAs:"buyPackage"});
 	});
@@ -76,12 +77,13 @@
 	require('./routes/buyPackage/buyPackage.js')(angular, app);
 	require('./routes/landingBuyPackage/landing.js')(angular, app);
 	require('./routes/login/login.js')(angular, app);
+	require('./routes/fpwd/fpwd.js')(angular, app);
 	require('./routes/register/register.js')(angular, app);
 	require('./routes/addPackage/addPackage.js')(angular, app);
 	require('./routes/tasar/search-brisas.js')(angular, app);
 })();
 
-},{"./components/brisas-carousel/brisas-carousel.js":2,"./components/brisas-chofer/brisas-chofer.js":3,"./components/brisas-contacto/brisas-contacto.js":4,"./components/brisas-footer/brisas-footer.js":5,"./components/brisas-paquetes/brisas-paquetes.js":6,"./components/brisas-seguridad/brisas-seguridad.js":7,"./components/brisas-service-description/brisas-service-description.js":8,"./components/header-brisas/header-brisas.js":9,"./components/navbar-brisas/navbar-brisas.js":10,"./components/uploader/uploader.js":11,"./routes/addPackage/addPackage.js":12,"./routes/adminUsers/adminUsers.js":13,"./routes/buyPackage/buyPackage.js":14,"./routes/choferes/choferes.js":15,"./routes/conocenos/conocenos.js":16,"./routes/dashboard/dashboard.js":17,"./routes/editFares/editFares.js":18,"./routes/editUser/editUser.js":19,"./routes/home/home.js":20,"./routes/landingBuyPackage/landing.js":21,"./routes/login/login.js":22,"./routes/paquetes-desc/paquetes-desc.js":23,"./routes/paquetes/paquetes.js":24,"./routes/register/register.js":25,"./routes/reqPackages/reqPackages.js":26,"./routes/reqTrips/reqTrips.js":27,"./routes/tasar/search-brisas.js":28,"./services/uploadService.js":29}],2:[function(require,module,exports){
+},{"./components/brisas-carousel/brisas-carousel.js":2,"./components/brisas-chofer/brisas-chofer.js":3,"./components/brisas-contacto/brisas-contacto.js":4,"./components/brisas-footer/brisas-footer.js":5,"./components/brisas-paquetes/brisas-paquetes.js":6,"./components/brisas-seguridad/brisas-seguridad.js":7,"./components/brisas-service-description/brisas-service-description.js":8,"./components/header-brisas/header-brisas.js":9,"./components/navbar-brisas/navbar-brisas.js":10,"./components/uploader/uploader.js":11,"./routes/addPackage/addPackage.js":12,"./routes/adminUsers/adminUsers.js":13,"./routes/buyPackage/buyPackage.js":14,"./routes/choferes/choferes.js":15,"./routes/conocenos/conocenos.js":16,"./routes/dashboard/dashboard.js":17,"./routes/editFares/editFares.js":18,"./routes/editUser/editUser.js":19,"./routes/fpwd/fpwd.js":20,"./routes/home/home.js":21,"./routes/landingBuyPackage/landing.js":22,"./routes/login/login.js":23,"./routes/paquetes-desc/paquetes-desc.js":24,"./routes/paquetes/paquetes.js":25,"./routes/register/register.js":26,"./routes/reqPackages/reqPackages.js":27,"./routes/reqTrips/reqTrips.js":28,"./routes/tasar/search-brisas.js":29,"./services/uploadService.js":30}],2:[function(require,module,exports){
 function BrisasCarouselDirective(angular, app) {
 	'use strict';
 
@@ -893,6 +895,54 @@ function editUsersController(angular, app) {
     };
     module.exports = editUsersController;
 },{}],20:[function(require,module,exports){
+function fpwdController(angular, app) {
+    'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('fpwdCtrl', fpwdCtrl);
+    fpwdCtrl.$inject = ['$http','$filter','$state','$scope'];
+
+    function fpwdCtrl($http, $filter, $state, $scope,$stateParams){
+        var self = this;
+        self.validToken = false;
+        self.successChangingPwd = false;
+        function validatePwd(pwd1,pwd2){
+            if(pwd1 === pwd2){
+                self.changepwd(pwd1);
+            }else{
+                self.fpwdForm.$setValidity('valid',false);
+                self.fpwdForm.pwd1.$setValidity('valid',false);
+                self.fpwdForm.pwd2.$setValidity('valid',false);
+                self.match = true;                
+            }
+        }
+        function changepwd(pwd){
+            console.log(pwd);
+            $http
+            .post('./dist/php/reset_pwd.php', { pwd:pwd, token: $state.params.token, toReset: true })
+            .then(function (response){
+               self.successChangingPwd = true;
+           });
+        }
+        function init(){ 
+             self.match = false;
+            self.changepwd = changepwd;
+            self.validatePwd = validatePwd;
+            if($state.params.token){            
+                self.validToken = true;
+            }else{
+                self.validToken = false;
+            }
+
+            $('html, body').animate({ scrollTop: 460 }, 'slow');    
+        }
+        init();
+    }
+
+};
+module.exports = fpwdController;
+},{}],21:[function(require,module,exports){
 function homeController(angular, app) {
     'use strict';
 
@@ -917,7 +967,7 @@ function homeController(angular, app) {
     }
 };
 module.exports = homeController;
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 function landingController(angular, app) {
     'use strict';
 
@@ -951,7 +1001,7 @@ function landingController(angular, app) {
 }
 };
 module.exports = landingController;
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 function loginController(angular, app) {
   'use strict';
 
@@ -964,6 +1014,7 @@ function loginController(angular, app) {
     function loginCtrl($state, $scope, $rootScope,$http){
         var self = this; //jshint ignore:line
         self.user = {};
+        self.fpwduser = {};
         self.error = '';
         self.loginError = "";
         function login(){
@@ -983,17 +1034,39 @@ function loginController(angular, app) {
             }
           });
         }
+        function pwdreset(){
+          $http
+          .post('./dist/php/reset_pwd.php', { email: self.fpwduser.email, toReset: false })
+          .then(function (response){
+            self.error = '';
+            if(!response.data.errors){
+              $http.post('./dist/php/sendMail.php', {
+                email:self.fpwduser.email,
+                token:response.data.fpswdToken,
+                msg:"se ha solicitado la renovacion de contraseña para " + self.fpwduser.email + ",por favor ingresa en: http://localhost:8080/brisas_vip/#/reset-pwd/q"+response.data.fpswdToken + "para continuar con el proceso.",
+                resetPwd: true
+              }).then(function (response){
+                self.showfpwdSuccessMsg = true;
+              });              
+            } else {
+              self.fpwd.error = response.data.errors;
+              self.registerForm.email.$setValidity("email", false);
+            }
+          });
+        }
         function init(){
          $('html, body').animate({
           scrollTop: $("#login").offset().top
         }, 1000);
+         self.fpwdshow = false;
+         self.pwdreset = pwdreset;
          self.login = login;
        }
        init();
      }
    };
    module.exports = loginController;
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 function packageDescController(angular, app) {
 	'use strict';
 
@@ -1109,7 +1182,7 @@ function packageDescController(angular, app) {
 }
 };
 module.exports = packageDescController;
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 function packageController(angular, app) {
 	'use strict';
 
@@ -1117,9 +1190,9 @@ function packageController(angular, app) {
 
     app.controller('packageCtrl', packageCtrl);
     app.filter('rangeFilter',rangeFilter);
-    packageCtrl.$inject = ['$http','$state','$filter'];
+    packageCtrl.$inject = ['$http','$state','$filter','$sce'];
 
-    function packageCtrl($http,$state,$filter){
+    function packageCtrl($http,$state,$filter,$sce){
         var self = this, data = {}  ; //jshint ignore:line
         $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false  }).success(function (response){
           self.isAdmin = response.isAdmin;
@@ -1186,7 +1259,7 @@ function packageController(angular, app) {
 };
 
 module.exports = packageController;
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 function registerController(angular, app) {
   'use strict';
 
@@ -1239,7 +1312,7 @@ function registerController(angular, app) {
      }
    };
    module.exports = registerController;
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 function reqPackagesController(angular, app) {
   'use strict';
 
@@ -1277,7 +1350,7 @@ function reqPackagesController(angular, app) {
      }
    };
    module.exports = reqPackagesController;
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 function reqTripsController(angular, app) {
   'use strict';
 
@@ -1406,7 +1479,7 @@ function reqTripsController(angular, app) {
 };
 
 module.exports = reqTripsController;
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 function rateController(angular, app) {
 	'use strict';
 
@@ -1664,7 +1737,7 @@ function rateController(angular, app) {
 }
 };
 module.exports = rateController;
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 function uploadService(angular, app) {
 	'use strict';
 	app.service('uploadService', uploadService);
