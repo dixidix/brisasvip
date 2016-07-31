@@ -139,6 +139,28 @@ if(!empty($_POST['contactForm'])){
 	$mail->AddAddress($email);
 	$mail->Body    = $body;
 	$mail->AltBody = "Recuperación de contraseña: $msg";
+} else if (!empty($_POST['registerToken'])){
+	$body = file_get_contents('./emails/register.template.html', FILE_USE_INCLUDE_PATH);
+
+	$email = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['email']));
+	$token = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['token']));
+	$msg = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['msg']));
+
+	$token = "http://localhost/brisas_vip/#/register/$token";
+
+	$htmlStringToReplace = array('$email', '$token');
+	$replaceWith   = array("$email", "$token");
+	$body = str_replace($htmlStringToReplace, $replaceWith, $body);
+	$to = "brisasvipprueba@gmail.com";
+	$name = "Brisas VIP";
+	$subject = "Completa el registro";
+	$mail->CharSet = 'UTF-8';
+	$mail->AddReplyTo($to);
+	$mail->SetFrom($to, $name);
+	$mail->Subject = $subject;
+	$mail->AddAddress($email);
+	$mail->Body    = $body;
+	$mail->AltBody = "Completa el registro: $msg";	
 }
 if(!$mail->send()) {
 	echo 'Message could not be sent.';

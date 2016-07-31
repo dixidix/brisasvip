@@ -31,6 +31,7 @@ function loginController(angular, app) {
           });
         }
         function pwdreset(){
+          self.fpwduser.sending = true;
           $http
           .post('./dist/php/reset_pwd.php', { email: self.fpwduser.email, toReset: false })
           .then(function (response){
@@ -55,6 +56,7 @@ function loginController(angular, app) {
           scrollTop: $("#login").offset().top
         }, 1000);
          self.fpwdshow = false;
+         self.fpwduser.sending = false;
          self.pwdreset = pwdreset;
          self.login = login;
        }

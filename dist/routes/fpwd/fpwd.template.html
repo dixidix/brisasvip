@@ -61,16 +61,7 @@
 					<div class="row">
 						<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
 							<h3>Cambiar Contrase&ntilde;a</h3>
-							<h5>
-								El C&oacute;digo de renovaci&oacute;n de contrase&ntilde;a es inv&aacute;lido.<br>
-								Por favor intente nuevamente.<br>
-								Muchas gracias.
-							</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-md-6 col-xs-offset-3">
-							<button class="btn btn-brisas pull-right" ui-sref="home"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver a la p&aacute;gina principal </button>
+							<p style="font-size:18px;" data-ng-bind-html="fpwd.invalidMsg"></p>
 						</div>
 					</div>
 				</div>
@@ -78,15 +69,11 @@
 					<div class="row">
 						<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
 							<h3>Cambiar Contrase&ntilde;a</h3>
-							<h5>
+							<p style="font-size:18px;">
 								Se ha cambiado la contrase&ntilde;a correctamente.<br>
-								Ya puede ingresar al sitio.
-							</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-md-6 col-xs-offset-3">
-							<button class="btn btn-brisas pull-right" ui-sref="home.login"><i class="fa fa-user" aria-hidden="true"></i> Ingresar </button>
+								Ser&aacute; redireccionado en 5 segundos a la pantalla principal para que pueda ingresar al sitio.<br>
+								Muchas gracias por elegirnos.
+							</p>
 						</div>
 					</div>
 				</div>

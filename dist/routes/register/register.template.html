@@ -1,8 +1,7 @@
 <div class="login container" id="register">
 	<link rel="stylesheet" type="text/css" href="./dist/routes/login/login.css" async="">	
 	<div class="row">
-		<form name="register.registerForm"	class="loginForm"	novalidate	data-ng-submit="register.registerForm.$valid && !registerForm.$pristine && register.registerForm.$submitted && register.register()">
-
+		<form name="register.registerForm"	class="loginForm"	novalidate	data-ng-submit="register.registerForm.$valid && !register.registerForm.$pristine && register.registerForm.$submitted && register.register()" ng-if="!register.validateRegister && !register.concludeRegister && 	register.validToken">
 			<div class="row">
 				<div class="col-xs-12 col-md-6 col-md-offset-3">
 					<h3>Registro</h3>
@@ -11,7 +10,7 @@
 					<label for="name" class="control-label">Nombre</label>		
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text"	name="name"	id="name"	class="form-control" placeholder="Nombre"	maxlength="100"	autocomplete="off"	required 
+						<input type="text"	name="name"	id="name" ng-disabled="register.sending"	class="form-control" placeholder="Nombre"	maxlength="100"	autocomplete="off"	required 
 						data-ng-model="register.user.name">
 					</div>
 					<span class="help-block"	data-ng-show="register.registerForm.name.$error.required && register.registerForm.$submitted">
@@ -24,7 +23,7 @@
 					<label for="lastname" class="control-label">Apellido</label>		
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text"	name="lastname"	id="lastname"	class="form-control" placeholder="Apellido" maxlength="100" autocomplete="off"	required 
+						<input type="text"	ng-disabled="register.sending" name="lastname"	id="lastname"	class="form-control" placeholder="Apellido" maxlength="100" autocomplete="off"	required 
 						data-ng-model="register.user.lastname">
 					</div>
 					<span class="help-block"	data-ng-show="register.registerForm.lastname.$error.required && register.registerForm.$submitted">
@@ -37,7 +36,7 @@
 					<label for="email" class="control-label">E-Mail</label>		
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-						<input type="email"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
+						<input type="email" ng-disabled="register.sending"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
 						data-ng-model="register.user.email" ng-change="register.resetEmail()">
 					</div>
 					<span class="help-block"	data-ng-show="register.registerForm.email.$error.required && register.registerForm.$submitted">
@@ -56,7 +55,7 @@
 					<label for="tel" class="control-label">Tel&eacute;fono</label>
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-						<input type="text"	name="tel"	id="tel" class="form-control" placeholder="Tel&eacute;fono" maxlength="100" autocomplete="off"	required 
+						<input  type="text"	ng-disabled="register.sending" name="tel"	id="tel" class="form-control" placeholder="Tel&eacute;fono" maxlength="100" autocomplete="off"	required 
 						data-ng-model="register.user.tel">
 					</div>
 					<span class="help-block"	data-ng-show="register.registerForm.tel.$error.required && register.registerForm.$submitted">
@@ -69,7 +68,7 @@
 					<label for="country" class="control-label">Ciudad de residencia</label>		
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-map"></i></span>
-						<input type="text"	name="country"	id="country" class="form-control" placeholder="Ciudad de residencia" maxlength="100" autocomplete="off"	required data-ng-model="register.user.country">			
+						<input type="text" ng-disabled="register.sending"	name="country"	id="country" class="form-control" placeholder="Ciudad de residencia" maxlength="100" autocomplete="off"	required data-ng-model="register.user.country">			
 					</div>		
 					<span class="help-block"	data-ng-show="register.registerForm.country.$error.required && register.registerForm.$submitted">
 						Debe ingresar su ciudad de residencia.
@@ -81,7 +80,7 @@
 					<label for="password" class="control-label">Contrase&ntilde;a</label>		
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-key"></i></span>
-						<input type="password" ng-minlength="6"	ng-maxlength="14" name="password"	id="password"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="100" autocomplete="off"	required 
+						<input type="password" ng-disabled="register.sending" ng-minlength="6"	ng-maxlength="14" name="password"	id="password"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="100" autocomplete="off"	required 
 						data-ng-model="register.user.password">
 					</div>
 					<span class="help-block"	data-ng-show="register.registerForm.password.$error.required && register.registerForm.$submitted">
@@ -93,13 +92,64 @@
 				</div>				
 			</div>
 			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': register.registerForm.pwd2.$invalid && register.registerForm.$submitted}">		
+					<label for="pwd2" class="control-label">Repita su Contrase&ntilde;a</label>		
+					<div class="input-group"> 
+						<span class="input-group-addon"><i class="fa fa-key"></i></span>
+						<input type="password" ng-disabled="register.sending" ng-minlength="6"	ng-maxlength="14" name="pwd2"	id="pwd2"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="100" autocomplete="off"	required 
+						data-ng-model="register.user.pwd2">
+					</div>
+					<span class="help-block"	data-ng-show="register.registerForm.pwd2.$error.required && register.registerForm.$submitted">
+						Debe ingresar su Contrase&ntilde;a.
+					</span>
+					<span class="help-block"	data-ng-show="register.registerForm.pwd2.$error.minlength && register.registerForm.$submitted || register.registerForm.pwd2.$error.maxlength && register.registerForm.$submitted">
+						Debe ingresar una contrase&ntilde;a entre 6 y 14 caracteres.
+					</span>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 col-xs-offset-3" data-ng-show="register.match && register.registerForm.$submitted"  data-ng-class="{'has-error':register.match && register.registerForm.$submitted}">	
+					<span class="help-block">
+						<label class="control-label">Las Contrase&ntilde;as no coinciden.</label>								
+					</span>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-xs-3 col-md-3 col-xs-offset-3">
-					<button class="btn btn-brisas pull-right" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarme </button>
+					<button class="btn btn-brisas pull-right" type="submit"><i ng-if="register.sending" class="fa fa-spinner fa-spin" style="margin-right:10px;font-size:18px;" aria-hidden="true"></i><i ng-if="!register.sending" style="margin-right: 10px;" class="fa fa-user-plus" aria-hidden="true"></i>{{register.btnMsg}} </button>
+
 				</div>
 				<div class="col-xs-3 col-md-3">
 					<button class="btn btn-brisas-danger pull-right" data-ui-sref="home" data-ui-sref-opts="{reload: true}"><i class="fa  fa-times" aria-hidden="true"></i> Cancelar </button>
 				</div>
 			</div>
 		</form>
+		<div ng-if="register.validateRegister">
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-md-offset-3">
+					<h3>Registro</h3>
+					<p style="font-size: 18px;">Muchas gracias por registrarse en nuestro sitio, le hemos enviado un correo electrónico especificando los pasos necesarios para concluir el registro. </p>
+					<button class="btn btn-brisas" ui-sref="home" ui-sref-opts="{reload:true}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver a la p&aacute;gina principal.</button>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="register.concludeRegister">
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-md-offset-3">
+					<h3>Registro</h3>
+					<p style="font-size: 18px;">Muchas gracias por seguir los pasos, ya puede ingresar al sitio. </p>
+					<button class="btn btn-brisas" ui-sref="home.login" ui-sref-opts="{reload:true}"><i class="fa fa-user" aria-hidden="true"></i> Ingresar.</button>
+				</div>
+			</div>
+		</div>
+		<div ng-if="!register.validToken">
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3">
+					<h3>Registro</h3>
+					<p style="font-size:18px;" data-ng-bind-html="register.invalidMsg"></p>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

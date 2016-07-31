@@ -58,7 +58,7 @@
 					<label for="email" class="control-label">E-Mail</label>		
 					<div class="input-group"> 
 						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-						<input type="email"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
+						<input type="email"	name="email"	ng-disabled="login.fpwduser.sending"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
 						data-ng-model="login.fpwduser.email">
 					</div>
 					<span class="help-block"	data-ng-show="login.fpwdForm.email.$error.required && login.fpwdForm.$submitted">
@@ -74,7 +74,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-3 col-md-3 col-xs-offset-3">
-					<button class="btn btn-brisas pull-right" type="submit"><i class="fa fa-key"></i> Resetear contrase&ntilde;a<i class="" aria-hidden="true"></i> </button>
+					<button class="btn btn-brisas pull-right" type="submit"><i ng-if="login.fpwduser.sending" class="fa fa-spinner fa-spin" style="margin-right:10px;font-size:18px;" aria-hidden="true"></i><i ng-if="!login.fpwduser.sending" style="margin-right: 10px;" class="fa fa-key" aria-hidden="true"></i><span ng-if="!login.fpwduser.sending">Resetear contrase&ntilde;a</span><span ng-if="login.fpwduser.sending">Enviando</span></button>
 				</div>
 				<div class="col-xs-3 col-md-3">
 					<button class="btn btn-brisas pull-right" ui-sref="home"><i class="fa fa-chevron-left" aria-hidden="true"></i> Volver a la p&aacute;gina principal </button>

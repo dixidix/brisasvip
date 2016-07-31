@@ -13,7 +13,7 @@
 		.state('home.tasar', {url: "tasar/q={from}&{to}&{time}",templateUrl: "./dist/routes/tasar/search-brisas.template.html", data: { requireAdmin: false }, controller:"rateCtrl", controllerAs:"rate"})
 		.state('home.login', {url: "login", templateUrl: "./dist/routes/login/login.template.html", data: { requireAdmin: false }, controller:"loginCtrl", controllerAs:"login"})
 		.state('home.editUser', {url: "editar-usuario",params: {user:{}}, templateUrl: "./dist/routes/editUser/editUser.template.html", data: { requireAdmin: false }, controller:"editUsersCtrl", controllerAs:"editUser"})
-		.state('home.register', {url: "register", templateUrl: "./dist/routes/register/register.template.html", data: { requireAdmin: false }, controller:"registerCtrl", controllerAs:"register"})
+		.state('home.register', {url: "register/:token", templateUrl: "./dist/routes/register/register.template.html", data: { requireAdmin: false }, controller:"registerCtrl", controllerAs:"register"})
 		.state('home.editPackage', {url: "editar-paquete/{packageId}", templateUrl: "./dist/routes/addPackage/addPackage.template.html",  data: { requireAdmin: true }, controller:"addPackageCtrl", controllerAs:"addPackage"})
 		.state('home.dashboard', {url: "administrar", abstract:true,  data: { requireAdmin: true }, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html",  data: { requireAdmin: true }, controller:"dashboardCtrl", controllerAs:"dashboard"}}})
 		.state('home.dashboard.addPackage', {url: "",params: {pkgedit:{}}, views: {
@@ -901,19 +901,22 @@ function fpwdController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('fpwdCtrl', fpwdCtrl);
-    fpwdCtrl.$inject = ['$http','$filter','$state','$scope'];
+    fpwdCtrl.$inject = ['$http','$filter','$timeout','$state','$scope','$sce'];
 
-    function fpwdCtrl($http, $filter, $state, $scope,$stateParams){
+    function fpwdCtrl($http, $filter,$timeout, $state, $scope,$stateParams,$sce){
         var self = this;
         self.validToken = false;
         self.successChangingPwd = false;
         function validatePwd(pwd1,pwd2){
             if(pwd1 === pwd2){
                 self.changepwd(pwd1);
+                self.fpwdForm.$setValidity('valid',true);
+                self.fpwdForm.pwd1.$setValidity('valid',true);
+                self.fpwdForm.pwd2.$setValidity('valid',true);
             }else{
-                self.fpwdForm.$setValidity('valid',false);
-                self.fpwdForm.pwd1.$setValidity('valid',false);
-                self.fpwdForm.pwd2.$setValidity('valid',false);
+                self.fpwdForm.$setValidity('invalid',true);
+                self.fpwdForm.pwd1.$setValidity('invalid',true);
+                self.fpwdForm.pwd2.$setValidity('invalid',true);
                 self.match = true;                
             }
         }
@@ -923,22 +926,45 @@ function fpwdController(angular, app) {
             .post('./dist/php/reset_pwd.php', { pwd:pwd, token: $state.params.token, toReset: true })
             .then(function (response){
                self.successChangingPwd = true;
+               $timeout(function() { 
+                $state.go('home'); 
+            }, 5000);
            });
         }
         function init(){ 
-             self.match = false;
-            self.changepwd = changepwd;
-            self.validatePwd = validatePwd;
-            if($state.params.token){            
-                self.validToken = true;
-            }else{
-                self.validToken = false;
-            }
+         self.match = false;
+         self.invalidMsg = "";
+         self.changepwd = changepwd;
+         self.validatePwd = validatePwd;
+         if($state.params.token){            
+            self.validToken = true;
+            $http
+            .post('./dist/php/reset_pwd.php', { token: $state.params.token, checkValidToken: true })
+            .then(function (response){
+                if(response.data.errors.invalid){
+                 self.validToken = false;
+                 self.invalidMsg = "El C&oacute;digo de renovaci&oacute;n de contrase&ntilde;a es inv&aacute;lido o ya ha sido utilizado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
 
-            $('html, body').animate({ scrollTop: 460 }, 'slow');    
+                 $timeout(function() { 
+                    $state.go('home'); 
+                }, 5000);
+             }
+             if(response.data.errors.expired){
+                 self.validToken = false;
+                 self.invalidMsg = "El C&oacute;digo de renovaci&oacute;n de contrase&ntilde;a ha expirado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
+                 $timeout(function() { 
+                    $state.go('home'); 
+                }, 5000);
+             }
+         });
+        }else{
+            self.validToken = false;
         }
-        init();
+
+        $('html, body').animate({ scrollTop: 460 }, 'slow');    
     }
+    init();
+}
 
 };
 module.exports = fpwdController;
@@ -1035,6 +1061,7 @@ function loginController(angular, app) {
           });
         }
         function pwdreset(){
+          self.fpwduser.sending = true;
           $http
           .post('./dist/php/reset_pwd.php', { email: self.fpwduser.email, toReset: false })
           .then(function (response){
@@ -1059,6 +1086,7 @@ function loginController(angular, app) {
           scrollTop: $("#login").offset().top
         }, 1000);
          self.fpwdshow = false;
+         self.fpwduser.sending = false;
          self.pwdreset = pwdreset;
          self.login = login;
        }
@@ -1267,51 +1295,106 @@ function registerController(angular, app) {
 
     app.controller('registerCtrl', registerCtrl);
 
-    registerCtrl.$inject = ['$state','$scope','$http'];
+    registerCtrl.$inject = ['$state','$scope','$http','$timeout'];
 
-    function registerCtrl($state, $scope,$http){
+    function registerCtrl($state, $scope,$http,$timeout){
         var self = this; //jshint ignore:line        
         self.user = {};
         function register(){
-          self.user.country = $('#country').val();
-          $http.post('./dist/php/register.php', {
-            name: self.user.name,
-            lastname: self.user.lastname,
-            email: self.user.email,
-            tel: self.user.tel,
-            city: self.user.country,
-            password: self.user.password
-          })
-          .then(function (response){
-            console.log(response);
-            self.error = '';
-            if(!response.data.errors){
-              self.registerForm.$setPristine();
-              self.user = {};
-              $state.go("home",{},{reload: true});
-            } else {
-              self.error = response.data.errors;
-              self.registerForm.email.$setValidity("email", false);
-            }
-          });
+          if(validatePwd(self.user.password, self.user.pwd2)){
+            self.user.country = $('#country').val();
+            self.btnMsg = "Enviando";
+            self.sending = true;
+            $http.post('./dist/php/register.php', {
+              name: self.user.name,
+              lastname: self.user.lastname,
+              email: self.user.email,
+              tel: self.user.tel,
+              city: self.user.country,
+              password: self.user.password
+            })
+            .then(function (response){
+              self.error = '';
+              if(!response.data.errors){       
+                $http.post('./dist/php/sendMail.php', {
+                  email: self.user.email,
+                  token: response.data.registerToken,
+                  msg:"se ha solicitado el registro de el usuario " + self.user.email + ",por favor ingresa en: http://localhost:8080/brisas_vip/#/register/"+response.data.registerToken + "para continuar con el proceso.",
+                  registerToken: true
+                }).then(function (response){
+                  self.registerForm.$setPristine();
+                  self.user = {};         
+                  self.validateRegister = true;
+                });     
+              } else {
+                self.error = response.data.errors;
+                self.registerForm.email.$setValidity("email", false);
+              }
+            });
+          }
         }
+        function validatePwd(pwd1,pwd2){
+          if(pwd1 !== pwd2){
+            self.registerForm.password.$setValidity('invalid',true);
+            self.registerForm.pwd2.$setValidity('invalid',true);
+            self.match = true;
+            return false;                
+          }else{          
+            self.registerForm.password.$setValidity('valid',true);
+            self.registerForm.pwd2.$setValidity('valid',true);
+            self.match = false; 
+            return true;               
+          }
+        }
+
         function resetEmail(){
           self.error = "";
         }
         function init(){         
-         $('html, body').animate({
-          scrollTop: $("#register").offset().top
-        }, 1000); 
-         self.register = register;
-         self.resetEmail = resetEmail;
-         var input1 = document.getElementById('country');
-         var autocomplete = new google.maps.places.Autocomplete(input1);
-       }
+          self.validateRegister = false;
+          self.validToken = true;
+          self.btnMsg = "Registrarme";
+          self.sending = false;
+          self.concludeRegister = false;
+          $('html, body').animate({
+            scrollTop: $("#register").offset().top
+          }, 1000); 
+          self.register = register;
+          self.resetEmail = resetEmail;
+          var input1 = document.getElementById('country');
+          var autocomplete = new google.maps.places.Autocomplete(input1);
+          if($state.params.token){           
 
-       init();
-     }
-   };
-   module.exports = registerController;
+            $http
+            .post('./dist/php/register.php', { conclude:true, token: $state.params.token})
+            .then(function(response){
+              console.log(response);
+              if(response.data.errors.invalid){
+                self.validToken = false;
+                self.invalidMsg = "El C&oacute;digo de Registro es inv&aacute;lido o ya ha sido utilizado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
+                $timeout(function() { 
+                  $state.go('home'); 
+                }, 5000);
+              } else if(response.data.errors.expired){
+                self.validToken = false;
+                self.invalidMsg = "El C&oacute;digo de Registro ha expirado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
+                $timeout(function() { 
+                  $state.go('home'); 
+                }, 5000);
+              }else {
+                self.concludeRegister = true;
+              }
+            });
+          }else{
+            self.concludeRegister = false;            
+
+          }
+        }
+
+        init();
+      }
+    };
+    module.exports = registerController;
 },{}],27:[function(require,module,exports){
 function reqPackagesController(angular, app) {
   'use strict';
