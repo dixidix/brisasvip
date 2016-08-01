@@ -25,9 +25,17 @@ function editUsersController(angular, app) {
           });
         }
         function init(){
+          if($state.params.userId){
+            $http
+            .post('./dist/php/get_users.php',{sskey: sessionStorage.getItem('sskey'), userId: $state.params.userId })
+            .then(function(response) {  
+              self.user = response.data.users[0];
+            });
+          }
           $('html, body').animate({ scrollTop: 500 }, 'slow'); 
           self.update = update;
           self.user = $state.params.user;
+
           var input1 = document.getElementById('country');
           var autocomplete = new google.maps.places.Autocomplete(input1);
         }

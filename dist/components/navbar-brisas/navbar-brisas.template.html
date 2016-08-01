@@ -37,7 +37,7 @@
         <a href="#" ui-sref="home.editFares" class="menu">Editar Tarifa</a>
         </li> -->
         <li ng-if="navbarCtrl.username">
-          <a class="menu">{{navbarCtrl.username}} <i class="fa fa-user"></i></a>
+          <a class="menu" ui-sref="home.editUser({ userId: navbarCtrl.userId})">{{navbarCtrl.username}} <i class="fa fa-user"></i></a>
         </li>
         <li ng-if="navbarCtrl.username">
           <a data-ng-click="navbarCtrl.exit()" class="menu">Salir</a>

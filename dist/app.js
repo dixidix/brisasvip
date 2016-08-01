@@ -11,7 +11,7 @@
 		.state('home.conocenos', {url: "conocenos",templateUrl: "./dist/routes/conocenos/conocenos.template.html", data: { requireAdmin: false }, controller:"knowUsCtrl", controllerAs:"knowUs"})
 		.state('home.tasar', {url: "tasar/q={from}&{to}&{time}",templateUrl: "./dist/routes/tasar/search-brisas.template.html", data: { requireAdmin: false }, controller:"rateCtrl", controllerAs:"rate"})
 		.state('home.login', {url: "login", templateUrl: "./dist/routes/login/login.template.html", data: { requireAdmin: false }, controller:"loginCtrl", controllerAs:"login"})
-		.state('home.editUser', {url: "editar-usuario",params: {user:{}}, templateUrl: "./dist/routes/editUser/editUser.template.html", data: { requireAdmin: false }, controller:"editUsersCtrl", controllerAs:"editUser"})
+		.state('home.editUser', {url: "editar-usuario",params: {user:{},  userId:''}, templateUrl: "./dist/routes/editUser/editUser.template.html", data: { requireAdmin: false }, controller:"editUsersCtrl", controllerAs:"editUser"})
 		.state('home.register', {url: "register/:token", templateUrl: "./dist/routes/register/register.template.html", data: { requireAdmin: false }, controller:"registerCtrl", controllerAs:"register"})
 		.state('home.editPackage', {url: "editar-paquete/{packageId}", templateUrl: "./dist/routes/addPackage/addPackage.template.html",  data: { requireAdmin: true }, controller:"addPackageCtrl", controllerAs:"addPackage"})
 		.state('home.dashboard', {url: "administrar", abstract:true,  data: { requireAdmin: true }, views: {  "": { templateUrl: "./dist/routes/dashboard/dashboard.template.html",  data: { requireAdmin: true }, controller:"dashboardCtrl", controllerAs:"dashboard"}}})
@@ -34,8 +34,7 @@
 
 			$http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
 				self.isAdmin = response.isAdmin;
-				var requireAdmin = toState.data.requireAdmin;
-				console.log(requireAdmin, self.isAdmin);
+				var requireAdmin = toState.data.requireAdmin;	
 				if(requireAdmin && self.isAdmin == 0 || requireAdmin && self.isAdmin == undefined){
 					event.preventDefault();
 					$state.go('home',{reload:true});

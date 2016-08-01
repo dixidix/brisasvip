@@ -87,6 +87,22 @@
 							</div>				
 						</div>
 						<div class="row">
+							<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': editUser.editUserForm.pwd2.$invalid && editUser.editUserForm.$submitted}">		
+								<label for="pwd2" class="control-label">Repita su Contrase&ntilde;a</label>		
+								<div class="input-group"> 
+									<span class="input-group-addon"><i class="fa fa-key"></i></span>
+									<input type="password"  ng-minlength="6"	ng-maxlength="14" name="pwd2"	id="pwd2"	class="form-control" placeholder="Contrase&ntilde;a" maxlength="100" autocomplete="off"	required 
+									data-ng-model="editUser.user.pwd2">
+								</div>
+								<span class="help-block"	data-ng-show="editUser.editUserForm.pwd2.$error.required && editUser.editUserForm.$submitted">
+									Debe ingresar su Contrase&ntilde;a.
+								</span>
+								<span class="help-block"	data-ng-show="editUser.editUserForm.pwd2.$error.minlength && editUser.editUserForm.$submitted || editUser.editUserForm.pwd2.$error.maxlength && editUser.editUserForm.$submitted">
+									Debe ingresar una contrase&ntilde;a entre 6 y 14 caracteres.
+								</span>
+							</div>				
+						</div>
+						<div class="row">
 							<div class="col-xs-3 col-md-3 col-xs-offset-3">
 								<button class="btn btn-brisas pull-right" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Usuario </button>
 							</div>

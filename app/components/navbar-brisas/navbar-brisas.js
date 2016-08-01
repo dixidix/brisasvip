@@ -44,8 +44,9 @@ function BrisasNavbarDirective(angular, app) {
     		var self = this; //jshint
             self.logoFixed = false;
             self.username = "";
-            $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
+            $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
                 self.isAdmin = response.isAdmin;
+                self.userId = response.userId;
             });
             if(sessionStorage.getItem('sskey')){
                 self.isLogged  = true;
