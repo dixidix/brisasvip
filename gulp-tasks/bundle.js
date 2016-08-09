@@ -4,15 +4,20 @@ function bundle(gulp, $){
 	source = require('vinyl-source-stream'),
 	glob = require('glob'),
 	path = require('path');
+	var concat = require('gulp-concat');
+	var rename = require('gulp-rename');
+	var uglify = require('gulp-uglify');  
+	var source = require('vinyl-source-stream');
+	var buffer = require('vinyl-buffer');
 	$.paths.bundle = {
 		resources: [
 		// './bower_components/bootstrap/dist/js/bootstrap.min.js',
-		'./node_modules/angular/angular.js',
+		'./node_modules/angular/angular.min.js',
 		'./node_modules/angular-ui-router/release/angular-ui-router.min.js',
 		'./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
 		'./node_modules/angular-animate/angular-animate.min.js',
 		'./node_modules/angular-sanitize/angular-sanitize.min.js',
-		'./bower_components//angular-rangeslider/angular.rangeSlider.js',
+		'./bower_components/angular-rangeslider/angular.rangeSlider.js'
 		],
 		app: [
 		'./app/*.js',
@@ -27,6 +32,10 @@ function bundle(gulp, $){
 		return browserify($.paths.bundle.resources)
 		.bundle()
 		.pipe(source("libs.bundle.js"))
+		.pipe(gulp.dest("./dist"))		
+		.pipe(rename('libs.bundle.min.js'))
+		.pipe(buffer())
+		.pipe(uglify())
 		.pipe(gulp.dest("./dist"));
 	}
 
@@ -35,6 +44,10 @@ function bundle(gulp, $){
 		return browserify({entries: files})
 		.bundle()
 		.pipe(source("app.bundle.js"))
+		.pipe(gulp.dest("./dist"))		
+		.pipe(rename('app.bundle.min.js'))
+		.pipe(buffer())
+		.pipe(uglify())
 		.pipe(gulp.dest("./dist"));
 	}	
 

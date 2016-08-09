@@ -20,11 +20,11 @@ class MysqliDB{
 
 	protected $host='localhost';
 
-	protected $user='root';
+	protected $user='brisasre_admin';
 
-	protected $passwd='';
+	protected $passwd='trmendoza2016';
 
-	protected $db='brisasvip';
+	protected $db='brisasre_brisasvip';
 
 
 

@@ -11,12 +11,12 @@ $mail = new PHPMailer;
 $mail->SMTPDebug = 2;                               // Enable verbose debug output
 
 $mail->isSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->Host = 'mail.brisasremisvip.com';  // Specify main and backup SMTP servers
 $mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = 'brisasvipprueba@gmail.com';                 // SMTP username
-$mail->Password = 'brisasvip123';                           // SMTP password
+$mail->Username = 'info@brisasremisvip.com';                 // SMTP username
+$mail->Password = 'trmendoza2016';                           // SMTP password
 $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 587;                                    // TCP port to connect to
+$mail->Port = 26;                                    // TCP port to connect to
 
 
 if(!empty($_POST['contactForm'])){
@@ -27,7 +27,7 @@ if(!empty($_POST['contactForm'])){
 	$tel = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['tel']));
 	$consulta = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['consulta']));
 	$from = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['mail']));
-	$to = "brisasvipprueba@gmail.com";
+	$to = "info@brisasremisvip.com";
 	$subject = "Consulta Web de: $fullname";
 	$consulta = "<div> <h3>Consulta Web :: Brisas Vip</h3> <span><b>Nombre: </b></span><span>$fullname</span><br /> <span><b>E-Mail: </b></span><span>$from</span><br /><span><b>Tel: </b></span><span>$tel</span><br /><b>Consulta: </b><br/><p>$consulta</p><br /></div>";
 	$mail->CharSet = 'UTF-8';
@@ -49,7 +49,7 @@ if(!empty($_POST['contactForm'])){
 	$userId = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['userId']));
 	$userEmail = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['userEmail']));
 	$userTel = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['userTel']));
-	$correo = "brisasvipprueba@gmail.com";
+	$correo = "info@brisasremisvip.com";
 	date_default_timezone_set('America/Argentina/Mendoza');
 	$requestDate = date('d-m-y H:i', time());
 
@@ -82,7 +82,7 @@ if(!empty($_POST['contactForm'])){
 
 	$body = str_replace($htmlStringToReplace, $replaceWith, $body);
 
-	$to = "brisasvipprueba@gmail.com";
+	$to = "info@brisasremisvip.com";
 	$name = "Brisas VIP";
 	$subject = "Confirmación de solicitud de servicio";
 	$mail->CharSet = 'UTF-8';
@@ -103,7 +103,7 @@ if(!empty($_POST['contactForm'])){
 	$msg = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['msg']));
 	$id = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['id']));
 
-	$to = "brisasvipprueba@gmail.com";
+	$to = "info@brisasremisvip.com";
 	$name = "Brisas VIP";
 	$subject = "Rechazo de solicitud de servicio";
 	$consulta = "<div> <h3>Rechazo de solicitud de servicio :: Brisas Vip</h3><p>$msg</p><br /></div>";
@@ -129,7 +129,7 @@ if(!empty($_POST['contactForm'])){
 	$htmlStringToReplace = array('$email', '$token');
 	$replaceWith   = array("$email", "$token");
 	$body = str_replace($htmlStringToReplace, $replaceWith, $body);
-	$to = "brisasvipprueba@gmail.com";
+	$to = "info@brisasremisvip.com";
 	$name = "Brisas VIP";
 	$subject = "Recuperación de contraseña";
 	$mail->CharSet = 'UTF-8';
@@ -151,7 +151,7 @@ if(!empty($_POST['contactForm'])){
 	$htmlStringToReplace = array('$email', '$token');
 	$replaceWith   = array("$email", "$token");
 	$body = str_replace($htmlStringToReplace, $replaceWith, $body);
-	$to = "brisasvipprueba@gmail.com";
+	$to = "info@brisasremisvip.com";
 	$name = "Brisas VIP";
 	$subject = "Completa el registro";
 	$mail->CharSet = 'UTF-8';
