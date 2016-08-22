@@ -5,17 +5,10 @@
 /** Mixins for responsive content **/
 .navbar {
   position: relative;
-  transition: all 0.2s ease-in-out;
   z-index: 999; }
-  .navbar i {
-    font-size: 15px;
-    vertical-align: -1px;
-    margin-left: 5px; }
   .navbar-nav {
     margin-top: 12px;
     font-family: "MuseoSans-100", Arial; }
-  .navbar .collapsed {
-    display: none; }
   .navbar-brand a {
     text-decoration: none; }
   .navbar-brand img {
@@ -49,11 +42,16 @@
   .subbrand-fixed {
     display: inline-block;
     margin-left: 210px;
-    width: 100%;
     margin-top: 22px;
     font-family: RobotoLight;
     font-size: 15px;
     font-style: italic; }
+    @media screen and (max-width: 767px) {
+      .subbrand-fixed {
+        display: none; } }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      .subbrand-fixed {
+        display: none; } }
 
 .navbar-fixed {
   transition: all 0.2s ease-in-out;
@@ -69,8 +67,6 @@
     font-family: "MuseoSans-100", Arial; }
   .navbar-fixed .menu-brisas {
     margin-top: 5px; }
-  .navbar-fixed .collapsed {
-    display: none; }
   .navbar-fixed-brand a {
     text-decoration: none; }
   .navbar-fixed-brand img {

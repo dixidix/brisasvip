@@ -12,29 +12,50 @@
   color: #fff; }
   .footer footer a {
     color: #fff; }
-  .footer footer .social {
-    position: absolute;
-    right: 0; }
-    .footer footer .social_icon {
-      transition: .3s;
-      border: 1px solid #fff;
-      border-radius: 100%;
-      height: 40px;
-      width: 40px;
-      margin: 0px 2%; }
-      .footer footer .social_icon:hover, .footer footer .social_icon a:hover {
-        background-position: .09375rem 2rem;
-        background-color: #007bb6;
-        border: 1px solid #007bb6; }
-      .footer footer .social_icon i {
-        cursor: pointer;
-        font-size: 20px;
-        margin-top: 9px;
-        margin-left: -2px; }
-        .footer footer .social_icon i.fa-twitter {
-          margin-left: -5px; }
-        .footer footer .social_icon i.fa-google-plus {
-          margin-left: -8px; }
+  .footer footer .social_icon {
+    transition: .3s;
+    border: 1px solid #fff;
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    margin: 0px 2%; }
+    .footer footer .social_icon:hover, .footer footer .social_icon a:hover {
+      background-position: .09375rem 2rem;
+      background-color: #007bb6;
+      border: 1px solid #007bb6; }
+    .footer footer .social_icon i {
+      cursor: pointer;
+      font-size: 20px;
+      margin-top: 9px;
+      margin-left: -2px; }
+      .footer footer .social_icon i.fa-twitter {
+        margin-left: -5px; }
+      .footer footer .social_icon i.fa-google-plus {
+        margin-left: -8px; }
+    @media screen and (max-width: 767px) {
+      .footer footer .social_icon {
+        height: 35px;
+        width: 35px; }
+        .footer footer .social_icon i {
+          font-size: 16px;
+          margin-top: 9px;
+          margin-left: -2px; }
+          .footer footer .social_icon i.fa-twitter {
+            margin-left: -5px; }
+          .footer footer .social_icon i.fa-google-plus {
+            margin-left: -8px; } }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      .footer footer .social_icon {
+        height: 35px;
+        width: 35px; }
+        .footer footer .social_icon i {
+          font-size: 16px;
+          margin-top: 9px;
+          margin-left: -2px; }
+          .footer footer .social_icon i.fa-twitter {
+            margin-left: -5px; }
+          .footer footer .social_icon i.fa-google-plus {
+            margin-left: -8px; } }
   .footer footer .logo img {
     width: 115px; }
   .footer footer .copyright {

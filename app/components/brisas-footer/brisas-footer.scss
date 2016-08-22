@@ -11,8 +11,6 @@
 			color:#fff;
 		}
 		.social{
-			position: absolute;
-			right:0;
 			&_icon{
 				transition: .3s;
 				&:hover, & a:hover{
@@ -35,6 +33,21 @@
 					}
 					&.fa-google-plus{
 						margin-left:-8px;
+					}
+				}
+				@include responsive(phone, tablet){
+					height:35px;
+					width:35px;
+					i{
+						font-size: 16px;
+						margin-top: 9px;
+						margin-left: -2px;
+						&.fa-twitter{
+							margin-left:-5px;
+						}
+						&.fa-google-plus{
+							margin-left:-8px;
+						}
 					}
 				}
 			}

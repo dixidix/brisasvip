@@ -50,6 +50,18 @@ html{
 		.pagination{
 			float:right;
 		}
+		@include responsive(phone, tablet){
+			.navbar-toggle{
+				border:2px solid $premium;
+				border-radius: 5px;
+				margin-top: 13px;
+				margin-right: 20px;
+			}
+			.icon-bar{
+				background: $premium;
+			}
+		}
+
 		.pagination>.active>a,
 		.pagination>.active>a:focus,
 		.pagination>.active>a:hover,

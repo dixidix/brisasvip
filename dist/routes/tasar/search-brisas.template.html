@@ -9,98 +9,105 @@
 					</div>
 				</div>
 				<div class="col-xs-4 pull-left">
-						<div class="form-group">
-							<label for="from" class="control-label">Desde:</label>
-							<div class="input-group"> 
-								<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>							
-								<input type="text"  name="from" id="from" class="form-control" required disabled>
-							</div>
+					<div class="form-group">
+						<label for="from" class="control-label">Desde:</label>
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>							
+							<input type="text"  name="from" id="from" class="form-control" required disabled>
 						</div>
+					</div>
 
-						<div class="form-group">
-							<label for="to" class="control-label">Hasta:</label>
-							<div class="input-group"> 
-								<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>	
-								<input type="text"  name="to" id="to" class="form-control" required disabled>
-							</div>
+					<div class="form-group">
+						<label for="to" class="control-label">Hasta:</label>
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>	
+							<input type="text"  name="to" id="to" class="form-control" required disabled>
 						</div>
+					</div>
 
-						<div class="form-group">
-							<label for="from" class="control-label">Horario:</label>
-							<div class="input-group"> 
-								<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>	
-								<select class="form-control" id="tarifa"  required  disabled>
-									<option value="" disabled>Selecciona un horario</option>
-									<option value="1">05:00 AM - 22:00 PM</option>
-									<option value="2">22:00 PM - 05	:00 AM</option>
-								</select>
-							</div>
+					<div class="form-group">
+						<label for="from" class="control-label">Horario:</label>
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>	
+							<select class="form-control" id="tarifa"  required  disabled>
+								<option value="" disabled>Selecciona un horario</option>
+								<option value="1">05:00 AM - 22:00 PM</option>
+								<option value="2">22:00 PM - 05	:00 AM</option>
+							</select>
 						</div>
-						<div class="form-group">
-							<p id="distance" style="display:none;">Distance:<span id="total"></span></p>
-							<label for="dist" class="control-label">Distancia:</label>
-							<div class="input-group"> 
-								<span class="input-group-addon"><i class="fa fa-map-o"></i></span>	
-								<input type="text"  name="dist" required id="dist" class="form-control"  disabled>
-							</div>
+					</div>
+					<div class="form-group">
+						<p id="distance" style="display:none;">Distance:<span id="total"></span></p>
+						<label for="dist" class="control-label">Distancia:</label>
+						<div class="input-group"> 
+							<span class="input-group-addon"><i class="fa fa-map-o"></i></span>	
+							<input type="text"  name="dist" required id="dist" class="form-control"  disabled>
 						</div>
-						<div class="form-group">
-							<label for="price" class="control-label">Precio:</label>
-							<div class="input-group"> 
-								<span class="input-group-addon">$</span>
-								<input type="text" id="totalPrice"  required name="totalPrice" class="form-control"  disabled>
-							</div>
+					</div>
+					<div class="form-group">
+						<label for="price" class="control-label">Precio:</label>
+						<div class="input-group"> 
+							<span class="input-group-addon">$</span>
+							<input type="text" id="totalPrice"  required name="totalPrice" class="form-control"  disabled>
 						</div>
-						<div class="form-group">
-							<label for="price" class="control-label">Fecha de viaje:</label>
-							<div class="input-group"> 
-								<span class="input-group-addon" ng-click="open1()">
-									<i class="glyphicon glyphicon-calendar" ></i>
-								</span>
-								<input type="text" required id="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" />
+					</div>
+					<div class="form-group">
+						<label for="price" class="control-label">Fecha de viaje:</label>
+						<div class="input-group"> 
+							<span class="input-group-addon" ng-click="open1()">
+								<i class="glyphicon glyphicon-calendar" ></i>
+							</span>
+							<input type="text" required id="date" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" />
 
-							</div>
 						</div>
-						<div class="form-group">
-							<label for="price" class="control-label">Hora de viaje:</label>
-							<div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
-						</div>
+					</div>
+					<div class="form-group">
+						<label for="price" class="control-label">Hora de viaje:</label>
+						<div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+					</div>
 
-						<div class="form-group">
+					<div class="form-group">
 						<span class="disclaimer" ng-if="rate.noSearch" style="font-size:14px;">Debe realizar una busqueda para reservar un viaje.</span>
-						<button class="btn btn-brisas" ng-click="rate.reserve()" ng-style="rate.sending && {'background-color':'lightgray'}"><i ng-if="rate.sending" class="fa fa-spinner fa-spin" style="margin-right:10px;font-size:18px;" aria-hidden="true"></i><i ng-if="!rate.sending" style="margin-right: 10px;" class="fa fa-car" aria-hidden="true"></i>{{rate.btnMsg}} </button>
+						<button class="btn" ng-class="rate.closed ? 'btn-brisas-danger' : 'btn-brisas'" ng-click="rate.reserve()" ng-style="rate.sending && {'background-color':'lightgray'}" ng-disabled="rate.closed">
+							<i ng-if="rate.sending && !rate.closed" class="fa fa-spinner fa-spin" style="margin-right:10px;font-size:18px;" aria-hidden="true"></i>
+							<i ng-if="!rate.sending && !rate.closed" style="margin-right: 10px;" class="fa fa-car" aria-hidden="true"></i>
+							{{rate.btnMsg}} 
+						</button>
+						<div class="closed alert alert-danger fade in" ng-if="rate.closed">
+						<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							En este momento nuestros operadores no se encuentran en l&iacute;nea, por favor comuniquese a los siguientes tel&eacute;fonos: 4309100 - 4378080 - 4123123 <br> Intente nuevamente de lunes a viernes de 09:00 Hs a 21:00 Hs Hora Argentina. Muchas gracias</div>
 						</div>
+					</div>
+				</div>
+				<div class="col-xs-8">
+					<span class="disclaimer">El valor del viaje es un valor aproximado, sujeto a modificacion de la ruta y otras variantes. El sistema de direcciones es proporcionado por el servicio de google maps. Puede no incluir todas las direcciones.</span>
 				</div>
 			</div>
-			<div class="col-xs-8">
-				<span class="disclaimer">El valor del viaje es un valor aproximado, sujeto a modificacion de la ruta y otras variantes. El sistema de direcciones es proporcionado por el servicio de google maps. Puede no incluir todas las direcciones.</span>
-			</div>
-		</div>
-	</article>
-</div>
-<script type="text/ng-template" id="myModal.html">
-	<div class="search-brisas-modal">
-		<div class="modal-header">
-			<h3 class="modal-title">Solicitar un viaje</h3>
-		</div>
-		<div class="modal-body">
-			<p ng-bind-html="to_trusted(msg)"></p>
-		</div>
-		<div class="modal-footer">
-			<div class="row">
-
-				<div ng-if="isLogged" class="col-xs-4 col-xs-offset-8">
-					<button class="btn btn-brisas form-control" ng-click="close()">Cerrar</button>
-				</div>
-				<div ng-if="!isLogged" class="col-xs-4 col-xs-offset-4">
-					<button class="btn btn-brisas form-control" ng-click="toLogin()">Ingresar</button>
-				</div>
-				<div ng-if="!isLogged" class="col-xs-4">
-					<button class="btn btn-brisas-danger form-control" ng-click="cancel()">Cancelar</button>
-				</div>
-			</div>
-			
-			
-		</div>
+		</article>
 	</div>
-</script>
+	<script type="text/ng-template" id="myModal.html">
+		<div class="search-brisas-modal">
+			<div class="modal-header">
+				<h3 class="modal-title">Solicitar un viaje</h3>
+			</div>
+			<div class="modal-body">
+				<p ng-bind-html="to_trusted(msg)"></p>
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+
+					<div ng-if="isLogged" class="col-xs-4 col-xs-offset-8">
+						<button class="btn btn-brisas form-control" ng-click="close()">Cerrar</button>
+					</div>
+					<div ng-if="!isLogged" class="col-xs-4 col-xs-offset-4">
+						<button class="btn btn-brisas form-control" ng-click="toLogin()">Ingresar</button>
+					</div>
+					<div ng-if="!isLogged" class="col-xs-4">
+						<button class="btn btn-brisas-danger form-control" ng-click="cancel()">Cancelar</button>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</script>

@@ -59,6 +59,7 @@ class MysqliDB{
 	{
 
 		$this->_mysqli = new mysqli ($this->host, $this->user, $this->passwd, $this->db);
+		 mysqli_set_charset($this->_mysqli, "utf8"); 
 		if (mysqli_connect_errno()) {
 
 			die( "Fallo la conexión a MySQL: (" . mysqli_connect_errno() . ") " . mysqli_connect_error());

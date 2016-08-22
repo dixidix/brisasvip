@@ -1,20 +1,14 @@
 @import '../../styles/mixins/main';
 
+
+
 .navbar{
-	i{
-		font-size: 15px;
-		vertical-align: -1px;
-		margin-left: 5px;
-	}
+
 	position:relative;
-	transition: all 0.2s ease-in-out;
 	z-index:999;
 	&-nav{
 		margin-top:12px;
 		font-family:$MuseoSans-100;
-	}
-	.collapsed{
-		display:none;
 	}
 	&-brand{
 		a{
@@ -62,11 +56,13 @@
 	&-fixed{
 		display: inline-block;
 		margin-left: 210px;
-		width: 100%;
 		margin-top: 22px;
 		font-family: RobotoLight;
 		font-size: 15px;
 		font-style: italic;
+		@include responsive(phone,tablet){
+			display:none;
+		}
 	}
 }
 
@@ -79,15 +75,14 @@
 	box-shadow: 1px 1px 9px #2e2e2e;
 	z-index:999;
 	background: #fff;
+	
 	&-nav{
 		margin-top:12px;
 		font-family:$MuseoSans-100;
 	}
 	.menu-brisas{
 		margin-top:5px;
-	}
-	.collapsed{
-		display:none;
+
 	}
 	&-brand{
 		a{
@@ -130,3 +125,4 @@
 		}
 	}
 }
+

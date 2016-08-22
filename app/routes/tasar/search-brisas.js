@@ -221,6 +221,25 @@ function rateController(angular, app) {
 
         calcRoute();
         directionsDisplay.setMap(map); 
+        self.closed = false;
+        var today = new Date();
+        var today = parseInt(today.getDay());
+        console.log(today);
+        if(today !== 0 && today !== 6){
+          $http.get('./dist/php/get_server_time.php').success(function(res){
+            console.log(res);
+            if(res == 1){
+              self.closed = true;
+              self.btnMsg = "Cerrado";
+            } else {
+              self.closed = false;
+            }
+          });
+        }
+        else {
+          self.closed = true;
+          self.btnMsg = "Cerrado";
+        }
       }
       init();
     }

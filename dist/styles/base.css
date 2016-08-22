@@ -61,6 +61,22 @@ html {
         box-shadow: none; }
     html body .pagination {
       float: right; }
+    @media screen and (max-width: 767px) {
+      html body .navbar-toggle {
+        border: 2px solid #de9900;
+        border-radius: 5px;
+        margin-top: 13px;
+        margin-right: 20px; }
+      html body .icon-bar {
+        background: #de9900; } }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      html body .navbar-toggle {
+        border: 2px solid #de9900;
+        border-radius: 5px;
+        margin-top: 13px;
+        margin-right: 20px; }
+      html body .icon-bar {
+        background: #de9900; } }
     html body .pagination > .active > a,
     html body .pagination > .active > a:focus,
     html body .pagination > .active > a:hover,

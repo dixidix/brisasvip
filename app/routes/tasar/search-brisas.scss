@@ -19,7 +19,27 @@
 	padding:0;
 }
 .search-brisas{
-
+	.closed{
+		position:fixed;
+		z-index: 9999999999999999999;
+		background-color:#B0062A;
+		color:white;
+		margin-bottom: 0px;
+		width:100%;
+		left:0;
+		bottom:0;
+		border-radius: 0;
+		padding:10px;
+		font-weight: 500;
+		text-align: center;
+		border:0;
+		height:65px;
+	}
+	.btn-brisas-danger{
+		@include btn-brisas-danger(100%, 45px);
+		font-size:16px;
+		opacity:1;
+	}
 	.disclaimer{
 		color:red;
 		font-size:10px;

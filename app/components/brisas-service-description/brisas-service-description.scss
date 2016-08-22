@@ -21,8 +21,9 @@
 		}
 	}
 	.services{	
-	margin-top:4%;	
-		height: auto;
+		margin-top:4%;	
+		position: relative;	
+
 		&-image{
 			position: relative;
 			padding-left:0;
@@ -30,9 +31,9 @@
 		&-description{
 			background: rgba(255,255,255,0.8);
 			position: absolute;
-			top:180px;
+			top:0;
 			right:0%;
-			height: 79%;
+			height: 100%;
 			padding-right:0;
 			text-align: left;
 			&__text{
@@ -43,6 +44,9 @@
 					padding:5% 0%;
 					line-height:2;
 					text-align: justify;
+					max-height: 200px;	
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 				h3{
 					color:$premium;
@@ -59,9 +63,11 @@
 	}
 	.btn-brisas{
 		@include btn-brisas(200px, 40px);
+		position: absolute;
+		bottom:25px;
+		right:20px;
 		font-size:16px;
 		opacity:1;
-		margin-top: 10%;
 	}
 	img{
 		-webkit-filter: brightness(50%); /* Chrome, Safari, Opera */
