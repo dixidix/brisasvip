@@ -14,3 +14,7 @@
   border: dotted 5px #fff; }
   .search.ng-hide {
     height: 0; }
+
+@media print {
+  .search-brisas {
+    display: none; } }

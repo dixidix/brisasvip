@@ -4,6 +4,12 @@
 	margin-top:30px;
 	margin-bottom:56px;
 	position: relative;
+	@media screen and (max-width: 1400px){
+		.container{
+			padding: 0;
+			width: 100%;
+		}
+	}
 	.text-center{
 
 		section{
@@ -75,4 +81,9 @@
 		width:100%;
 	}
 
+}
+@media print {
+	.serviceDescription {
+		display: none;
+	}
 }

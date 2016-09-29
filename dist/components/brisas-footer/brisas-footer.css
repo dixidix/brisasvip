@@ -61,3 +61,7 @@
   .footer footer .copyright {
     position: absolute;
     bottom: 5px; }
+
+@media print {
+  .footer {
+    display: none; } }

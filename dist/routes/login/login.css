@@ -6,6 +6,9 @@
 .login {
   padding-top: 80px;
   margin-bottom: 100px; }
+  @media screen and (min-width: 1400px) {
+    .login {
+      margin-top: 10%; } }
   .login textarea {
     resize: none; }
   .login .fpwd a {
@@ -66,7 +69,8 @@
   .login .btn-brisas {
     font-size: 16px;
     opacity: 1;
-    margin-top: 25px; }
+    margin-top: 25px;
+    padding: 0; }
     .login .btn-brisas, .login .btn-brisas:active, .login .btn-brisas:focus, .login .btn-brisas:active:focus, .login .btn-brisas:hover {
       background-color: #068c8f;
       color: #fff;
@@ -85,3 +89,7 @@
       height: 45px; }
     .login .btn-brisas-danger:hover {
       background-color: #c90730; }
+
+@media print {
+  .login {
+    display: none; } }

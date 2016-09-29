@@ -6,6 +6,7 @@
 .search-brisas-modal {
   padding: 0; }
   .search-brisas-modal .btn-brisas {
+    margin-bottom: 5%;
     font-size: 16px; }
     .search-brisas-modal .btn-brisas, .search-brisas-modal .btn-brisas:active, .search-brisas-modal .btn-brisas:focus, .search-brisas-modal .btn-brisas:active:focus, .search-brisas-modal .btn-brisas:hover {
       background-color: #068c8f;
@@ -45,6 +46,15 @@
   margin-bottom: 100px;
   margin-top: 3%;
   text-align: justify; }
+  @media screen and (min-width: 1400px) {
+    .package-description {
+      margin-top: 15%; } }
+  @media screen and (max-width: 767px) {
+    .package-description {
+      text-align: center; } }
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    .package-description {
+      text-align: center; } }
   .package-description .bonificado {
     background: red; }
   .package-description p {
@@ -84,3 +94,7 @@
   .package-description article {
     max-width: 100%;
     word-wrap: break-word; }
+
+@media print {
+  .package-description {
+    display: none; } }

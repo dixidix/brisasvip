@@ -4,6 +4,9 @@
 	padding: 50px;
 	padding-bottom:100px;
 	font-family:$roboto;
+	@media screen and (min-width: 1400px){
+		margin-top:10%;
+	}
 	.badge{
 		background: red;
 		position: absolute;
@@ -41,4 +44,19 @@
 		border-bottom: 1px solid #ddd;
 		border-radius:0px 0px 15px 15px;
 	}
+}
+@media print {
+	.uib-tab, .nav-item,.nav-tabs.nav-justified>li ,.nav-tabs, .nav-justified {
+		display: none;
+	}
+	.dashboard{
+		padding: 0;
+		padding-bottom:0;
+		.viewContainer{
+			border:none;
+			min-height: auto;
+			background: transparent;
+		}
+	}
+
 }

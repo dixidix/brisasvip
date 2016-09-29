@@ -8,10 +8,20 @@ function packageController(angular, app) {
     packageCtrl.$inject = ['$http','$state','$filter','$sce'];
 
     function packageCtrl($http,$state,$filter,$sce){
+
         var self = this, data = {}  ; //jshint ignore:line
         $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false  }).success(function (response){
           self.isAdmin = response.isAdmin;
+          $('#openSidebar').on('click', function(){
+            console.log('pen');
+            $('.sidebar').css('display','inline-block');
+          });
+          $('#closeSidebar').on('click', function(){
+            console.log('clsw');
+            $('.sidebar').css('display','none');
+          });
         });
+
         function remove(id, title){
           if(confirm("Esta seguro que desea eliminar el paquete '" + title + "' ?")){
             $http.post('./dist/php/delete_package.php', {
@@ -30,6 +40,7 @@ function packageController(angular, app) {
           });
         }
         function init(){ 
+
           self.minPrice = 0;
           self.maxPrice = 20000;
           self.userMinPrice = self.minPrice;

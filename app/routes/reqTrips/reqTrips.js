@@ -4,11 +4,11 @@ function reqTripsController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('reqTripsCtrl', reqTripsCtrl);
-    reqTripsCtrl.$inject = ['$state','$scope','$rootScope','$http','$uibModal','$filter'];
+    reqTripsCtrl.$inject = ['$state','$scope','$rootScope','$http','$uibModal','$filter','$timeout'];
     app.controller('modalTripCtrl', modalTripCtrl);
     modalTripCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
 
-    function reqTripsCtrl($state, $scope,$rootScope,$http,$uibModal,$filter){
+    function reqTripsCtrl($state, $scope,$rootScope,$http,$uibModal,$filter, $timeout){
         var self = this; //jshint ignore:line
         self.trips = [];
         self.trip = {};
@@ -23,6 +23,13 @@ function reqTripsController(angular, app) {
         self.trip.confirmTrip = false;
         self.openModal('md');
 
+      }
+      function imprimirViaje(trip){
+        self.printTrip = {};
+        self.printTrip = trip;
+        $timeout(function() {
+          window.print();
+         } , 1000);
       }
       function openModal(size){
        var modalInstance = $uibModal.open({
@@ -43,6 +50,7 @@ function reqTripsController(angular, app) {
       self.openModal = openModal;
       self.revoke = revoke;
       self.confirm = confirm;
+      self.imprimirViaje = imprimirViaje;
       $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
         self.trips = response.data.reqTrips;
         $rootScope.tripsToContest = $filter('filter')(self.trips, {state:0}).length;

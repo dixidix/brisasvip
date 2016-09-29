@@ -91,7 +91,8 @@
     margin-bottom: 2%; }
   .reqTrips i {
     font-size: 18px;
-    margin: 0px 2px; }
+    vertical-align: middle;
+    margin: 0px 10px; }
     .reqTrips i:hover {
       cursor: pointer; }
   .reqTrips .form-control:focus, .reqTrips .form-control:active:focus, .reqTrips .form-control:active, .reqTrips .btn:focus, .reqTrips .btn:active:focus, .reqTrips .btn:active {
@@ -109,3 +110,25 @@
       height: 45px; }
     .reqTrips .btn-brisas:hover {
       background-color: #07a4a7; }
+
+#printarea {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 400px; }
+
+@media print {
+  .reqTrips, .reqTrips-brisas-modal {
+    display: none; }
+  #printarea {
+    display: block; }
+    #printarea table h3 {
+      margin-top: 10%; }
+    #printarea table .tripTableRow .tripTableCol {
+      width: 40% !important;
+      padding: 10px 0px !important;
+      border-botttom: 1px solid gray !important; } }

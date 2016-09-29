@@ -30,9 +30,8 @@
 	});
 	app.run(function ($rootScope, $http, $state){
 		self.isAdmin  = 0;
-
 		$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-
+			$('.collapse').removeClass('in');
 			$http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
 				self.isAdmin = response.isAdmin;
 				var requireAdmin = toState.data.requireAdmin;	
@@ -431,10 +430,12 @@ function BrisasNavbarDirective(angular, app) {
     	};
 
     	function link(scope, element, attrs) {
+              
             scope.logoFixed = false;
             angular.element(document).bind('scroll', function() {  
                 var scroll = $(window).scrollTop();
-                if (scroll > 60) {
+                // console.log(scroll);
+                if (scroll > 40) {
                     scope.logoFixed = true;
                     $("nav").removeClass("navbar");
                     $("nav").addClass("navbar-fixed");
@@ -458,7 +459,7 @@ function BrisasNavbarDirective(angular, app) {
         function controller($state){
     		var self = this; //jshint
             self.logoFixed = false;
-            self.username = "";
+            self.username = "";  
             $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
                 self.isAdmin = response.isAdmin;
                 self.userId = response.userId;
@@ -484,11 +485,11 @@ function BrisasNavbarDirective(angular, app) {
             }
             function exit(){
                 $http.post('./dist/php/delete_session.php',{ sskey: sessionStorage.getItem('sskey') }).success(function (response){
-                   if(response.deleted){
+                 if(response.deleted){
                     sessionStorage.clear();
                     $state.go("home", {}, {reload:true});
-                   }
-               });
+                }
+            });
             }
         }
     }
@@ -992,7 +993,6 @@ function homeController(angular, app) {
 
         function init(){
             $('html, body').scrollTop(0);
-
             $rootScope.$on("$stateChangeSuccess", function (event, currentState, previousState) {
                 $window.scrollTo(0, 0);
             });
@@ -1017,22 +1017,24 @@ function landingController(angular, app) {
             $state.go('home',{reload:true});
         }
         function init(){
-            $('html, body').animate({ scrollTop: 420 }, 'slow');    
-            $http.post('./dist/php/add_soldpackage.php', {
-             name : $rootScope.pckg.name,
-             lastname : $rootScope.pckg.lastname,
-             email : $rootScope.pckg.email,
-             tel : $rootScope.pckg.tel,
-             date :  $rootScope.pckg.date,
-             time : $rootScope.pckg.time,
-             packageId : $rootScope.pckg.packageId
-         }).then(function (response){
+          self.goHome = goHome;
+          $('html, body').animate({ scrollTop: 420 }, 'slow');    
+          if($rootScope.pckg){
+              $http.post('./dist/php/add_soldpackage.php', {
+                 name : $rootScope.pckg.name,
+                 lastname : $rootScope.pckg.lastname,
+                 email : $rootScope.pckg.email,
+                 tel : $rootScope.pckg.tel,
+                 date :  $rootScope.pckg.date,
+                 time : $rootScope.pckg.time,
+                 packageId : $rootScope.pckg.packageId
+             }).then(function (response){
 
-        });
-         self.goHome = goHome;
-    }
-    init();
-}
+             });
+         }
+     }
+     init();
+ }
 };
 module.exports = landingController;
 },{}],23:[function(require,module,exports){
@@ -1229,10 +1231,20 @@ function packageController(angular, app) {
     packageCtrl.$inject = ['$http','$state','$filter','$sce'];
 
     function packageCtrl($http,$state,$filter,$sce){
+
         var self = this, data = {}  ; //jshint ignore:line
         $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false  }).success(function (response){
           self.isAdmin = response.isAdmin;
+          $('#openSidebar').on('click', function(){
+            console.log('pen');
+            $('.sidebar').css('display','inline-block');
+          });
+          $('#closeSidebar').on('click', function(){
+            console.log('clsw');
+            $('.sidebar').css('display','none');
+          });
         });
+
         function remove(id, title){
           if(confirm("Esta seguro que desea eliminar el paquete '" + title + "' ?")){
             $http.post('./dist/php/delete_package.php', {
@@ -1251,6 +1263,7 @@ function packageController(angular, app) {
           });
         }
         function init(){ 
+
           self.minPrice = 0;
           self.maxPrice = 20000;
           self.userMinPrice = self.minPrice;
@@ -1411,13 +1424,25 @@ function reqPackagesController(angular, app) {
 
     app.controller('reqPackagesCtrl', reqPackagesCtrl);
 
-    reqPackagesCtrl.$inject = ['$state','$scope','$http','$filter'];
+    reqPackagesCtrl.$inject = ['$state','$scope','$http','$filter','$timeout'];
 
-    function reqPackagesCtrl($state, $scope,$http,$filter){
+    function reqPackagesCtrl($state, $scope,$http,$filter,$timeout){
         var self = this; //jshint ignore:line
         self.packages = [];
         $scope.filtered = [];
+        function imprimirViaje(trip){          
+          self.printTrip = {};
+          self.printTrip = trip;
+          if(trip.bonificado.length > 0){
+            self.printTrip.bonificado = trip.bonificado.split(",");
+          }
+          console.log(self.printTrip);
+          $timeout(function() {
+            window.print();
+          } , 1000);
+        }
         function init(){
+         self.imprimirViaje = imprimirViaje;
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
           $scope.totalItems = Object.keys(self.packages).length;
@@ -1448,11 +1473,11 @@ function reqTripsController(angular, app) {
     'use angular template'; //jshint ignore:line
 
     app.controller('reqTripsCtrl', reqTripsCtrl);
-    reqTripsCtrl.$inject = ['$state','$scope','$rootScope','$http','$uibModal','$filter'];
+    reqTripsCtrl.$inject = ['$state','$scope','$rootScope','$http','$uibModal','$filter','$timeout'];
     app.controller('modalTripCtrl', modalTripCtrl);
     modalTripCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
 
-    function reqTripsCtrl($state, $scope,$rootScope,$http,$uibModal,$filter){
+    function reqTripsCtrl($state, $scope,$rootScope,$http,$uibModal,$filter, $timeout){
         var self = this; //jshint ignore:line
         self.trips = [];
         self.trip = {};
@@ -1467,6 +1492,13 @@ function reqTripsController(angular, app) {
         self.trip.confirmTrip = false;
         self.openModal('md');
 
+      }
+      function imprimirViaje(trip){
+        self.printTrip = {};
+        self.printTrip = trip;
+        $timeout(function() {
+          window.print();
+         } , 1000);
       }
       function openModal(size){
        var modalInstance = $uibModal.open({
@@ -1487,6 +1519,7 @@ function reqTripsController(angular, app) {
       self.openModal = openModal;
       self.revoke = revoke;
       self.confirm = confirm;
+      self.imprimirViaje = imprimirViaje;
       $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
         self.trips = response.data.reqTrips;
         $rootScope.tripsToContest = $filter('filter')(self.trips, {state:0}).length;
@@ -1584,7 +1617,9 @@ function rateController(angular, app) {
 
     function rateCtrl($state, $scope,$http,$filter,$uibModal){
         var self = this; //jshint ignore:line
-
+        $('#tarifa-mobile').on('change', function(){
+          calcRoute();
+        });
         var options = {
         	componentRestrictions: {country: "ar"}
         };
@@ -1639,8 +1674,12 @@ function rateController(angular, app) {
 
         var input1 = document.getElementById('from');
         var input2 = document.getElementById('to');
+        var input3 = document.getElementById('to-mobile');
+        var input4 = document.getElementById('from-mobile');
         var autocomplete = new google.maps.places.Autocomplete(input1,options);
         var autocomplete = new google.maps.places.Autocomplete(input2,options);
+        var autocomplete = new google.maps.places.Autocomplete(input3,options);
+        var autocomplete = new google.maps.places.Autocomplete(input4,options);
         var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
         var directionsService = new google.maps.DirectionsService();
         var map;
@@ -1667,23 +1706,29 @@ function rateController(angular, app) {
         function calcRoute() {
         	var start =  $state.params.from;
         	var end = $state.params.to;
-        	var request = {
-        		origin: start,
-        		destination: end,
-           unitSystem: google.maps.UnitSystem.METRIC,
-           travelMode: google.maps.DirectionsTravelMode.DRIVING
-         };
-         directionsService.route(request, function (response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-           directionsDisplay.setDirections(response);
-           console.log(response.routes[0].legs[0].distance);
-           dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
-           stripint(dist);
-           recalc();
-         }
-       });
-       }
-       function computeTotalDistance(result) {
+          if($('.info #from-mobile').val().length > 0){
+            start = $('.info #from-mobile').val();
+          }
+          if($('.info #to-mobile').val().length > 0){
+            end = $('.info #to-mobile').val();
+          }
+          var request = {
+            origin: start,
+            destination: end,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+          };
+          directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+             directionsDisplay.setDirections(response);
+             console.log(response.routes[0].legs[0].distance);
+             dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
+             stripint(dist);
+             recalc();
+           }
+         });
+        }
+        function computeTotalDistance(result) {
          var total = 0;
          var myroute = result.routes[0];
          for (var i = 0; i < myroute.legs.length; i++) {
@@ -1703,8 +1748,12 @@ function rateController(angular, app) {
         	// var calculatedDistance = $('#dist').val().replace(".", "");
         	// var calculatedDistance = parseFloat(calculatedDistance);
           console.log(dist);
-          var selection = $('#tarifa').val();
-
+          var selection = "";
+          if($('.info #tarifa-mobile') && $('.info #tarifa-mobile').val() !== null && $('.info #tarifa-mobile').val() !== undefined && $('.info #tarifa-mobile').val().length > 0){
+            selection = $('#tarifa-mobile').val();
+          } else {
+            selection = $('#tarifa').val();
+          }
           $http.post('./dist/php/get_fares.php', {
             daytime: selection
           }).then(function (response){
@@ -1801,7 +1850,7 @@ function rateController(angular, app) {
         if(today !== 0 && today !== 6){
           $http.get('./dist/php/get_server_time.php').success(function(res){
             console.log(res);
-            if(res == 1){
+            if(res == 'true'){
               self.closed = true;
               self.btnMsg = "Cerrado";
             } else {

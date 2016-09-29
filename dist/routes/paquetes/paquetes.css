@@ -8,6 +8,27 @@
   margin-bottom: 100px;
   margin-top: 50px;
   text-decoration: none; }
+  @media screen and (max-width: 1400px) {
+    .package .container {
+      padding: 0;
+      width: 100%; } }
+  @media screen and (min-width: 1400px) {
+    .package {
+      margin: 15% auto; } }
+  @media screen and (max-width: 767px) {
+    .package {
+      min-height: 100vh; }
+      .package .package-list {
+        margin-top: 20%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center; } }
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    .package .package-list {
+      margin-top: 10%; } }
   .package .package-list-item.ng-enter {
     -ms-opacity: 0;
     opacity: 0; }
@@ -27,12 +48,70 @@
     opacity: 0; }
   .package .ngrs-range-slider {
     margin: 10px 0 10px; }
+  @media screen and (max-width: 767px) {
+    .package {
+      margin: 0; } }
+  .package .sidebarButton {
+    display: none; }
+    @media screen and (max-width: 767px) {
+      .package .sidebarButton {
+        display: inline-block; }
+        .package .sidebarButton .btn-brisas {
+          position: absolute;
+          left: 0;
+          border: 0; }
+          .package .sidebarButton .btn-brisas, .package .sidebarButton .btn-brisas:active, .package .sidebarButton .btn-brisas:focus, .package .sidebarButton .btn-brisas:active:focus, .package .sidebarButton .btn-brisas:hover {
+            background-color: #068c8f;
+            color: #fff;
+            width: 100%;
+            height: 40px; }
+          .package .sidebarButton .btn-brisas:hover {
+            background-color: #07a4a7; } }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      .package .sidebarButton {
+        display: inline-block; }
+        .package .sidebarButton .btn-brisas {
+          position: absolute;
+          left: 0;
+          border: 0; }
+          .package .sidebarButton .btn-brisas, .package .sidebarButton .btn-brisas:active, .package .sidebarButton .btn-brisas:focus, .package .sidebarButton .btn-brisas:active:focus, .package .sidebarButton .btn-brisas:hover {
+            background-color: #068c8f;
+            color: #fff;
+            width: 100%;
+            height: 40px; }
+          .package .sidebarButton .btn-brisas:hover {
+            background-color: #07a4a7; } }
+  .package .btn-brisas-danger, .package .btn-brisas-danger:active, .package .btn-brisas-danger:focus, .package .btn-brisas-danger:active:focus, .package .btn-brisas-danger:hover {
+    background-color: #B0062A;
+    color: #fff;
+    width: 100%;
+    height: 45px; }
+  .package .btn-brisas-danger:hover {
+    background-color: #c90730; }
   .package .sidebar {
     top: 0;
     padding: 15px;
     box-shadow: 1px 5px 7px #2e2e2e;
     margin-top: 9px;
     background: #ccc; }
+    @media screen and (max-width: 767px) {
+      .package .sidebar {
+        display: none;
+        position: absolute;
+        top: -10px;
+        width: 100%;
+        left: 0;
+        z-index: 1;
+        right: 0; } }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      .package .sidebar {
+        display: none;
+        position: absolute;
+        top: -10px;
+        width: 100%;
+        left: 0;
+        z-index: 1;
+        right: 0; } }
     .package .sidebar h4 {
       font-size: 16px; }
     .package .sidebar .fa-search {
@@ -183,3 +262,11 @@
         margin-right: 10px; }
   .package-description img {
     width: 100%; }
+
+@media screen and (max-width: 767px) {
+  .package-list-item {
+    width: 80%; } }
+
+@media print {
+  .package {
+    display: none; } }

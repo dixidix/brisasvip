@@ -1,27 +1,32 @@
 <div class="wrapper navbar-brisas">
   <link rel="stylesheet" type="text/css" href="./dist/components/navbar-brisas/navbar-brisas.css">
   <nav class="navbar">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
     <div class="container-fluid">
       <div class="navbar-header">
-        <div id="brand" class="navbar-brand">
+        <div id="brand" class="navbar-brand hidden-xs">
           <a href="#">
             <img class="img-responsive" src="./dist/styles/images/premium2.png">
+          </a>
+        </div>
+        <div class="navbar-brand hidden-sm hidden-md hidden-lg">
+          <a href="#">
+            <img class="img-responsive" src="./dist/styles/images/premium.png">
           </a>
         </div>
         <div id="subbrand" class="subbrand">
           <span>Excelencia, confort y seguridad</span>
         </div>
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav menu-brisas pull-right">
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav menu-brisas pull-right hidden-xs">
           <li>
-           <a href="#" ui-sref="home.paquetes" class="menu packages">Paquetes Tur&iacute;sticos</a> 
+           <a href="#" ui-sref="home.paquetes" class="menu packages_menu">Paquetes Tur&iacute;sticos</a> 
          </li>
          <li>
            <a href="#" ui-sref="home.tasar" ui-sref-opts="{reload: true}" class="menu">Tas&aacute; un viaje</a>
@@ -33,7 +38,7 @@
           <a data-target="noTarget" href="#" ui-sref="home.login" class="menu">Ingresar</a>
         </li>
         <li ng-if="navbarCtrl.isAdmin == 1">
-          <a href="#" ui-sref="home.dashboard.addPackage" class="menu">Administrar sitio</a>
+          <a href="#" ui-sref="home.dashboard.addPackage" class="menu hidden-xs hidden-sm">Administrar sitio</a>
         </li>
         <li ng-if="navbarCtrl.username">
           <a class="menu" ui-sref="home.editUser({ userId: navbarCtrl.userId})">{{navbarCtrl.username}} <i class="fa fa-user"></i></a>
@@ -42,7 +47,30 @@
           <a data-ng-click="navbarCtrl.exit()" class="menu">Salir</a>
         </li>
       </ul>
-    </div>
+      <ul class="nav navbar-nav menu-brisas pull-left hidden-sm hidden-md hidden-lg">
+        <li>
+         <a href="#" ui-sref="home.paquetes" class="menu packages_menu">Paquetes Tur&iacute;sticos</a> 
+       </li>
+       <li>
+         <a href="#" ui-sref="home.tasar" ui-sref-opts="{reload: true}" class="menu">Tas&aacute; un viaje</a>
+       </li>
+       <li ng-if="navbarCtrl.isAdmin != 1">
+         <a href="#" data-ng-click="navbarCtrl.toContact()" class="menu">contact&aacute;nos</a>
+       </li>    
+       <li ng-if="!navbarCtrl.username">
+        <a data-target="noTarget" href="#" ui-sref="home.login" class="menu">Ingresar</a>
+      </li>
+      <li ng-if="navbarCtrl.isAdmin == 1">
+        <a href="#" ui-sref="home.dashboard.addPackage" class="menu hidden-xs hidden-sm">Administrar sitio</a>
+      </li>
+      <li ng-if="navbarCtrl.username">
+        <a class="menu" ui-sref="home.editUser({ userId: navbarCtrl.userId})">{{navbarCtrl.username}} <i class="fa fa-user"></i></a>
+      </li>
+      <li ng-if="navbarCtrl.username">
+        <a data-ng-click="navbarCtrl.exit()" class="menu">Salir</a>
+      </li>
+    </ul>
   </div>
+</div>
 </nav>
 </div>

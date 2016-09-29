@@ -38,3 +38,7 @@
       height: 45px; }
     .fpwd .btn-brisas-danger:hover {
       background-color: #c90730; }
+
+@media print {
+  .fpwd {
+    display: none; } }

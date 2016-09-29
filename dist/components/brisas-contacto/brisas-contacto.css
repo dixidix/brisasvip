@@ -38,3 +38,7 @@
       height: 45px; }
     .contacto .btn-brisas:hover {
       background-color: #07a4a7; }
+
+@media print {
+  .contacto {
+    display: none; } }

@@ -7,11 +7,20 @@
   margin-top: 4%;
   margin-bottom: 100px;
   text-align: justify; }
+  @media screen and (min-width: 1400px) {
+    .choferes {
+      margin-top: 15%; } }
   .choferes p {
     font-family: "RobotoLight", Arial;
     font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 1px;
     padding-right: 3%; }
   .choferes h1, .choferes h3 {
     font-family: "MuseoSans-500", Arial; }
   .choferes .content img {
     height: 350px; }
+
+@media print {
+  .choferes {
+    display: none; } }

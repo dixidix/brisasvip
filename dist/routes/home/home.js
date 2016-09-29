@@ -13,7 +13,6 @@ function homeController(angular, app) {
 
         function init(){
             $('html, body').scrollTop(0);
-
             $rootScope.$on("$stateChangeSuccess", function (event, currentState, previousState) {
                 $window.scrollTo(0, 0);
             });

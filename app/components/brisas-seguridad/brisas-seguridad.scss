@@ -1,11 +1,17 @@
 @import '../../styles/mixins/main';
 
 .security{
-	h3{
+	h3{		
+		@include responsive(phone){
+			text-align: center;
+		}
 		font-family:$MuseoSans-500;
 		font-size:22px;
 	}
 	p{
+		@include responsive(phone){
+			text-align: center;
+		}
 		font-family:$MuseoSans-100;
 		font-size:18px;
 	}
@@ -17,4 +23,9 @@
 		}
 	}
 
+}
+@media print {
+   .security {
+       display: none;
+    }
 }

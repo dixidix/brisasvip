@@ -47,6 +47,11 @@
     padding-left: 35px;
     width: 100%;
     margin-bottom: 2%; }
+  .reqPackages i {
+    font-size: 18px;
+    vertical-align: middle; }
+    .reqPackages i:hover {
+      cursor: pointer; }
   .reqPackages .form-control:focus, .reqPackages .form-control:active:focus, .reqPackages .form-control:active, .reqPackages .btn:focus, .reqPackages .btn:active:focus, .reqPackages .btn:active {
     outline: #de9900;
     border-color: #de9900;
@@ -62,3 +67,15 @@
       height: 45px; }
     .reqPackages .btn-brisas:hover {
       background-color: #07a4a7; }
+
+@media print {
+  .reqPackages {
+    display: none; }
+  #printarea {
+    display: block; }
+    #printarea table h3 {
+      margin-top: 10%; }
+    #printarea table .tripTableRow .tripTableCol {
+      width: 40% !important;
+      padding: 10px 0px !important;
+      border-botttom: 1px solid gray !important; } }

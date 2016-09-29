@@ -29,9 +29,8 @@
 	});
 	app.run(function ($rootScope, $http, $state){
 		self.isAdmin  = 0;
-
 		$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-
+			$('.collapse').removeClass('in');
 			$http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false }).success(function (response){
 				self.isAdmin = response.isAdmin;
 				var requireAdmin = toState.data.requireAdmin;	

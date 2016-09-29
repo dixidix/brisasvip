@@ -49,6 +49,9 @@
   .header .stopScroll {
     top: -20px;
     transition: all 1s ease-in-out; }
+  @media screen and (min-width: 1400px) {
+    .header {
+      height: 680px; } }
   .header .search-container {
     text-align: center;
     width: 100%;
@@ -108,12 +111,14 @@
         .header .leyend-lg {
           width: 90%;
           left: 5%;
-          top: 40%; } }
+          right: 5%;
+          top: 20%; } }
       @media screen and (min-width: 768px) and (max-width: 991px) {
         .header .leyend-lg {
           width: 90%;
           left: 5%;
-          top: 40%; } }
+          right: 5%;
+          top: 20%; } }
       .header .leyend-lg span {
         font-size: 50px;
         font-weight: 700;
@@ -124,7 +129,7 @@
             font-size: 30px; } }
         @media screen and (min-width: 768px) and (max-width: 991px) {
           .header .leyend-lg span {
-            font-size: 80px; } }
+            font-size: 40px; } }
     .header .leyend-sm {
       position: absolute;
       top: 35%;
@@ -134,12 +139,12 @@
         .header .leyend-sm {
           width: 90%;
           left: 5%;
-          top: 40%; } }
+          top: 70%; } }
       @media screen and (min-width: 768px) and (max-width: 991px) {
         .header .leyend-sm {
           width: 90%;
           left: 5%;
-          top: 40%; } }
+          top: 32%; } }
       .header .leyend-sm span {
         font-size: 35px;
         font-weight: 700;
@@ -150,4 +155,8 @@
             font-size: 30px; } }
         @media screen and (min-width: 768px) and (max-width: 991px) {
           .header .leyend-sm span {
-            font-size: 80px; } }
+            font-size: 40px; } }
+
+@media print {
+  .header {
+    display: none; } }

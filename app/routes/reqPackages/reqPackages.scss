@@ -56,6 +56,13 @@
 		margin-bottom: 2%;
 
 	}
+	i{
+		&:hover{
+			cursor:pointer;
+		}
+		font-size: 18px;
+		vertical-align: middle;
+	}
 	.form-control, .btn{		
 		&:focus, &:active:focus, &:active{
 			outline:$premium;
@@ -70,4 +77,24 @@
 		opacity:1;
 		margin-top:25px;
 	}	
+}
+@media print {
+	.reqPackages {
+		display: none;
+	}
+	#printarea {
+		display: block;
+		table{
+			h3{
+				margin-top:10%;
+			}
+			.tripTableRow{
+				.tripTableCol{
+					width: 40% !important;
+					padding: 10px 0px !important;
+					border-botttom:1px solid gray !important;
+				}
+			}
+		}
+	}
 }

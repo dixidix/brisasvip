@@ -1,48 +1,76 @@
 @import '../../styles/mixins/main';
 .brisas-carousel{
-	 padding-top:56px;
-	img{
-		-webkit-filter: brightness(55%); /* Chrome, Safari, Opera */
-		filter: brightness(55%);
-		width:100%;
-	}
-	.carousel-caption{
-		top:174px;
-		vertical-align: middle;
-		.inner-text{
-			font-size:50px;
-			font-family:$roboto;
-			text-shadow: 1px 1px #2e2e2e;	
-		}
-		.inner-subtext{
-			width:100%;
-			font-size:35px;
-			color:$premium;
-			font-family:$roboto;
-			text-shadow: 1px 1px #2e2e2e;	
-		}
-	}
-	.carousel-indicators{
-		display:none;
-	}
+  padding-top:56px;
+  img{
+    -webkit-filter: brightness(55%); /* Chrome, Safari, Opera */
+    filter: brightness(55%);
+    width:100%;
+  }
+  @media screen and (max-width: 1400px){
+    .container{
+      padding: 0;
+      width: 100%;
+    }
+  }
+  .carousel-caption{
+    top:20%;
+    @include responsive(phone,tablet){
+      text-align: center;
+      width: 40%;
+      left: 55%;
+      top:31%;
+    }
+    vertical-align: middle;
+    .inner-text{
+     font-size:50px;
+     font-family:$roboto;
+     text-shadow: 1px 1px #2e2e2e;  
+     @include responsive(phone){
+      font-size: 20px;
+    }
+    @include responsive(tablet){
+      font-size: 40px;
+    }
+  }
+  .inner-subtext{
+   width:100%;
+   font-size:40px;
+   color:$premium;
+   font-family:$roboto;
+   text-shadow: 1px 1px #2e2e2e;  
+   @include responsive(phone){
+    font-size: 20px;
+  }
+  @include responsive(tablet){
+    font-size: 30px;
+  }
+}
+}
+.carousel-indicators{
+  display:none;
+}
 }
 .glyphicon {
-	display: inline-block;
-	font-family: FontAwesome;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .glyphicon-chevron-left:before {
-	content: "\f053";
+  content: "\f053";
 }
 .glyphicon-chevron-right:before {
-	content: "\f054";
+  content: "\f054";
 }
 .carousel-fade {
   .carousel-inner {
+    @include responsive(phone,tablet){
+      width: 200%;
+      left:-100%;
+    }
     .item {
       opacity: 0;
       -webkit-transition-property: opacity;
@@ -72,20 +100,26 @@
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {
-    .carousel-inner > .item.next,
-    .carousel-inner > .item.active.right {
-      -webkit-transform: translate3d( 0, 0, 0);
-      transform: translate3d( 0, 0, 0);
-    }
-    .carousel-inner > .item.prev,
-    .carousel-inner > .item.active.left {
-      -webkit-transform: translate3d( 0, 0, 0);
-      transform: translate3d( 0, 0, 0);
-    }
-    .carousel-inner > .item.next.left,
-    .carousel-inner > .item.prev.right,
-    .carousel-inner > .item.active {
-       -webkit-transform: translate3d(0, 0, 0);
-       transform: translate3d(0, 0, 0);
-    }
+  .carousel-inner > .item.next,
+  .carousel-inner > .item.active.right {
+    -webkit-transform: translate3d( 0, 0, 0);
+    transform: translate3d( 0, 0, 0);
+  }
+  .carousel-inner > .item.prev,
+  .carousel-inner > .item.active.left {
+    -webkit-transform: translate3d( 0, 0, 0);
+    transform: translate3d( 0, 0, 0);
+  }
+  .carousel-inner > .item.next.left,
+  .carousel-inner > .item.prev.right,
+  .carousel-inner > .item.active {
+   -webkit-transform: translate3d(0, 0, 0);
+   transform: translate3d(0, 0, 0);
+ }
+}
+
+@media print {
+ .brisas-carousels {
+   display: none;
+ }
 }

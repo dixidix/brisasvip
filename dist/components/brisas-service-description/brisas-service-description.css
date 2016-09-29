@@ -7,6 +7,10 @@
   margin-top: 30px;
   margin-bottom: 56px;
   position: relative; }
+  @media screen and (max-width: 1400px) {
+    .serviceDescription .container {
+      padding: 0;
+      width: 100%; } }
   .serviceDescription .text-center section {
     padding-bottom: 85px;
     text-align: center; }
@@ -68,3 +72,7 @@
     /* Chrome, Safari, Opera */
     filter: brightness(50%);
     width: 100%; }
+
+@media print {
+  .serviceDescription {
+    display: none; } }

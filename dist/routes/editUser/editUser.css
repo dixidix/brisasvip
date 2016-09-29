@@ -6,6 +6,9 @@
 .editUser {
   padding-top: 80px;
   margin-bottom: 100px; }
+  @media screen and (min-width: 1400px) {
+    .editUser {
+      margin-top: 10%; } }
   .editUser .form-control:focus, .editUser .form-control:active:focus, .editUser .form-control:active, .editUser .btn:focus, .editUser .btn:active:focus, .editUser .btn:active {
     outline: #de9900;
     border-color: #de9900;
@@ -32,3 +35,7 @@
       height: 45px; }
     .editUser .btn-brisas-danger:hover {
       background-color: #c90730; }
+
+@media print {
+  .editUser {
+    display: none; } }

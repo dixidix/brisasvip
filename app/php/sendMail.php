@@ -146,7 +146,7 @@ if(!empty($_POST['contactForm'])){
 	$token = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['token']));
 	$msg = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['msg']));
 
-	$token = "http://localhost/brisas_vip/#/register/$token";
+	$token = "http://www.brisasremisvip.com/#/register/$token";
 
 	$htmlStringToReplace = array('$email', '$token');
 	$replaceWith   = array("$email", "$token");

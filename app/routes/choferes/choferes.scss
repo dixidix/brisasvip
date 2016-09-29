@@ -1,11 +1,16 @@
 @import '../../styles/mixins/main';
 .choferes{
+		@media screen and (min-width: 1400px){
+		margin-top:15%;
+	}
 	margin-top:4%;
 	margin-bottom:100px;
 	text-align:justify;
 	p{
 		font-family: $roboto-light;
-		font-size:16px;
+		font-size: 16px;
+		line-height: 30px;
+		letter-spacing: 1px;
 		padding-right:3%;
 	}
 	h1,h3{
@@ -17,3 +22,8 @@
 			}
 		}
 	}
+	@media print {
+   .choferes {
+       display: none;
+    }
+}

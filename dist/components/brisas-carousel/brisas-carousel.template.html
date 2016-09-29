@@ -1,6 +1,6 @@
 <div class="brisas-carousel" id="galery">
 	<link rel="stylesheet" type="text/css" href="./dist/components/brisas-carousel/brisas-carousel.css" async>
-	<div class="">
+	<div class="container">
 					<hr><br>
 		<div class="text-center">
 			<article>
@@ -15,7 +15,7 @@
 		</div>
 		<div>
 			<div class="brisas-carousel-component">
-				<uib-carousel  class="carousel-fade" style="max-height: 570px;" active="carousel.active" interval="carousel.myInterval" no-wrap="carousel.noWrapSlides">
+				<uib-carousel  class="carousel-fade" style="max-height: 530px;" active="carousel.active" interval="carousel.myInterval" no-wrap="carousel.noWrapSlides">
 				<uib-slide  style="max-height:570px;" ng-repeat="slide in carousel.slides track by $index" index="$index">
 				<img ng-src="{{slide.image}}" style="margin:auto;"/>
 				<div class="carousel-caption">

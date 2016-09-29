@@ -26,7 +26,7 @@
 									<td><span>Hasta</span></td>
 									<td><span>Distancia</span></td>
 									<td><span>Precio</span></td>
-									<td><span>Contestar</span></td>
+									<td  style="min-width: 130px;"><span>Contestar</span></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -40,15 +40,74 @@
 									<td><span>{{trip.req_to}}</span></td>
 									<td><span>{{trip.distance}} Km.</span></td>
 									<td><span>{{trip.price | currency}}</span></td>
-									<td><div ng-if="trip.state != 0">Contestado</div><div ng-if="trip.state ==0" class="actions"><i class="fa fa-check-square-o" style="color:green;" tooltip-placement="left" uib-tooltip="Confirmar viaje" ng-click="reqTrips.confirm(trip)"> </i> <i tooltip-placement="top" style="color:red;" uib-tooltip="Revocar viaje" class="fa fa-times" ng-click="reqTrips.revoke(trip)"></i></div></td>
+									<td><div ng-if="trip.state != 0"  class="actions"><i class="fa fa-print" style="color:black;" tooltip-placement="left" uib-tooltip="imprimir" ng-click="reqTrips.imprimirViaje(trip)"> </i>Contestado</div><div ng-if="trip.state ==0" class="actions"><i class="fa fa-print" style="color:black;" tooltip-placement="left" uib-tooltip="imprimir" ng-click="reqTrips.imprimirViaje(trip)"> </i><i class="fa fa-check-square-o" style="color:green;" tooltip-placement="left" uib-tooltip="Confirmar viaje" ng-click="reqTrips.confirm(trip)"> </i> <i tooltip-placement="top" style="color:red;" uib-tooltip="Revocar viaje" class="fa fa-times" ng-click="reqTrips.revoke(trip)"></i></div></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
+
 					<uib-pagination next-text="Siguiente" previous-text="Anterior" total-items="filtered.length" data-num-pages="reqTrips.noOfPages" ng-model="currentPage" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true"></uib-pagination>
 				</div>
 			</div>	
 		</article>
+	</div>
+	<div id="printarea">
+		<div class="col-xs-12 text-center">
+			<h3>BRISAS VIP :: Servicio Diferencial</h3>
+				<h4>:: Solicitud de viajes :: </h4>
+		</div>
+		<table>
+			<h3>Información del viaje:</h3>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>C&oacute;digo de viaje:</strong></span></td>
+				<td class="tripTableCol"><span> # {{reqTrips.printTrip.id}} </span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Nombre:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.name}} {{reqTrips.printTrip.lastname}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Fecha de solicitud:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.request_date}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Fecha de viaje:</strong></span></td>
+				<td class="tripTableCol"><span> {{reqTrips.printTrip.date}} </span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Hora:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.time}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Desde:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.req_from}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Hasta:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.req_to}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Distancia:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.distance}}	Km.</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Precio Aprox.:</strong></span></td>
+				<td class="tripTableCol"><span> {{reqTrips.printTrip.price | currency}} </span></td>
+			</tr>
+		</table>
+		<hr>
+		<table>
+			<h3>Datos adicionales del Pasajero:</h3>
+
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>E-Mail:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.email}}</span></td>
+			</tr class="tripTableRow">
+			<tr>
+				<td class="tripTableCol"><span><strong>Tel.:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqTrips.printTrip.tel}}</span></td>
+			</tr>
+		</table>
 	</div>
 	<script type="text/ng-template" id="confirmTripModal.html">
 		<div class="reqTrips-brisas-modal">

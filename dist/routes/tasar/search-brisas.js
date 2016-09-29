@@ -11,7 +11,9 @@ function rateController(angular, app) {
 
     function rateCtrl($state, $scope,$http,$filter,$uibModal){
         var self = this; //jshint ignore:line
-
+        $('#tarifa-mobile').on('change', function(){
+          calcRoute();
+        });
         var options = {
         	componentRestrictions: {country: "ar"}
         };
@@ -66,8 +68,12 @@ function rateController(angular, app) {
 
         var input1 = document.getElementById('from');
         var input2 = document.getElementById('to');
+        var input3 = document.getElementById('to-mobile');
+        var input4 = document.getElementById('from-mobile');
         var autocomplete = new google.maps.places.Autocomplete(input1,options);
         var autocomplete = new google.maps.places.Autocomplete(input2,options);
+        var autocomplete = new google.maps.places.Autocomplete(input3,options);
+        var autocomplete = new google.maps.places.Autocomplete(input4,options);
         var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
         var directionsService = new google.maps.DirectionsService();
         var map;
@@ -94,23 +100,29 @@ function rateController(angular, app) {
         function calcRoute() {
         	var start =  $state.params.from;
         	var end = $state.params.to;
-        	var request = {
-        		origin: start,
-        		destination: end,
-           unitSystem: google.maps.UnitSystem.METRIC,
-           travelMode: google.maps.DirectionsTravelMode.DRIVING
-         };
-         directionsService.route(request, function (response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-           directionsDisplay.setDirections(response);
-           console.log(response.routes[0].legs[0].distance);
-           dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
-           stripint(dist);
-           recalc();
-         }
-       });
-       }
-       function computeTotalDistance(result) {
+          if($('.info #from-mobile').val().length > 0){
+            start = $('.info #from-mobile').val();
+          }
+          if($('.info #to-mobile').val().length > 0){
+            end = $('.info #to-mobile').val();
+          }
+          var request = {
+            origin: start,
+            destination: end,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+          };
+          directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+             directionsDisplay.setDirections(response);
+             console.log(response.routes[0].legs[0].distance);
+             dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
+             stripint(dist);
+             recalc();
+           }
+         });
+        }
+        function computeTotalDistance(result) {
          var total = 0;
          var myroute = result.routes[0];
          for (var i = 0; i < myroute.legs.length; i++) {
@@ -130,8 +142,12 @@ function rateController(angular, app) {
         	// var calculatedDistance = $('#dist').val().replace(".", "");
         	// var calculatedDistance = parseFloat(calculatedDistance);
           console.log(dist);
-          var selection = $('#tarifa').val();
-
+          var selection = "";
+          if($('.info #tarifa-mobile') && $('.info #tarifa-mobile').val() !== null && $('.info #tarifa-mobile').val() !== undefined && $('.info #tarifa-mobile').val().length > 0){
+            selection = $('#tarifa-mobile').val();
+          } else {
+            selection = $('#tarifa').val();
+          }
           $http.post('./dist/php/get_fares.php', {
             daytime: selection
           }).then(function (response){
@@ -228,7 +244,7 @@ function rateController(angular, app) {
         if(today !== 0 && today !== 6){
           $http.get('./dist/php/get_server_time.php').success(function(res){
             console.log(res);
-            if(res == 1){
+            if(res == 'true'){
               self.closed = true;
               self.btnMsg = "Cerrado";
             } else {

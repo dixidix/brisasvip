@@ -23,3 +23,7 @@
       background-color: #07a4a7; }
   .editFares input {
     width: 200px; }
+
+@media print {
+  .editFares {
+    display: none; } }

@@ -42,3 +42,8 @@
 		opacity:1;
 	}
 }
+@media print {
+   .contacto {
+       display: none;
+    }
+}

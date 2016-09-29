@@ -30,9 +30,26 @@
 html {
   position: relative;
   min-height: 100%; }
+  html #printarea {
+    display: none; }
+  @media print {
+    html .reqTrips {
+      display: none; }
+    html #printarea {
+      display: block; } }
   html body {
     background-color: #f5f5f5;
     font-family: "RobotoRegular", Arial; }
+    @media (min-width: 1400px) {
+      html body .container {
+        width: 1400px; } }
+    html body #printarea {
+      display: none; }
+    @media print {
+      html body .reqTrips {
+        display: none; }
+      html body #printarea {
+        display: block; } }
     html body .table {
       width: 100%;
       text-align: center; }
@@ -45,20 +62,25 @@ html {
       cursor: pointer; }
     html body .header-wrapper {
       height: 480px; }
-      @media screen and (max-width: 767px) {
+      @media print {
         html body .header-wrapper {
-          height: 100vh; } }
-      @media screen and (min-width: 768px) and (max-width: 991px) {
-        html body .header-wrapper {
-          height: 100vh; } }
+          height: 0; } }
     html body .header-wrapper, html body .body-wrapper {
       position: relative; }
-    html body .form-control, html body .btn {
-      border-radius: 0; }
-      html body .form-control:focus, html body .form-control:active:focus, html body .form-control:active, html body .btn:focus, html body .btn:active:focus, html body .btn:active {
-        outline: none;
-        border-color: transparent;
-        box-shadow: none; }
+    @media screen and (min-width: 992px) and (max-width: 1199px) {
+      html body .form-control, html body .btn {
+        border-radius: 0; }
+        html body .form-control:focus, html body .form-control:active:focus, html body .form-control:active, html body .btn:focus, html body .btn:active:focus, html body .btn:active {
+          outline: none;
+          border-color: transparent;
+          box-shadow: none; } }
+    @media screen and (min-width: 1200px) {
+      html body .form-control, html body .btn {
+        border-radius: 0; }
+        html body .form-control:focus, html body .form-control:active:focus, html body .form-control:active, html body .btn:focus, html body .btn:active:focus, html body .btn:active {
+          outline: none;
+          border-color: transparent;
+          box-shadow: none; } }
     html body .pagination {
       float: right; }
     @media screen and (max-width: 767px) {

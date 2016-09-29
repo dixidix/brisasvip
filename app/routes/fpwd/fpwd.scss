@@ -31,3 +31,8 @@
 		margin-top:25px;
 	}
 }
+@media print {
+	.fpwd {
+		display: none;
+	}
+}

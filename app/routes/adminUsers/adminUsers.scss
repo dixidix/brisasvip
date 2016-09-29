@@ -120,3 +120,8 @@
 		margin-top:25px;
 	}	
 }
+@media print {
+   .adminUsers, .adminUsers-brisas-modal {
+       display: none;
+    }
+}

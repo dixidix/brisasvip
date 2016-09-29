@@ -19,6 +19,7 @@
 									<td><span>Hora</span></td>
 									<td><span>Titulo de paquete</span></td>
 									<td><span>Precio</span></td>
+									<td><span>Imprimir</span></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -30,7 +31,8 @@
 									<td><span>{{package.date}}</span></td>
 									<td><span>{{package.time}}</span></td>
 									<td><span>{{package.shortTitle}}</span></td>
-									<td><span>{{package.price | currency:undefined:0}}</span></td>								
+									<td><span>{{package.price | currency:undefined:0}}</span></td>			
+									<td class="text-center"><i class="fa fa-print" style="color:black;" tooltip-placement="left" uib-tooltip="imprimir" ng-click="reqPackages.imprimirViaje(package)"> </i></td>					
 								</tr>
 							</tbody>
 						</table>
@@ -39,4 +41,57 @@
 				</div>
 			</div>	
 		</article>
+	</div>
+	<div id="printarea">
+		<div class="col-xs-12 text-center">
+			<h3>BRISAS VIP :: Servicio Diferencial</h3>
+			<h4>:: Solicitud de paquetes :: </h4>
+		</div>
+		<table>
+			<h3>Información del viaje:</h3>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>C&oacute;digo de viaje:</strong></span></td>
+				<td class="tripTableCol"><span> # {{reqPackages.printTrip.id}} </span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Nombre:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqPackages.printTrip.name}} {{reqPackages.printTrip.lastname}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Email:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqPackages.printTrip.email}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Tel.:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqPackages.printTrip.tel}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Fecha:</strong></span></td>
+				<td class="tripTableCol"><span> {{reqPackages.printTrip.date}} </span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Hora:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqPackages.printTrip.time}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Paquete:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqPackages.printTrip.shortTitle}}</span></td>
+			</tr>
+			<tr class="tripTableRow">
+				<td class="tripTableCol"><span><strong>Precio:</strong></span></td>
+				<td class="tripTableCol"><span>{{reqPackages.printTrip.price | currency:undefined:0}}</span></td>
+			</tr>
+		</table>
+		<div ng-if="reqPackages.printTrip.bonificado.length || reqPackages.printTrip.porcentaje">
+			<hr>
+			<h3>Bonificación:</h3>
+			<ul ng-if="reqPackages.printTrip.bonificado.length">
+				<li ng-repeat="bonificacion in reqPackages.printTrip.bonificado">{{bonificacion}}</li>
+			</ul>
+			<h4 ng-if="reqPackages.printTrip.porcentaje">Descuento por porcentaje:</h4>
+			<ul ng-if="reqPackages.printTrip.porcentaje">
+				<li>Precio original: {{reqPackages.printTrip.originalPrice | currency:undefined:0}}</li>
+				<li>Porcentaje de descuento: {{reqPackages.printTrip.porcentaje}} %</li>
+			</ul>
+		</div>
 	</div>

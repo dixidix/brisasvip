@@ -18,7 +18,16 @@ while($rs = $res->fetch_array(MYSQLI_ASSOC)) {
 	$uname = MysqliDB::getInstance()->query("SELECT * FROM packages WHERE id=" . $rs["packageId"]);
 	while($rss = $uname->fetch_array(MYSQLI_ASSOC)) {
 		$outp .= '"shortTitle":"'  . $rss["short_title"] . '",';
-		$outp .= '"price":"'  . $rss["price"] . '",';
+		
+		if($rss["porcentaje"] !== null){
+			$outp .= '"originalPrice":"'  . $rss["price"]. '",';
+			$outp .= '"porcentaje":"'  . $rss["porcentaje"]. '",';
+			$outp .= '"price":"'  .($rss["price"] - ( ($rss["price"] * $rss["porcentaje"]) / 100)). '",';		
+			
+		} else {
+			$outp .= '"price":"'  . $rss["price"] . '",';
+		}
+		$outp .= '"bonificado":"'  . $rss["bonificado"] . '",';
 	}
 
 	$outp .= '"time":"'   . $rs["time"]  . '"}';

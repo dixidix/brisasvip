@@ -7,6 +7,9 @@
   padding: 50px;
   padding-bottom: 100px;
   font-family: "RobotoRegular", Arial; }
+  @media screen and (min-width: 1400px) {
+    .dashboard {
+      margin-top: 10%; } }
   .dashboard .badge {
     background: red;
     position: absolute;
@@ -43,3 +46,14 @@
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     border-radius: 0px 0px 15px 15px; }
+
+@media print {
+  .uib-tab, .nav-item, .nav-tabs.nav-justified > li, .nav-tabs, .nav-justified {
+    display: none; }
+  .dashboard {
+    padding: 0;
+    padding-bottom: 0; }
+    .dashboard .viewContainer {
+      border: none;
+      min-height: auto;
+      background: transparent; } }

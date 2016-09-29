@@ -112,3 +112,7 @@
       height: 45px; }
     .adminUsers .btn-brisas:hover {
       background-color: #07a4a7; }
+
+@media print {
+  .adminUsers, .adminUsers-brisas-modal {
+    display: none; } }

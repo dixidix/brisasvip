@@ -6,13 +6,23 @@
 .security h3 {
   font-family: "MuseoSans-500", Arial;
   font-size: 22px; }
+  @media screen and (max-width: 767px) {
+    .security h3 {
+      text-align: center; } }
 
 .security p {
   font-family: "MuseoSans-100", Arial;
   font-size: 18px; }
+  @media screen and (max-width: 767px) {
+    .security p {
+      text-align: center; } }
 
 .security section {
   text-align: center;
   margin: 40px 0px; }
   .security section article {
     text-align: left; }
+
+@media print {
+  .security {
+    display: none; } }

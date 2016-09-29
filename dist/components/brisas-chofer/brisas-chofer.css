@@ -44,3 +44,7 @@
     font-family: "RobotoLight", Arial;
     font-size: 20px;
     margin-bottom: 15px; }
+
+@media print {
+  .chofer {
+    display: none; } }

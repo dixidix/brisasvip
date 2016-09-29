@@ -5,13 +5,25 @@ function reqPackagesController(angular, app) {
 
     app.controller('reqPackagesCtrl', reqPackagesCtrl);
 
-    reqPackagesCtrl.$inject = ['$state','$scope','$http','$filter'];
+    reqPackagesCtrl.$inject = ['$state','$scope','$http','$filter','$timeout'];
 
-    function reqPackagesCtrl($state, $scope,$http,$filter){
+    function reqPackagesCtrl($state, $scope,$http,$filter,$timeout){
         var self = this; //jshint ignore:line
         self.packages = [];
         $scope.filtered = [];
+        function imprimirViaje(trip){          
+          self.printTrip = {};
+          self.printTrip = trip;
+          if(trip.bonificado.length > 0){
+            self.printTrip.bonificado = trip.bonificado.split(",");
+          }
+          console.log(self.printTrip);
+          $timeout(function() {
+            window.print();
+          } , 1000);
+        }
         function init(){
+         self.imprimirViaje = imprimirViaje;
          $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
           self.packages = response.data.reqPackages;
           $scope.totalItems = Object.keys(self.packages).length;

@@ -22,3 +22,8 @@
 		width:200px;
 	}
 }
+@media print {
+	.editFares {
+		display: none;
+	}
+}

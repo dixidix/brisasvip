@@ -7,11 +7,22 @@
   margin-bottom: 100px;
   margin-top: 4%;
   text-align: justify; }
+  @media screen and (min-width: 1400px) {
+    .knowus-route {
+      margin-top: 15%; } }
   .knowus-route p {
     font-family: "RobotoLight", Arial;
     font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 1px;
     padding-right: 3%; }
+    .knowus-route p strong {
+      color: #068c8f; }
   .knowus-route h1, .knowus-route h3 {
     font-family: "MuseoSans-500", Arial; }
   .knowus-route .content img {
     height: 275px; }
+
+@media print {
+  .knowus-route {
+    display: none; } }

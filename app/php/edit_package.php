@@ -33,7 +33,7 @@ if(!empty($_FILES['img1'])){
 	$fileSystemname_img1 = hash('sha256', $fileSystemname_img1);
 	$fileSystemname_img1 = "$fileSystemname_img1.$file_ext_img1";
 	$tmp_path_img1 = "../files/".$timestamp."/".$fileSystemname_img1;
-	$path_img1 = "/brisas_vip/dist/files/".$timestamp."/".$fileSystemname_img1;
+	$path_img1 = "/dist/files/".$timestamp."/".$fileSystemname_img1;
 }
 if(!empty($_FILES['img2'])){
 	$file_name_img2 = $_FILES['img2']['name'];
@@ -46,7 +46,7 @@ if(!empty($_FILES['img2'])){
 	$fileSystemname_img2 = hash('sha256', $fileSystemname_img2);
 	$fileSystemname_img2 = "$fileSystemname_img2.$file_ext_img2";
 	$tmp_path_img2 = "../files/".$timestamp."/".$fileSystemname_img2;
-	$path_img2 = "/brisas_vip/dist/files/".$timestamp."/".$fileSystemname_img2;
+	$path_img2 = "/dist/files/".$timestamp."/".$fileSystemname_img2;
 }
 if(!empty($_FILES['img3'])){
 	$file_name_img3 = $_FILES['img3']['name'];
@@ -59,7 +59,7 @@ if(!empty($_FILES['img3'])){
 	$fileSystemname_img3 = hash('sha256', $fileSystemname_img3);
 	$fileSystemname_img3 = "$fileSystemname_img3.$file_ext_img3";
 	$tmp_path_img3 = "../files/".$timestamp."/".$fileSystemname_img3;
-	$path_img3 = "/brisas_vip/dist/files/".$timestamp."/".$fileSystemname_img3;
+	$path_img3 = "/dist/files/".$timestamp."/".$fileSystemname_img3;
 }
 if(!empty($_FILES['img4'])){
 	$file_name_img4 = $_FILES['img4']['name'];
@@ -72,7 +72,7 @@ if(!empty($_FILES['img4'])){
 	$fileSystemname_img4 = hash('sha256', $fileSystemname_img4);
 	$fileSystemname_img4 = "$fileSystemname_img4.$file_ext_img4";
 	$tmp_path_img4 = "../files/".$timestamp."/".$fileSystemname_img4;
-	$path_img4 = "/brisas_vip/dist/files/".$timestamp."/".$fileSystemname_img4;
+	$path_img4 = "/dist/files/".$timestamp."/".$fileSystemname_img4;
 }
 
 if(!file_exists("../files/".$timestamp."/")){

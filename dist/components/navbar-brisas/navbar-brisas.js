@@ -16,10 +16,12 @@ function BrisasNavbarDirective(angular, app) {
     	};
 
     	function link(scope, element, attrs) {
+              
             scope.logoFixed = false;
             angular.element(document).bind('scroll', function() {  
                 var scroll = $(window).scrollTop();
-                if (scroll > 60) {
+                // console.log(scroll);
+                if (scroll > 40) {
                     scope.logoFixed = true;
                     $("nav").removeClass("navbar");
                     $("nav").addClass("navbar-fixed");
@@ -43,7 +45,7 @@ function BrisasNavbarDirective(angular, app) {
         function controller($state){
     		var self = this; //jshint
             self.logoFixed = false;
-            self.username = "";
+            self.username = "";  
             $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
                 self.isAdmin = response.isAdmin;
                 self.userId = response.userId;
@@ -69,11 +71,11 @@ function BrisasNavbarDirective(angular, app) {
             }
             function exit(){
                 $http.post('./dist/php/delete_session.php',{ sskey: sessionStorage.getItem('sskey') }).success(function (response){
-                   if(response.deleted){
+                 if(response.deleted){
                     sessionStorage.clear();
                     $state.go("home", {}, {reload:true});
-                   }
-               });
+                }
+            });
             }
         }
     }

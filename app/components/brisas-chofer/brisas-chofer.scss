@@ -50,3 +50,9 @@
 		}
 	}
 }
+
+@media print {
+   .chofer {
+       display: none;
+    }
+}

@@ -6,6 +6,11 @@
 .navbar {
   position: relative;
   z-index: 999; }
+  @media screen and (max-width: 767px) {
+    .navbar {
+      background: black; }
+      .navbar-collapse {
+        width: 100%; } }
   .navbar-nav {
     margin-top: 12px;
     font-family: "MuseoSans-100", Arial; }
@@ -29,13 +34,17 @@
       color: #de9900;
       font-weight: 700;
       cursor: pointer; }
-  .navbar li .packages {
+  .navbar li .packages_menu {
     margin-top: 8px;
     padding: 5px;
     border: 2px solid white;
     border-radius: 4px; }
-    .navbar li .packages:hover, .navbar li .packages:focus {
+    .navbar li .packages_menu:hover, .navbar li .packages_menu:focus {
       border-color: #de9900; }
+    @media screen and (max-width: 767px) {
+      .navbar li .packages_menu {
+        border: none;
+        padding: 10px 15px 5px; } }
 
 .subbrand {
   display: none; }
@@ -62,6 +71,9 @@
   box-shadow: 1px 1px 9px #2e2e2e;
   z-index: 999;
   background: #fff; }
+  @media screen and (max-width: 767px) {
+    .navbar-fixed {
+      display: none; } }
   .navbar-fixed-nav {
     margin-top: 12px;
     font-family: "MuseoSans-100", Arial; }
@@ -87,10 +99,17 @@
       color: #de9900;
       font-weight: 700;
       cursor: pointer; }
-  .navbar-fixed li .packages {
+  .navbar-fixed li .packages_menu {
     margin-top: 8px;
     padding: 5px;
     border: 2px solid #de9900;
     border-radius: 4px; }
-    .navbar-fixed li .packages:hover, .navbar-fixed li .packages:focus {
+    .navbar-fixed li .packages_menu:hover, .navbar-fixed li .packages_menu:focus {
       border-color: #de9900; }
+    @media screen and (max-width: 767px) {
+      .navbar-fixed li .packages_menu {
+        border: none; } }
+
+@media print {
+  .navbar, .navbar-fixed, .subbrand {
+    display: none; } }
