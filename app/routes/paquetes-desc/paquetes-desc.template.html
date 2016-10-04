@@ -21,6 +21,7 @@
 					</div>
 				</div>
 				<button  ng-click="packageDesc.buyPackage()" class="btn btn-brisas"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Comprar</button>
+				<button  ng-click="packageDesc.payOnTrip()" class="btn btn-brisas"><i class="fa fa-car" aria-hidden="true"></i> Pagar en viaje</button>
 			</div>
 			<div class="col-xs-12 col-md-8" ng-if="packageDesc.data.hasPromo && packageDesc.data.bonificado">
 				<div style="
@@ -56,7 +57,7 @@
 						<div class="input-group"> 
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text"	name="name"	id="name"	class="form-control" placeholder="Nombre"	maxlength="100"	autocomplete="off"	required 
-							data-ng-model="buyPckg.pckg.name">
+							data-ng-model="buyPckg.pckg.name" ng-disabled="buyPckg.isLogged">
 						</div>
 						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.name.$error.required && buyPckg.buyPckgForm.$submitted">
 							Debe ingresar su Nombre.
@@ -67,7 +68,7 @@
 						<div class="input-group"> 
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text"	name="lastname"	id="lastname"	class="form-control" placeholder="Apellido" maxlength="100" autocomplete="off"	required 
-							data-ng-model="buyPckg.pckg.lastname">
+							data-ng-model="buyPckg.pckg.lastname" ng-disabled="buyPckg.isLogged">
 						</div>
 						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.lastname.$error.required && buyPckg.buyPckgForm.$submitted">
 							Debe ingresar su Apellido.
@@ -78,7 +79,7 @@
 						<div class="input-group"> 
 							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 							<input type="email"	name="email"	id="email"	class="form-control" placeholder="E-Mail" maxlength="100" autocomplete="off"	required 
-							data-ng-model="buyPckg.pckg.email">
+							data-ng-model="buyPckg.pckg.email" ng-disabled="buyPckg.isLogged">
 						</div>
 						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.email.$error.required && buyPckg.buyPckgForm.$submitted">
 							Debe ingresar su E-Mail.
@@ -92,7 +93,7 @@
 						<div class="input-group"> 
 							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
 							<input type="text"	name="tel"	id="tel" class="form-control" placeholder="Tel&eacute;fono" maxlength="100" autocomplete="off"	required 
-							data-ng-model="buyPckg.pckg.tel">
+							data-ng-model="buyPckg.pckg.tel" ng-disabled="buyPckg.isLogged">
 						</div>
 						<span class="help-block"	data-ng-show="buyPckg.buyPckgForm.tel.$error.required && buyPckg.buyPckgForm.$submitted">
 							Debe ingresar su Tel&eacute;fono.

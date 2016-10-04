@@ -7,7 +7,7 @@ $data = array();
 $sskey = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['sskey']));
 $getuserinfo = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['getuserinfo']));
 
-$res = MysqliDB::getInstance()->query("SELECT isAdmin, id, email ,tel FROM users WHERE sskey='".$sskey."' AND deleted='0'");
+$res = MysqliDB::getInstance()->query("SELECT isAdmin, id, email ,tel,name,lastname FROM users WHERE sskey='".$sskey."' AND deleted='0'");
 
 $rows = mysqli_num_rows($res);
 
@@ -19,6 +19,8 @@ if ($rows == 1){
 		$data['userId'] = $rss['id'];
 		$data['userEmail'] = $rss['email'];
 		$data['userTel'] = $rss['tel'];
+		$data['name'] = $rss['name'];
+		$data['lastname'] = $rss['lastname'];
 	}
 	echo json_encode($data);
 

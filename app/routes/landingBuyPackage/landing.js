@@ -23,7 +23,8 @@ function landingController(angular, app) {
                  tel : $rootScope.pckg.tel,
                  date :  $rootScope.pckg.date,
                  time : $rootScope.pckg.time,
-                 packageId : $rootScope.pckg.packageId
+                 packageId : $rootScope.pckg.packageId,
+                 payOnTrip: $rootScope.pckg.payOnTrip
              }).then(function (response){
 
              });

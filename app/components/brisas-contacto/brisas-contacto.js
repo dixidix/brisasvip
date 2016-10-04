@@ -48,6 +48,21 @@ function BrisasContactoDirective(angular, app) {
                     'consulta':''
                 };
                 self.sendMail = sendMail;
+
+                $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
+                    self.email.name = response.name;
+                    self.email.lastname = response.lastname;
+                    self.email.mail = response.userEmail;
+                    self.email.tel = response.userTel;
+                });
+                if(sessionStorage.getItem('sskey')){
+                    self.isLogged  = true;
+                } else {
+                    self.isLogged = false;
+                }
+                if(self.isLogged){
+                    self.username = sessionStorage.getItem('username');
+                }
             }
             init();
         }

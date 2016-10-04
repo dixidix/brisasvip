@@ -1,6 +1,17 @@
 @import '../../styles/mixins/main';
 .footer{
 	footer{
+
+		.terms{
+			a{
+				color:#00AFF0;
+			}
+			.fa-skype{
+				margin: 0 15px;
+				font-size: 24px;
+				vertical-align: middle;
+			}
+		}
 		background-color:#2e2e2e;
 		height:65px;
 		width:100%;
@@ -64,7 +75,7 @@
 	}	
 }
 @media print {
-   .footer {
-       display: none;
-    }
+	.footer {
+		display: none;
+	}
 }

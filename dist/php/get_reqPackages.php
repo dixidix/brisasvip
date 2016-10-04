@@ -15,6 +15,7 @@ while($rs = $res->fetch_array(MYSQLI_ASSOC)) {
 	$outp .= '"tel":"'  . $rs["tel"] . '",';
 	$outp .= '"date":"'  . $rs["date"] . '",';
 	$outp .= '"time":"'  . $rs["time"] . '",';
+	$outp .= '"payed":"'  . $rs["payed"] . '",';
 	$uname = MysqliDB::getInstance()->query("SELECT * FROM packages WHERE id=" . $rs["packageId"]);
 	while($rss = $uname->fetch_array(MYSQLI_ASSOC)) {
 		$outp .= '"shortTitle":"'  . $rss["short_title"] . '",';

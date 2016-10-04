@@ -6,7 +6,7 @@ function packageDescController(angular, app) {
     app.controller('packageDescCtrl', packageDescCtrl);
     packageDescCtrl.$inject = ['$http','$filter','$state','$scope','$uibModal'];
     app.controller('modalPckgCtrl', modalPckgCtrl);
-    modalPckgCtrl.$inject = ['$scope','$state','$filter','$uibModalInstance','$sce','$compile','$rootScope','items'];
+    modalPckgCtrl.$inject = ['$scope','$state','$filter','$uibModalInstance','$sce','$compile','$rootScope','items','$http'];
 
     function packageDescCtrl($http, $filter, $state, $scope,$uibModal){
         var self = this, data = {}  ; //jshint ignore:line
@@ -27,24 +27,29 @@ function packageDescController(angular, app) {
                 resolve: {
                     items: function () {
                         return self.data;
-                  }
-              }
-          });
+                    }
+                }
+            });
         }
         function buyPackage(){
             self.openModal('md');
+        }
+        function payOnTrip(){
+            self.openModal('md');
+            self.data.payOnTrip = true;
         }
         function init(){     
             $('html, body').animate({ scrollTop: 460 }, 'slow');    
             self.openModal = openModal;
             self.buyPackage = buyPackage;
+            self.payOnTrip = payOnTrip;
         }
         function toBigPicture(src){
             self.data.imgSelected = src;
         }
         init();
     }
-    function modalPckgCtrl($scope,$state,$filter, $uibModalInstance,$sce,$compile,$rootScope,items){
+    function modalPckgCtrl($scope,$state,$filter, $uibModalInstance,$sce,$compile,$rootScope,items,$http){
         var self = this;        
         $scope.today = function() {
             $scope.dt = new Date();
@@ -96,20 +101,41 @@ function packageDescController(angular, app) {
           self.paymentGatewayUrl = items.paymentGatewayUrl;
           self.pckg.packageId = items.id;  
           $rootScope.pckg = self.pckg;
-          $state.go('home.buyPackage',{ paymentGatewayUrl: self.paymentGatewayUrl, packageId: self.packageId }, {reload:true});
+          if(items.payOnTrip){
+            $rootScope.pckg.payOnTrip = true;
+            $state.go('home.landing');
+          }else{
+              $rootScope.pckg.payOnTrip = false;
+              $state.go('home.buyPackage',{ paymentGatewayUrl: self.paymentGatewayUrl, packageId: self.packageId }, {reload:true});
+          }
       }
       function cancel(){
-         $uibModalInstance.dismiss('cancel');
-     };
-     $rootScope.$on("$stateChangeStart", function (evt) {
+       $uibModalInstance.dismiss('cancel');
+   };
+   $rootScope.$on("$stateChangeStart", function (evt) {
       $uibModalInstance.dismiss('cancel');
   });
-     function init(){
-        self.buy = buy;
-        self.cancel = cancel;
-        self.pckg = {};
+   function init(){
+    self.buy = buy;
+    self.cancel = cancel;
+    self.pckg = {};
+
+    $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
+        self.pckg.name = response.name;
+        self.pckg.lastname = response.lastname;
+        self.pckg.email = response.userEmail;
+        self.pckg.tel = response.userTel;
+    });
+    if(sessionStorage.getItem('sskey')){
+        self.isLogged  = true;
+    } else {
+        self.isLogged = false;
     }
-    init();
+    if(self.isLogged){
+        self.username = sessionStorage.getItem('username');
+    }
+}
+init();
 }
 };
 module.exports = packageDescController;

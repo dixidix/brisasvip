@@ -19,6 +19,22 @@
 	padding:0;
 }
 .search-brisas{
+		@include responsive(desktop, large-desktop){
+			input, select,button{
+				height: 40px;
+			}
+			.input-group-addon{
+				min-width:45px;
+			}
+			#tarifa, #tarifa-mobile{
+				border-radius: 0;
+				&:focus, &:active:focus, &:active{
+					outline:none;
+					border-color:$premium;
+					box-shadow:none;
+				}
+			}
+		}
 		@media screen and (min-width: 1400px){
 		margin-top:13%;
 		input, select{
@@ -51,7 +67,7 @@
 		border:0;
 		height: initial;
 		@include responsive(desktop, large-desktop){
-			height:65px;
+			height:85px;
 		}
 	}
 	.btn-brisas-danger{

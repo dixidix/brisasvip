@@ -11,7 +11,11 @@ function rateController(angular, app) {
 
     function rateCtrl($state, $scope,$http,$filter,$uibModal){
         var self = this; //jshint ignore:line
+        google.maps.event.addDomListener(window, 'load', initMap);
         $('#tarifa-mobile').on('change', function(){
+          calcRoute();
+        });
+        $('#tarifa').on('change', function(){
           calcRoute();
         });
         var options = {
@@ -100,11 +104,17 @@ function rateController(angular, app) {
         function calcRoute() {
         	var start =  $state.params.from;
         	var end = $state.params.to;
-          if($('.info #from-mobile').val().length > 0){
+          if($('.info #from-mobile') && $('.info #from-mobile').val() !== undefined && $('.info #from-mobile').val().length > 0){
             start = $('.info #from-mobile').val();
           }
-          if($('.info #to-mobile').val().length > 0){
+          if($('.info #to-mobile') && $('.info #to-mobile').val() !== undefined &&  $('.info #to-mobile').val().length > 0){
             end = $('.info #to-mobile').val();
+          }
+          if($('.info #from') && $('.info #from').val() !== undefined && $('.info #from').val().length > 0){
+            start = $('.info #from').val();
+          }
+          if($('.info #to') && $('.info #to').val() !== undefined &&  $('.info #to').val().length > 0){
+            end = $('.info #to').val();
           }
           var request = {
             origin: start,
@@ -112,10 +122,10 @@ function rateController(angular, app) {
             unitSystem: google.maps.UnitSystem.METRIC,
             travelMode: google.maps.DirectionsTravelMode.DRIVING
           };
+
           directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
              directionsDisplay.setDirections(response);
-             console.log(response.routes[0].legs[0].distance);
              dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
              stripint(dist);
              recalc();
@@ -139,9 +149,6 @@ function rateController(angular, app) {
        $('#dist').val(val + ' Km.');
      }
      function recalc() {
-        	// var calculatedDistance = $('#dist').val().replace(".", "");
-        	// var calculatedDistance = parseFloat(calculatedDistance);
-          console.log(dist);
           var selection = "";
           if($('.info #tarifa-mobile') && $('.info #tarifa-mobile').val() !== null && $('.info #tarifa-mobile').val() !== undefined && $('.info #tarifa-mobile').val().length > 0){
             selection = $('#tarifa-mobile').val();
@@ -227,7 +234,7 @@ function rateController(angular, app) {
         self.reserve = reserve;
         self.openModal = openModal;
         $('html, body').animate({ scrollTop: 340 }, 'slow');    
-        google.maps.event.addDomListener(window, 'load', initMap);
+        
         var myLatlng = new google.maps.LatLng(-32.888810, -68.850378);
         var mapOptions = {
           zoom: 13,
@@ -240,11 +247,10 @@ function rateController(angular, app) {
         self.closed = false;
         var today = new Date();
         var today = parseInt(today.getDay());
-        console.log(today);
         if(today !== 0 && today !== 6){
           $http.get('./dist/php/get_server_time.php').success(function(res){
             console.log(res);
-            if(res == 'true'){
+            if(res){
               self.closed = true;
               self.btnMsg = "Cerrado";
             } else {

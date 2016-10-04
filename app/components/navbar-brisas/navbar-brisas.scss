@@ -64,11 +64,17 @@
 	display:none;
 	&-fixed{
 		display: inline-block;
-		margin-left: 210px;
+		margin-left: 180px;
 		margin-top: 22px;
 		font-family: RobotoLight;
 		font-size: 15px;
 		font-style: italic;
+		.tel{
+			margin-left:30px;
+			i{
+				color:$premium;
+			}
+		}
 		@include responsive(phone,tablet){
 			display:none;
 		}

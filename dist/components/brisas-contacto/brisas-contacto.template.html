@@ -14,46 +14,48 @@
 			</article>
 		</div>
 		<form name="contactoCtrl.form"	class="contactoForm"	novalidate	data-ng-submit="contactoCtrl.form.$valid && contactoCtrl.form.$submitted && contactoCtrl.sendMail()">
+			<div class="userData" ng-if="!contactoCtrl.isLogged">
+				<div class="row">
 
-			<div class="row">
-
-				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.name.$invalid && contactoCtrl.form.$submitted}">					
-					<input type="text"	name="name"	id="name"	class="form-control" placeholder="Nombre"	maxlength="100"	autocomplete="off"	required 
-					data-ng-model="contactoCtrl.email.name">
-					<span class="help-block" 	data-ng-show="contactoCtrl.form.name.$error.required && contactoCtrl.form.$submitted">
-						Debe ingresar su nombre.
-					</span>
+					<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.name.$invalid && contactoCtrl.form.$submitted}">					
+						<input type="text"	name="name"	id="name"	class="form-control" placeholder="Nombre"	maxlength="100"	autocomplete="off"	required 
+						data-ng-model="contactoCtrl.email.name">
+						<span class="help-block" 	data-ng-show="contactoCtrl.form.name.$error.required && contactoCtrl.form.$submitted">
+							Debe ingresar su nombre.
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.lastname.$invalid && contactoCtrl.form.$submitted}">				
+						<input type="text"	name="lastname"	id="lastname"	class="form-control" placeholder="Apellido"	maxlength="100"	autocomplete="off"	required 
+						data-ng-model="contactoCtrl.email.lastname">
+						<span class="help-block"	data-ng-show="contactoCtrl.form.lastname.$error.required && contactoCtrl.form.$submitted">
+							Debe ingresar su Apellido.
+						</span>
+					</div>				
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.tel.$invalid && contactoCtrl.form.$submitted}">		
+						<input type="text"	name="tel"	id="tel"	class="form-control" placeholder="Tel&eacute;fono"	maxlength="100"	autocomplete="off"	required 
+						data-ng-model="contactoCtrl.email.tel">
+						<span class="help-block"	data-ng-show="contactoCtrl.form.tel.$error.required && contactoCtrl.form.$submitted">
+							Debe ingresar un tel&eacute;fono.
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.email.$invalid && contactoCtrl.form.$submitted}">		
+						<input type="text"	name="email"	id="email"	class="form-control" placeholder="Correo electr&oacute;nico"	maxlength="100"	autocomplete="off"	required 
+						data-ng-model="contactoCtrl.email.mail">
+						<span class="help-block"	data-ng-show="contactoCtrl.form.email.$error.required && contactoCtrl.form.$submitted">
+							Debe ingresar un Correo electr&oacute;nico.
+						</span>
+					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.lastname.$invalid && contactoCtrl.form.$submitted}">				
-					<input type="text"	name="lastname"	id="lastname"	class="form-control" placeholder="Apellido"	maxlength="100"	autocomplete="off"	required 
-					data-ng-model="contactoCtrl.email.lastname">
-					<span class="help-block"	data-ng-show="contactoCtrl.form.lastname.$error.required && contactoCtrl.form.$submitted">
-						Debe ingresar su Apellido.
-					</span>
-				</div>				
-			</div>
-			<div class="row">
-				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.tel.$invalid && contactoCtrl.form.$submitted}">		
-					<input type="text"	name="tel"	id="tel"	class="form-control" placeholder="Tel&eacute;fono"	maxlength="100"	autocomplete="off"	required 
-					data-ng-model="contactoCtrl.email.tel">
-					<span class="help-block"	data-ng-show="contactoCtrl.form.tel.$error.required && contactoCtrl.form.$submitted">
-						Debe ingresar un tel&eacute;fono.
-					</span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.email.$invalid && contactoCtrl.form.$submitted}">		
-					<input type="text"	name="email"	id="email"	class="form-control" placeholder="Correo electr&oacute;nico"	maxlength="100"	autocomplete="off"	required 
-					data-ng-model="contactoCtrl.email.mail">
-					<span class="help-block"	data-ng-show="contactoCtrl.form.email.$error.required && contactoCtrl.form.$submitted">
-						Debe ingresar un Correo electr&oacute;nico.
-					</span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.consulta.$invalid && contactoCtrl.form.$submitted}">		
+				<div class="form-group col-xs-12 col-md-6 col-md-offset-3" data-ng-class="{'has-error': contactoCtrl.form.consulta.$invalid && contactoCtrl.form.$submitted}">
+				<label for="consulta" ng-if="contactoCtrl.isLogged">Escriba aquí su consulta: </label>		
 					<textarea name="consulta"	rows="7" id="consulta"	class="form-control" placeholder="Consulta"	maxlength="300"	autocomplete="off"	required 
 					data-ng-model="contactoCtrl.email.consulta"></textarea> 
 					<span class="help-block"	data-ng-show="contactoCtrl.form.email.$error.required && contactoCtrl.form.$submitted">

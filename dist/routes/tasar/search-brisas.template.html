@@ -13,7 +13,7 @@
 						<label for="from" class="control-label">Desde:</label>
 						<div class="input-group"> 
 							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>							
-							<input type="text"  name="from" id="from" class="form-control hidden-xs hidden-sm" required disabled>
+							<input type="text"  name="from" id="from" class="form-control hidden-xs hidden-sm .info" required> 
 							<input type="text"  name="from" id="from-mobile" class="form-control hidden-md hidden-lg" required>
 						</div>
 					</div>
@@ -22,7 +22,7 @@
 						<label for="to" class="control-label">Hasta:</label>
 						<div class="input-group"> 
 							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>	
-							<input type="text"  name="to" id="to" class="form-control hidden-xs hidden-sm" required disabled>
+							<input type="text"  name="to" id="to" class="form-control hidden-xs hidden-sm  .info" required >
 							<input type="text"  name="to" id="to-mobile" class="form-control hidden-md hidden-lg" required>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 						<label for="from" class="control-label">Horario:</label>
 						<div class="input-group"> 
 							<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>	
-							<select class="form-control hidden-xs hidden-sm" id="tarifa"  required  disabled>
+							<select class="form-control hidden-xs hidden-sm" id="tarifa"  required >
 								<option value="" disabled>Selecciona un horario</option>
 								<option value="1">05:00 AM - 22:00 PM</option>
 								<option value="2">22:00 PM - 05	:00 AM</option>
@@ -82,7 +82,7 @@
 						</button>
 						<div class="closed alert alert-danger fade in" ng-if="rate.closed">
 							<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<p>En este momento nuestros operadores no se encuentran en l&iacute;nea, por favor comuniquese a los siguientes tel&eacute;fonos: 4309100 - 4378080 - 4123123 <br> Intente nuevamente de lunes a viernes de 09:00 Hs a 21:00 Hs Hora Argentina. Muchas gracias</p></div>
+							<p>En este momento nuestros operadores no se encuentran en l&iacute;nea, por favor comuniquese al +54 (0261) 4304560 <br> o intente nuevamente de lunes a viernes de 09:00 Hs a 21:00 Hs Hora Argentina. Muchas gracias.</p></div>
 						</div>
 					</div>
 				</div>

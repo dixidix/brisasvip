@@ -236,6 +236,21 @@ function BrisasContactoDirective(angular, app) {
                     'consulta':''
                 };
                 self.sendMail = sendMail;
+
+                $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
+                    self.email.name = response.name;
+                    self.email.lastname = response.lastname;
+                    self.email.mail = response.userEmail;
+                    self.email.tel = response.userTel;
+                });
+                if(sessionStorage.getItem('sskey')){
+                    self.isLogged  = true;
+                } else {
+                    self.isLogged = false;
+                }
+                if(self.isLogged){
+                    self.username = sessionStorage.getItem('username');
+                }
             }
             init();
         }
@@ -1027,7 +1042,8 @@ function landingController(angular, app) {
                  tel : $rootScope.pckg.tel,
                  date :  $rootScope.pckg.date,
                  time : $rootScope.pckg.time,
-                 packageId : $rootScope.pckg.packageId
+                 packageId : $rootScope.pckg.packageId,
+                 payOnTrip: $rootScope.pckg.payOnTrip
              }).then(function (response){
 
              });
@@ -1113,7 +1129,7 @@ function packageDescController(angular, app) {
     app.controller('packageDescCtrl', packageDescCtrl);
     packageDescCtrl.$inject = ['$http','$filter','$state','$scope','$uibModal'];
     app.controller('modalPckgCtrl', modalPckgCtrl);
-    modalPckgCtrl.$inject = ['$scope','$state','$filter','$uibModalInstance','$sce','$compile','$rootScope','items'];
+    modalPckgCtrl.$inject = ['$scope','$state','$filter','$uibModalInstance','$sce','$compile','$rootScope','items','$http'];
 
     function packageDescCtrl($http, $filter, $state, $scope,$uibModal){
         var self = this, data = {}  ; //jshint ignore:line
@@ -1134,24 +1150,29 @@ function packageDescController(angular, app) {
                 resolve: {
                     items: function () {
                         return self.data;
-                  }
-              }
-          });
+                    }
+                }
+            });
         }
         function buyPackage(){
             self.openModal('md');
+        }
+        function payOnTrip(){
+            self.openModal('md');
+            self.data.payOnTrip = true;
         }
         function init(){     
             $('html, body').animate({ scrollTop: 460 }, 'slow');    
             self.openModal = openModal;
             self.buyPackage = buyPackage;
+            self.payOnTrip = payOnTrip;
         }
         function toBigPicture(src){
             self.data.imgSelected = src;
         }
         init();
     }
-    function modalPckgCtrl($scope,$state,$filter, $uibModalInstance,$sce,$compile,$rootScope,items){
+    function modalPckgCtrl($scope,$state,$filter, $uibModalInstance,$sce,$compile,$rootScope,items,$http){
         var self = this;        
         $scope.today = function() {
             $scope.dt = new Date();
@@ -1203,20 +1224,41 @@ function packageDescController(angular, app) {
           self.paymentGatewayUrl = items.paymentGatewayUrl;
           self.pckg.packageId = items.id;  
           $rootScope.pckg = self.pckg;
-          $state.go('home.buyPackage',{ paymentGatewayUrl: self.paymentGatewayUrl, packageId: self.packageId }, {reload:true});
+          if(items.payOnTrip){
+            $rootScope.pckg.payOnTrip = true;
+            $state.go('home.landing');
+          }else{
+              $rootScope.pckg.payOnTrip = false;
+              $state.go('home.buyPackage',{ paymentGatewayUrl: self.paymentGatewayUrl, packageId: self.packageId }, {reload:true});
+          }
       }
       function cancel(){
-         $uibModalInstance.dismiss('cancel');
-     };
-     $rootScope.$on("$stateChangeStart", function (evt) {
+       $uibModalInstance.dismiss('cancel');
+   };
+   $rootScope.$on("$stateChangeStart", function (evt) {
       $uibModalInstance.dismiss('cancel');
   });
-     function init(){
-        self.buy = buy;
-        self.cancel = cancel;
-        self.pckg = {};
+   function init(){
+    self.buy = buy;
+    self.cancel = cancel;
+    self.pckg = {};
+
+    $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
+        self.pckg.name = response.name;
+        self.pckg.lastname = response.lastname;
+        self.pckg.email = response.userEmail;
+        self.pckg.tel = response.userTel;
+    });
+    if(sessionStorage.getItem('sskey')){
+        self.isLogged  = true;
+    } else {
+        self.isLogged = false;
     }
-    init();
+    if(self.isLogged){
+        self.username = sessionStorage.getItem('username');
+    }
+}
+init();
 }
 };
 module.exports = packageDescController;
@@ -1617,7 +1659,11 @@ function rateController(angular, app) {
 
     function rateCtrl($state, $scope,$http,$filter,$uibModal){
         var self = this; //jshint ignore:line
+        google.maps.event.addDomListener(window, 'load', initMap);
         $('#tarifa-mobile').on('change', function(){
+          calcRoute();
+        });
+        $('#tarifa').on('change', function(){
           calcRoute();
         });
         var options = {
@@ -1706,11 +1752,17 @@ function rateController(angular, app) {
         function calcRoute() {
         	var start =  $state.params.from;
         	var end = $state.params.to;
-          if($('.info #from-mobile').val().length > 0){
+          if($('.info #from-mobile') && $('.info #from-mobile').val() !== undefined && $('.info #from-mobile').val().length > 0){
             start = $('.info #from-mobile').val();
           }
-          if($('.info #to-mobile').val().length > 0){
+          if($('.info #to-mobile') && $('.info #to-mobile').val() !== undefined &&  $('.info #to-mobile').val().length > 0){
             end = $('.info #to-mobile').val();
+          }
+          if($('.info #from') && $('.info #from').val() !== undefined && $('.info #from').val().length > 0){
+            start = $('.info #from').val();
+          }
+          if($('.info #to') && $('.info #to').val() !== undefined &&  $('.info #to').val().length > 0){
+            end = $('.info #to').val();
           }
           var request = {
             origin: start,
@@ -1718,10 +1770,10 @@ function rateController(angular, app) {
             unitSystem: google.maps.UnitSystem.METRIC,
             travelMode: google.maps.DirectionsTravelMode.DRIVING
           };
+
           directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
              directionsDisplay.setDirections(response);
-             console.log(response.routes[0].legs[0].distance);
              dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
              stripint(dist);
              recalc();
@@ -1745,9 +1797,6 @@ function rateController(angular, app) {
        $('#dist').val(val + ' Km.');
      }
      function recalc() {
-        	// var calculatedDistance = $('#dist').val().replace(".", "");
-        	// var calculatedDistance = parseFloat(calculatedDistance);
-          console.log(dist);
           var selection = "";
           if($('.info #tarifa-mobile') && $('.info #tarifa-mobile').val() !== null && $('.info #tarifa-mobile').val() !== undefined && $('.info #tarifa-mobile').val().length > 0){
             selection = $('#tarifa-mobile').val();
@@ -1833,7 +1882,7 @@ function rateController(angular, app) {
         self.reserve = reserve;
         self.openModal = openModal;
         $('html, body').animate({ scrollTop: 340 }, 'slow');    
-        google.maps.event.addDomListener(window, 'load', initMap);
+        
         var myLatlng = new google.maps.LatLng(-32.888810, -68.850378);
         var mapOptions = {
           zoom: 13,
@@ -1846,11 +1895,10 @@ function rateController(angular, app) {
         self.closed = false;
         var today = new Date();
         var today = parseInt(today.getDay());
-        console.log(today);
         if(today !== 0 && today !== 6){
           $http.get('./dist/php/get_server_time.php').success(function(res){
             console.log(res);
-            if(res == 'true'){
+            if(res){
               self.closed = true;
               self.btnMsg = "Cerrado";
             } else {

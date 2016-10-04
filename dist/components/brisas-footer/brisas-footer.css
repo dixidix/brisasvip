@@ -10,6 +10,12 @@
   padding-top: 13px;
   text-align: center;
   color: #fff; }
+  .footer footer .terms a {
+    color: #00AFF0; }
+  .footer footer .terms .fa-skype {
+    margin: 0 15px;
+    font-size: 24px;
+    vertical-align: middle; }
   .footer footer a {
     color: #fff; }
   .footer footer .social_icon {

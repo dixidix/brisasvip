@@ -12,8 +12,9 @@ $tel = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string(
 $date = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['date']));
 $time = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['time']));
 $packageId = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['packageId']));
+$payOnTrip = MysqliDB::double_scape(MysqliDB::getInstance()->mysql_real_escape_string($_POST['payOnTrip']));
 
-MysqliDB::getInstance()->query("INSERT INTO `soldpackages`(`name`, `lastname`, `email`, `tel`, `date`, `time`, `packageId`) VALUES ('".$name."','".$lastname."','".$email."','".$tel."','".$date."','".$time."',".$packageId.")");	
+MysqliDB::getInstance()->query("INSERT INTO `soldpackages`(`name`, `lastname`, `email`, `tel`, `date`, `time`,`payed`, `packageId`) VALUES ('".$name."','".$lastname."','".$email."','".$tel."','".$date."','".$time."','".$payOnTrip."',".$packageId.")");	
 
 }else{
 	print_r($errors);
