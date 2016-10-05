@@ -49,9 +49,13 @@
   .header .stopScroll {
     top: -20px;
     transition: all 1s ease-in-out; }
-  @media screen and (min-width: 1400px) {
+  .header-wrapper {
+    height: 480px; }
+  @media screen and (min-width: 1200px) {
     .header {
-      height: 680px; } }
+      height: 680px; }
+      .header-wrapper {
+        height: 680px; } }
   .header .search-container {
     text-align: center;
     width: 100%;

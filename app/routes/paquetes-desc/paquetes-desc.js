@@ -36,7 +36,7 @@ function packageDescController(angular, app) {
         }
         function payOnTrip(){
             self.openModal('md');
-            self.data.payOnTrip = true;
+            self.data.payOnTrip ="true";
         }
         function init(){     
             $('html, body').animate({ scrollTop: 460 }, 'slow');    
@@ -102,10 +102,10 @@ function packageDescController(angular, app) {
           self.pckg.packageId = items.id;  
           $rootScope.pckg = self.pckg;
           if(items.payOnTrip){
-            $rootScope.pckg.payOnTrip = true;
+            $rootScope.pckg.payOnTrip = "false";
             $state.go('home.landing');
           }else{
-              $rootScope.pckg.payOnTrip = false;
+              $rootScope.pckg.payOnTrip = "true";
               $state.go('home.buyPackage',{ paymentGatewayUrl: self.paymentGatewayUrl, packageId: self.packageId }, {reload:true});
           }
       }

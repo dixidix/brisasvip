@@ -41,10 +41,10 @@
 				</form>
 			</div>		
 			<div class="col-xs-12 col-md-10 package-list">
-				<div class="col-xs-12 col-sm-4 col-md-3 package-list-item" ng-repeat="packageList in package.packages | rangeFilter:package | filter:{zone: filterZone } | filter:{zone: filterZoneSelect } | filter:searchbox">
+				<div class="col-xs-12 col-sm-4 col-md-3 package-list-item" ng-repeat="packageList in package.packages | rangeFilter:package | filter:{zone: filterZone } | filter:{zone: filterZoneSelect } | filter:searchbox track by $index">
 					<div  ng-if="package.isAdmin == 1">
 						<div ui-sref="home.editPackage({packageId: {{packageList.id}} })" class="edit"> <i class="fa  fa-pencil"></i> </div>
-						<div ng-click="package.remove(packageList.id, packageList.short_title)" class="delete"> <i class="fa  fa-times"></i> </div>
+						<div ng-click="package.remove(packageList.id,packageList.timestamp, packageList.short_title)" class="delete"> <i class="fa  fa-times"></i> </div>
 					</div>
 					<div ui-sref="home.pckgDescription({packageId: {{packageList.id}} })" class="card" ng-style="{'background-image': 'linear-gradient(rgba(0,0,0,0.5) 10%,rgba(0,0,0,0) 35%), url({{packageList.images[0].url}})'}">				
 						<h4 charset="UTF-8" class="short-title">{{packageList.short_title}}</h4>

@@ -6,9 +6,12 @@
 .login {
   padding-top: 80px;
   margin-bottom: 100px; }
-  @media screen and (min-width: 1400px) {
-    .login {
-      margin-top: 10%; } }
+  .login .tool {
+    border-left: 2px solid lightgray;
+    text-decoration: none;
+    cursor: pointer;
+    color: #068c8f;
+    margin-left: 5px; }
   .login textarea {
     resize: none; }
   .login .fpwd a {

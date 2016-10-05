@@ -22,10 +22,12 @@ function packageController(angular, app) {
           });
         });
 
-        function remove(id, title){
+        function remove(id,stamp, title){
+
           if(confirm("Esta seguro que desea eliminar el paquete '" + title + "' ?")){
             $http.post('./dist/php/delete_package.php', {
-              id: id
+              id: id,
+              stamp:stamp,
             }).then(function (response){
               $state.go($state.current,{},{ reload: true });              
             });

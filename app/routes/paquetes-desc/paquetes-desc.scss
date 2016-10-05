@@ -28,6 +28,10 @@
 }
 .iframe-placeholder
 {
+			margin-top:4%;
+		@include responsive(large-desktop){
+			margin-top:10%;
+	}
 	width:100%;
 	height: 900px;
 	background: url('../../styles/images/spinner.gif') 0px 0px no-repeat;

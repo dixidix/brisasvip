@@ -14,9 +14,9 @@
 }
 .packages{
 	padding-top:80px;
-		@media screen and (min-width:1400px){
-		padding-top:300px;
-	}
+		@include responsive(large-desktop){
+			padding-top:150px;
+		}
 	margin-bottom:56px;
 	h2{
 		font-family:$MuseoSans-500;

@@ -16,7 +16,7 @@
 			<div class="col-xs-12 col-md-4 thumbnail">
 				<img style="max-height:200px" ng-src="{{packageDesc.data.imgSelected}}"/>
 				<div class="sub-img">
-					<div class="col-xs-3" style="padding-left: 2px;padding-right: 2px;" ng-repeat="tnail in packageDesc.data.images">
+					<div class="col-xs-3" style="padding-left: 2px;padding-right: 2px;" ng-repeat="tnail in packageDesc.data.images track by $index">
 						<img  style="height:50px" ng-click="packageDesc.toBigPicture(tnail.url)" ng-src="{{tnail.url}}"/>
 					</div>
 				</div>
@@ -121,7 +121,7 @@
 						<button class="btn btn-brisas form-control" type="submit">Comprar</button>
 					</div>
 					<div  class="col-xs-12 col-md-4">
-						<button class="btn btn-brisas-danger form-control" ng-click="buyPckg.cancel()">Cancelar</button>
+						<a href="" ui-sref="home.paquetes"><button class="btn btn-brisas-danger form-control">Cancelar</button></a>
 					</div>
 				</div>
 			</div>

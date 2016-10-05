@@ -30,6 +30,8 @@ function addPackageController(angular, app) {
           .finally(function(){ });
         }
         function addPackage(){
+          self.sending = true;
+          self.actionLabel = "Creando Paquete";
           self.package.timestamp = (new Date).getTime();
           self.package.zone = self.myZone;
           uploadService.uploadForm(self.package, './dist/php/add_package.php')
@@ -54,7 +56,8 @@ function addPackageController(angular, app) {
           }
         }
 
-        function init(){       
+        function init(){     
+          self.sending = false;  
           self.promos = [
           {value:0, beneficio:"Seleccione un tipo de descuento"},
           {value:1, beneficio:"Porcentaje"},

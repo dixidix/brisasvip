@@ -562,6 +562,8 @@ function addPackageController(angular, app) {
           .finally(function(){ });
         }
         function addPackage(){
+          self.sending = true;
+          self.actionLabel = "Creando Paquete";
           self.package.timestamp = (new Date).getTime();
           self.package.zone = self.myZone;
           uploadService.uploadForm(self.package, './dist/php/add_package.php')
@@ -586,7 +588,8 @@ function addPackageController(angular, app) {
           }
         }
 
-        function init(){       
+        function init(){     
+          self.sending = false;  
           self.promos = [
           {value:0, beneficio:"Seleccione un tipo de descuento"},
           {value:1, beneficio:"Porcentaje"},
@@ -918,4 +921,1057 @@ function editUsersController(angular, app) {
       }
     };
     module.exports = editUsersController;
-},{}]
+},{}],20:[function(require,module,exports){
+function fpwdController(angular, app) {
+    'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('fpwdCtrl', fpwdCtrl);
+    fpwdCtrl.$inject = ['$http','$filter','$timeout','$state','$scope','$sce'];
+
+    function fpwdCtrl($http, $filter,$timeout, $state, $scope,$stateParams,$sce){
+        var self = this;
+        self.validToken = false;
+        self.successChangingPwd = false;
+        function validatePwd(pwd1,pwd2){
+            if(pwd1 === pwd2){
+                self.changepwd(pwd1);
+                self.fpwdForm.$setValidity('valid',true);
+                self.fpwdForm.pwd1.$setValidity('valid',true);
+                self.fpwdForm.pwd2.$setValidity('valid',true);
+            }else{
+                self.fpwdForm.$setValidity('invalid',true);
+                self.fpwdForm.pwd1.$setValidity('invalid',true);
+                self.fpwdForm.pwd2.$setValidity('invalid',true);
+                self.match = true;                
+            }
+        }
+        function changepwd(pwd){
+            console.log(pwd);
+            $http
+            .post('./dist/php/reset_pwd.php', { pwd:pwd, token: $state.params.token, toReset: true })
+            .then(function (response){
+               self.successChangingPwd = true;
+               $timeout(function() { 
+                $state.go('home'); 
+            }, 5000);
+           });
+        }
+        function init(){ 
+         self.match = false;
+         self.invalidMsg = "";
+         self.changepwd = changepwd;
+         self.validatePwd = validatePwd;
+         if($state.params.token){            
+            self.validToken = true;
+            $http
+            .post('./dist/php/reset_pwd.php', { token: $state.params.token, checkValidToken: true })
+            .then(function (response){
+                if(response.data.errors.invalid){
+                 self.validToken = false;
+                 self.invalidMsg = "El C&oacute;digo de renovaci&oacute;n de contrase&ntilde;a es inv&aacute;lido o ya ha sido utilizado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
+
+                 $timeout(function() { 
+                    $state.go('home'); 
+                }, 5000);
+             }
+             if(response.data.errors.expired){
+                 self.validToken = false;
+                 self.invalidMsg = "El C&oacute;digo de renovaci&oacute;n de contrase&ntilde;a ha expirado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
+                 $timeout(function() { 
+                    $state.go('home'); 
+                }, 5000);
+             }
+         });
+        }else{
+            self.validToken = false;
+        }
+
+        $('html, body').animate({ scrollTop: 460 }, 'slow');    
+    }
+    init();
+}
+
+};
+module.exports = fpwdController;
+},{}],21:[function(require,module,exports){
+function homeController(angular, app) {
+    'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('homeCtrl', homeCtrl);
+
+    homeCtrl.$inject = ['$state','$scope','$rootScope','$window','$http'];
+
+    function homeCtrl($state, $scope, $rootScope,$window,$http){
+        var self = this; //jshint ignore:line
+
+
+        function init(){
+            $('html, body').scrollTop(0);
+            $rootScope.$on("$stateChangeSuccess", function (event, currentState, previousState) {
+                $window.scrollTo(0, 0);
+            });
+        }
+        init();
+    }
+};
+module.exports = homeController;
+},{}],22:[function(require,module,exports){
+function landingController(angular, app) {
+    'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('landingCtrl', landingCtrl);
+
+    landingCtrl.$inject = ['$state','$scope','$rootScope','$http','$sce'];
+
+    function landingCtrl($state, $scope,$rootScope,$http){
+        var self = this; //jshint ignore:line
+        function goHome(){
+            $state.go('home',{reload:true});
+        }
+        function init(){
+          self.goHome = goHome;
+          $('html, body').animate({ scrollTop: 420 }, 'slow');    
+          if($rootScope.pckg){
+              $http.post('./dist/php/add_soldpackage.php', {
+                 name : $rootScope.pckg.name,
+                 lastname : $rootScope.pckg.lastname,
+                 email : $rootScope.pckg.email,
+                 tel : $rootScope.pckg.tel,
+                 date :  $rootScope.pckg.date,
+                 time : $rootScope.pckg.time,
+                 packageId : $rootScope.pckg.packageId,
+                 payOnTrip: $rootScope.pckg.payOnTrip
+             }).then(function (response){
+
+             });
+         }
+     }
+     init();
+ }
+};
+module.exports = landingController;
+},{}],23:[function(require,module,exports){
+function loginController(angular, app) {
+  'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('loginCtrl', loginCtrl);
+
+    loginCtrl.$inject = ['$state','$scope', '$rootScope','$http'];
+
+    function loginCtrl($state, $scope, $rootScope,$http){
+        var self = this; //jshint ignore:line
+        self.user = {};
+        self.fpwduser = {};
+        self.error = '';
+        self.loginError = "";
+        function login(){
+          $http.post('./dist/php/login.php', {username: self.user.username, password:self.user.password})
+          .then(function (response){
+            self.error = '';
+            if(!response.data.errors){
+              sessionStorage.sskey = response.data.sskey;
+              sessionStorage.username = response.data.name  + " " + response.data.lastname;
+              self.loginForm.$setPristine();
+              self.user = {};
+              $state.go("home",{},{reload: true});
+            } else {
+              self.error = response.data.errors.loginError;
+              self.loginForm.$setPristine();
+              self.user = {};
+            }
+          });
+        }
+        function pwdreset(){
+          self.fpwduser.sending = true;
+          $http
+          .post('./dist/php/reset_pwd.php', { email: self.fpwduser.email, toReset: false })
+          .then(function (response){
+            self.error = '';
+            if(!response.data.errors){
+              $http.post('./dist/php/sendMail.php', {
+                email:self.fpwduser.email,
+                token:response.data.fpswdToken,
+                msg:"se ha solicitado la renovacion de contraseña para " + self.fpwduser.email + ",por favor ingresa en: http://localhost:8080/brisas_vip/#/reset-pwd/q"+response.data.fpswdToken + "para continuar con el proceso.",
+                resetPwd: true
+              }).then(function (response){
+                self.showfpwdSuccessMsg = true;
+              });              
+            } else {
+              self.fpwd.error = response.data.errors;
+              self.registerForm.email.$setValidity("email", false);
+            }
+          });
+        }
+        function init(){
+         $('html, body').animate({
+          scrollTop: $("#login").offset().top
+        }, 1000);
+         self.fpwdshow = false;
+         self.fpwduser.sending = false;
+         self.pwdreset = pwdreset;
+         self.login = login;
+       }
+       init();
+     }
+   };
+   module.exports = loginController;
+},{}],24:[function(require,module,exports){
+function packageDescController(angular, app) {
+	'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('packageDescCtrl', packageDescCtrl);
+    packageDescCtrl.$inject = ['$http','$filter','$state','$scope','$uibModal'];
+    app.controller('modalPckgCtrl', modalPckgCtrl);
+    modalPckgCtrl.$inject = ['$scope','$state','$filter','$uibModalInstance','$sce','$compile','$rootScope','items','$http'];
+
+    function packageDescCtrl($http, $filter, $state, $scope,$uibModal){
+        var self = this, data = {}  ; //jshint ignore:line
+        $http.get('./dist/php/get_packages.php').then(function(response) {           
+            self.data = $filter('filter')(response.data.packages, {id: $state.params.packageId})[0];
+            if(self.data.bonificado){
+                self.data.bonificado = self.data.bonificado.split(",");
+            }
+            self.data.imgSelected = self.data.images[0].url;
+        });
+        self.toBigPicture = toBigPicture;
+        function openModal(size){
+            var modalInstance = $uibModal.open({
+                templateUrl: 'buyModal.html',
+                controller: 'modalPckgCtrl',
+                controllerAs:'buyPckg',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return self.data;
+                    }
+                }
+            });
+        }
+        function buyPackage(){
+            self.openModal('md');
+        }
+        function payOnTrip(){
+            self.openModal('md');
+            self.data.payOnTrip ="true";
+        }
+        function init(){     
+            $('html, body').animate({ scrollTop: 460 }, 'slow');    
+            self.openModal = openModal;
+            self.buyPackage = buyPackage;
+            self.payOnTrip = payOnTrip;
+        }
+        function toBigPicture(src){
+            self.data.imgSelected = src;
+        }
+        init();
+    }
+    function modalPckgCtrl($scope,$state,$filter, $uibModalInstance,$sce,$compile,$rootScope,items,$http){
+        var self = this;        
+        $scope.today = function() {
+            $scope.dt = new Date();
+        };
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            maxDate: new Date(2020, 5, 22),
+            minDate: new Date(),
+            startingDay: 1
+        };
+        $scope.open1 = function() {
+            $scope.popup1.opened = true;
+            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        };
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'shortDate'];
+        $scope.format = $scope.formats[2];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+            opened: false
+        };
+        $scope.today();
+        $scope.mytime = new Date();
+
+        $scope.hstep = 1;
+        $scope.mstep = 1;
+
+        $scope.options = {
+            hstep: [1, 2, 3],
+            mstep: [1, 5, 10, 15, 25, 30]
+        };
+
+        $scope.ismeridian = true;
+        $scope.toggleMode = function() {
+            $scope.ismeridian = ! $scope.ismeridian;
+        };
+
+        $scope.update = function() {
+            var d = new Date();
+            d.setHours( 14 );
+            d.setMinutes( 0 );
+            $scope.mytime = d;
+        };
+        function buy(){
+          self.pckg.date =  $filter('date')($scope.dt,'dd-MM-yyyy');
+          self.pckg.time = $filter('date')($scope.mytime,'HH:mm');
+          $uibModalInstance.dismiss('cancel');
+          self.paymentGatewayUrl = items.paymentGatewayUrl;
+          self.pckg.packageId = items.id;  
+          $rootScope.pckg = self.pckg;
+          if(items.payOnTrip){
+            $rootScope.pckg.payOnTrip = "false";
+            $state.go('home.landing');
+          }else{
+              $rootScope.pckg.payOnTrip = "true";
+              $state.go('home.buyPackage',{ paymentGatewayUrl: self.paymentGatewayUrl, packageId: self.packageId }, {reload:true});
+          }
+      }
+      function cancel(){
+       $uibModalInstance.dismiss('cancel');
+   };
+   $rootScope.$on("$stateChangeStart", function (evt) {
+      $uibModalInstance.dismiss('cancel');
+  });
+   function init(){
+    self.buy = buy;
+    self.cancel = cancel;
+    self.pckg = {};
+
+    $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
+        self.pckg.name = response.name;
+        self.pckg.lastname = response.lastname;
+        self.pckg.email = response.userEmail;
+        self.pckg.tel = response.userTel;
+    });
+    if(sessionStorage.getItem('sskey')){
+        self.isLogged  = true;
+    } else {
+        self.isLogged = false;
+    }
+    if(self.isLogged){
+        self.username = sessionStorage.getItem('username');
+    }
+}
+init();
+}
+};
+module.exports = packageDescController;
+},{}],25:[function(require,module,exports){
+function packageController(angular, app) {
+	'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('packageCtrl', packageCtrl);
+    app.filter('rangeFilter',rangeFilter);
+    packageCtrl.$inject = ['$http','$state','$filter','$sce'];
+
+    function packageCtrl($http,$state,$filter,$sce){
+
+        var self = this, data = {}  ; //jshint ignore:line
+        $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: false  }).success(function (response){
+          self.isAdmin = response.isAdmin;
+          $('#openSidebar').on('click', function(){
+            console.log('pen');
+            $('.sidebar').css('display','inline-block');
+          });
+          $('#closeSidebar').on('click', function(){
+            console.log('clsw');
+            $('.sidebar').css('display','none');
+          });
+        });
+
+        function remove(id,stamp, title){
+
+          if(confirm("Esta seguro que desea eliminar el paquete '" + title + "' ?")){
+            $http.post('./dist/php/delete_package.php', {
+              id: id,
+              stamp:stamp,
+            }).then(function (response){
+              $state.go($state.current,{},{ reload: true });              
+            });
+          }
+        }
+        function edit(pkgedit){
+          $state.go('home.editPackage', {pkgedit: pkgedit},{});
+        }
+        function getPackages(){
+          $http.get('./dist/php/get_packages.php').then(function(response) {    
+            self.packages = response.data.packages;
+          });
+        }
+        function init(){ 
+
+          self.minPrice = 0;
+          self.maxPrice = 20000;
+          self.userMinPrice = self.minPrice;
+          self.userMaxPrice = self.maxPrice;
+          self.airport = false;
+          self.hotel = false;
+          self.allInclusive = false;
+          self.lunch = false;
+          $('html, body').animate({ scrollTop: 450 }, 'slow');    
+          self.remove = remove;        
+          self.edit = edit;
+          self.getPackages = getPackages;
+          self.getPackages();
+        }
+        init();
+      }
+      function rangeFilter() {
+        return function( items, rangeInfo ) {
+          if(items !== undefined){
+            var filtered = [];
+            var min = parseInt(rangeInfo.userMinPrice);
+            var max = parseInt(rangeInfo.userMaxPrice);
+        // If time is with the range
+        angular.forEach(items, function(item) {
+          if(!item.porcentaje){
+            if( item.price >= min && item.price <= max ) {
+              filtered.push(item);
+            }
+          }else{
+            var discount = item.price - ((item.price * item.porcentaje) / 100);
+            if( discount >= min && discount <= max ) {
+              filtered.push(item);
+            }
+          }
+        });
+        return filtered;
+      } else {
+        return items;
+      };
+    };
+  }
+};
+
+module.exports = packageController;
+},{}],26:[function(require,module,exports){
+function registerController(angular, app) {
+  'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('registerCtrl', registerCtrl);
+
+    registerCtrl.$inject = ['$state','$scope','$http','$timeout'];
+
+    function registerCtrl($state, $scope,$http,$timeout){
+        var self = this; //jshint ignore:line        
+        self.user = {};
+        function register(){
+          if(validatePwd(self.user.password, self.user.pwd2)){
+            self.user.country = $('#country').val();
+            self.btnMsg = "Enviando";
+            self.sending = true;
+            $http.post('./dist/php/register.php', {
+              name: self.user.name,
+              lastname: self.user.lastname,
+              email: self.user.email,
+              tel: self.user.tel,
+              city: self.user.country,
+              password: self.user.password
+            })
+            .then(function (response){
+              self.error = '';
+              if(!response.data.errors){       
+                $http.post('./dist/php/sendMail.php', {
+                  email: self.user.email,
+                  token: response.data.registerToken,
+                  msg:"se ha solicitado el registro de el usuario " + self.user.email + ",por favor ingresa en: http://localhost:8080/brisas_vip/#/register/"+response.data.registerToken + "para continuar con el proceso.",
+                  registerToken: true
+                }).then(function (response){
+                  self.registerForm.$setPristine();
+                  self.user = {};         
+                  self.validateRegister = true;
+                });     
+              } else {
+                self.error = response.data.errors;
+                self.registerForm.email.$setValidity("email", false);
+              }
+            });
+          }
+        }
+        function validatePwd(pwd1,pwd2){
+          if(pwd1 !== pwd2){
+            self.registerForm.password.$setValidity('invalid',true);
+            self.registerForm.pwd2.$setValidity('invalid',true);
+            self.match = true;
+            return false;                
+          }else{          
+            self.registerForm.password.$setValidity('valid',true);
+            self.registerForm.pwd2.$setValidity('valid',true);
+            self.match = false; 
+            return true;               
+          }
+        }
+
+        function resetEmail(){
+          self.error = "";
+        }
+        function init(){         
+          self.validateRegister = false;
+          self.validToken = true;
+          self.btnMsg = "Registrarme";
+          self.sending = false;
+          self.concludeRegister = false;
+          $('html, body').animate({
+            scrollTop: $("#register").offset().top
+          }, 1000); 
+          self.register = register;
+          self.resetEmail = resetEmail;
+          var input1 = document.getElementById('country');
+          var autocomplete = new google.maps.places.Autocomplete(input1);
+          if($state.params.token){           
+
+            $http
+            .post('./dist/php/register.php', { conclude:true, token: $state.params.token})
+            .then(function(response){
+              console.log(response);
+              if(response.data.errors.invalid){
+                self.validToken = false;
+                self.invalidMsg = "El C&oacute;digo de Registro es inv&aacute;lido o ya ha sido utilizado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
+                $timeout(function() { 
+                  $state.go('home'); 
+                }, 5000);
+              } else if(response.data.errors.expired){
+                self.validToken = false;
+                self.invalidMsg = "El C&oacute;digo de Registro ha expirado.<br>Ser&aacute; redireccionado a la pantalla principal.<br> Por favor intente nuevamente.<br> Muchas gracias por elegirnos.";
+                $timeout(function() { 
+                  $state.go('home'); 
+                }, 5000);
+              }else {
+                self.concludeRegister = true;
+              }
+            });
+          }else{
+            self.concludeRegister = false;            
+
+          }
+        }
+
+        init();
+      }
+    };
+    module.exports = registerController;
+},{}],27:[function(require,module,exports){
+function reqPackagesController(angular, app) {
+  'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('reqPackagesCtrl', reqPackagesCtrl);
+
+    reqPackagesCtrl.$inject = ['$state','$scope','$http','$filter','$timeout'];
+
+    function reqPackagesCtrl($state, $scope,$http,$filter,$timeout){
+        var self = this; //jshint ignore:line
+        self.packages = [];
+        $scope.filtered = [];
+        function imprimirViaje(trip){          
+          self.printTrip = {};
+          self.printTrip = trip;
+          if(trip.bonificado.length > 0){
+            self.printTrip.bonificado = trip.bonificado.split(",");
+          }
+          console.log(self.printTrip);
+          $timeout(function() {
+            window.print();
+          } , 1000);
+        }
+        function init(){
+         self.imprimirViaje = imprimirViaje;
+         $http.get('./dist/php/get_reqPackages.php').then(function(response) {    
+          self.packages = response.data.reqPackages;
+          $scope.totalItems = Object.keys(self.packages).length;
+          $scope.currentPage = 1;
+          $scope.itemsPerPage = 5;
+          $scope.maxSize = 5;
+          $scope.setPage = function (pageNo) {
+            $scope.currentPage = pageNo;
+          };
+          $scope.pageChanged = function() {
+
+          };
+          $scope.$watch('search', function (term) {
+            var obj = term;
+            $scope.filtered = $filter('filter')(self.packages, obj);
+            $scope.currentPage = 1;
+          }); 
+        });
+       }
+       init();
+     }
+   };
+   module.exports = reqPackagesController;
+},{}],28:[function(require,module,exports){
+function reqTripsController(angular, app) {
+  'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('reqTripsCtrl', reqTripsCtrl);
+    reqTripsCtrl.$inject = ['$state','$scope','$rootScope','$http','$uibModal','$filter','$timeout'];
+    app.controller('modalTripCtrl', modalTripCtrl);
+    modalTripCtrl.$inject = ['$scope','$state','$http','$filter','$uibModalInstance','$rootScope','items'];
+
+    function reqTripsCtrl($state, $scope,$rootScope,$http,$uibModal,$filter, $timeout){
+        var self = this; //jshint ignore:line
+        self.trips = [];
+        self.trip = {};
+        function confirm(trip){
+         self.trip = trip;
+         self.trip.confirmTrip = true;
+         self.openModal('md');
+
+       }
+       function revoke(trip){
+        self.trip = trip;
+        self.trip.confirmTrip = false;
+        self.openModal('md');
+
+      }
+      function imprimirViaje(trip){
+        self.printTrip = {};
+        self.printTrip = trip;
+        $timeout(function() {
+          window.print();
+         } , 1000);
+      }
+      function openModal(size){
+       var modalInstance = $uibModal.open({
+        templateUrl: 'confirmTripModal.html',
+        controller: 'modalTripCtrl',
+        controllerAs:'modalTrip',
+        size: size,
+        resolve: {
+          items: function () {
+            return self.trip;
+          }
+        }
+
+      });
+     }
+     function init(){
+      $scope.filtered = [];
+      self.openModal = openModal;
+      self.revoke = revoke;
+      self.confirm = confirm;
+      self.imprimirViaje = imprimirViaje;
+      $http.get('./dist/php/get_reqTrips.php').then(function(response) {    
+        self.trips = response.data.reqTrips;
+        $rootScope.tripsToContest = $filter('filter')(self.trips, {state:0}).length;
+        console.log($rootScope.tripsToContest);
+        $scope.totalItems = Object.keys(self.trips).length;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = 5;
+        $scope.maxSize = 5;
+        $scope.setPage = function (pageNo) {
+          $scope.currentPage = pageNo;
+        };
+        $scope.pageChanged = function() {
+
+        };
+        $scope.$watch('search', function (term) {
+          var obj = term;
+          $scope.filtered = $filter('filter')(self.trips, obj);
+          $scope.currentPage = 1;
+        }); 
+      });
+    }
+    init();
+  }
+  function modalTripCtrl($scope,$state,$http, $filter, $uibModalInstance, $rootScope, items){
+
+    var self = this;
+
+    function confirm(){
+      var trip = items;
+      self.sendingEmail = true;
+      if(items.confirmTrip){
+        $http.post('./dist/php/sendMail.php', {
+          email:trip.email,
+          msg:"El viaje ha sido agendado. Muchas gracias por utilizar nuestros servicios.",
+          from:trip.req_from,
+          to:trip.req_to,
+          date:trip.date,
+          time:trip.time,
+          price:trip.price,
+          id:trip.id,
+          confirm: true
+        }).then(function (response){
+          self.sendingEmail = false;
+          self.action = "confirmar";
+          $uibModalInstance.dismiss('cancel');
+          $state.go($state.current,{},{ reload: true });
+        });
+      } else {
+        self.sendingEmail = true;
+        $http.post('./dist/php/sendMail.php', {
+          email:trip.email,
+          id:trip.id,
+          msg:"Hubo un problema al procesar su solicitud de  viaje. Por favor comunicate a los siguientes tel&eacute;fonos para solicitar tu traslado: +54 9 0261 4309100 - +54 9 0261 4376499 - +54 9 0261 4378080. Muchas gracias.",
+          revoke: true
+        }).then(function (response){
+          self.sendingEmail = false;
+          self.action = "rechazar";
+          $uibModalInstance.dismiss('cancel');
+          $state.go($state.current,{},{ reload: true });
+        });
+      }
+    }
+    function cancel(){
+     $uibModalInstance.dismiss('cancel');
+   }
+   function init(){
+    self.sendingMsg = "Enviando...";
+    self.sendingEmail = false;
+    console.log(items);
+    self.confirm = confirm;
+    self.cancel = cancel;
+    if(items.confirmTrip){
+      self.action = "confirmar";
+    }else{
+      self.action = "rechazar";
+    }
+  }
+
+  init();
+}
+};
+
+module.exports = reqTripsController;
+},{}],29:[function(require,module,exports){
+function rateController(angular, app) {
+	'use strict';
+
+    'use angular template'; //jshint ignore:line
+
+    app.controller('rateCtrl', rateCtrl);
+    rateCtrl.$inject = ['$state','$scope','$http','$filter','$uibModal'];
+    app.controller('modalCtrl', modalCtrl);
+    modalCtrl.$inject = ['$scope','$state','$uibModalInstance','$sce','$compile','$rootScope'];
+
+
+    function rateCtrl($state, $scope,$http,$filter,$uibModal){
+        var self = this; //jshint ignore:line
+        google.maps.event.addDomListener(window, 'load', initMap);
+        $('#tarifa-mobile').on('change', function(){
+          calcRoute();
+        });
+        $('#tarifa').on('change', function(){
+          calcRoute();
+        });
+        var options = {
+        	componentRestrictions: {country: "ar"}
+        };
+        var dist = 0.00;
+        var rendererOptions = {
+        	'map': map,
+        	'draggable':false
+        };
+        $scope.today = function() {
+        	$scope.dt = new Date();
+        };
+        $scope.dateOptions = {
+        	formatYear: 'yy',
+        	maxDate: new Date(2020, 5, 22),
+        	minDate: new Date(),
+        	startingDay: 1
+        };
+        $scope.open1 = function() {
+        	$scope.popup1.opened = true;
+        	$scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        	$scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        };
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'shortDate'];
+        $scope.format = $scope.formats[2];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+        	opened: false
+        };
+        $scope.today();
+        $scope.mytime = new Date();
+
+        $scope.hstep = 1;
+        $scope.mstep = 1;
+
+        $scope.options = {
+        	hstep: [1, 2, 3],
+        	mstep: [1, 5, 10, 15, 25, 30]
+        };
+
+        $scope.ismeridian = true;
+        $scope.toggleMode = function() {
+        	$scope.ismeridian = ! $scope.ismeridian;
+        };
+
+        $scope.update = function() {
+        	var d = new Date();
+        	d.setHours( 14 );
+        	d.setMinutes( 0 );
+        	$scope.mytime = d;
+        };
+
+        var input1 = document.getElementById('from');
+        var input2 = document.getElementById('to');
+        var input3 = document.getElementById('to-mobile');
+        var input4 = document.getElementById('from-mobile');
+        var autocomplete = new google.maps.places.Autocomplete(input1,options);
+        var autocomplete = new google.maps.places.Autocomplete(input2,options);
+        var autocomplete = new google.maps.places.Autocomplete(input3,options);
+        var autocomplete = new google.maps.places.Autocomplete(input4,options);
+        var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+        var directionsService = new google.maps.DirectionsService();
+        var map;
+
+
+        function initMap() {
+        	var options = {
+        		componentRestrictions: {country: "ar"}
+        	};
+        	google.maps.event.addListener(directionsDisplay, 'directions_changed', function () {        
+        		computeTotalDistance(directionsDisplay.directions);
+        	});
+        }
+        function resetAll() {
+        	map.setZoom(13);
+        	map.panTo(new google.maps.LatLng(-32.888810, -68.850378));
+        	$("#from").val(null);
+        	$("#to").val(null);
+        	$("#dist").val("0 km");
+        	$("#total_price_ht_0").val("$0.00");
+        	$("#tarifa").val('default');
+        	directionsDisplay.setDirections({routes: []});
+        };
+        function calcRoute() {
+        	var start =  $state.params.from;
+        	var end = $state.params.to;
+          if($('.info #from-mobile') && $('.info #from-mobile').val() !== undefined && $('.info #from-mobile').val().length > 0){
+            start = $('.info #from-mobile').val();
+          }
+          if($('.info #to-mobile') && $('.info #to-mobile').val() !== undefined &&  $('.info #to-mobile').val().length > 0){
+            end = $('.info #to-mobile').val();
+          }
+          if($('.info #from') && $('.info #from').val() !== undefined && $('.info #from').val().length > 0){
+            start = $('.info #from').val();
+          }
+          if($('.info #to') && $('.info #to').val() !== undefined &&  $('.info #to').val().length > 0){
+            end = $('.info #to').val();
+          }
+          var request = {
+            origin: start,
+            destination: end,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+          };
+
+          directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+             directionsDisplay.setDirections(response);
+             dist = parseFloat(response.routes[0].legs[0].distance.value/1000).toFixed(2);
+             stripint(dist);
+             recalc();
+           }
+         });
+        }
+        function computeTotalDistance(result) {
+         var total = 0;
+         var myroute = result.routes[0];
+         for (var i = 0; i < myroute.legs.length; i++) {
+          total += myroute.legs[i].distance.value;
+        }
+        total = total/1000;
+
+        document.getElementById('total').innerHTML = total + ' km';
+      }
+
+      google.maps.event.addDomListener(window, 'load', initMap);
+      function stripint(val) {
+
+       $('#dist').val(val + ' Km.');
+     }
+     function recalc() {
+          var selection = "";
+          if($('.info #tarifa-mobile') && $('.info #tarifa-mobile').val() !== null && $('.info #tarifa-mobile').val() !== undefined && $('.info #tarifa-mobile').val().length > 0){
+            selection = $('#tarifa-mobile').val();
+          } else {
+            selection = $('#tarifa').val();
+          }
+          $http.post('./dist/php/get_fares.php', {
+            daytime: selection
+          }).then(function (response){
+            if(response.data.fares.length){
+             var total = ((dist * parseFloat(response.data.fares[0].km)) + parseFloat(response.data.fares[0].bajada_bandera)).toFixed(2);
+             $('#totalPrice').val(total);
+           }
+         });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+        function openModal(size){
+        	var modalInstance = $uibModal.open({
+        		templateUrl: 'myModal.html',
+        		controller: 'modalCtrl',
+        		size: size
+
+        	});
+        }
+        function reserve(){
+
+          self.reserved.from = $state.params.from;
+          self.reserved.to = $state.params.to;
+          self.reserved.distance = parseFloat($('#dist').val().replace(",", ""));
+          self.reserved.price = $('#totalPrice').val();
+          self.reserved.date =  $filter('date')($scope.dt,'dd-MM-yyyy');
+          self.reserved.time = $filter('date')($scope.mytime,'HH:mm');
+          self.reserved.user = sessionStorage.getItem('username');
+          if(sessionStorage.getItem('sskey')){
+            if(self.reserved.from  == "" || self.reserved.to == ""){
+              self.noSearch = true;
+            }else{
+              self.btnMsg = "Solicitando...";
+              self.sending = true;
+              self.noSearch = false;
+              $http.post('./dist/php/check_session.php',{ sskey: sessionStorage.getItem('sskey'), getuserinfo: true }).success(function (response){
+                self.userId = response.userId;
+                self.userEmail = response.userEmail;
+                self.userTel = response.userTel;
+                $http.post('./dist/php/sendMail.php', {
+                 from : $state.params.from,
+                 to : $state.params.to,
+                 distance : parseFloat($('#dist').val().replace(",", "")),
+                 price : $('#totalPrice').val(),
+                 date :  $filter('date')($scope.dt,'dd-MM-yyyy'),
+                 time : $filter('date')($scope.mytime,'HH:mm'),
+                 user : sessionStorage.getItem('username'),
+                 userId : self.userId,
+                 userEmail: self.userEmail,
+                 userTel: self.userTel,
+                 rateForm: true
+               }).then(function (response){ self.openModal('md');self.sending = false; self.btnMsg = "Solicitar Viaje"; });
+              });
+            }
+          } else {
+            self.openModal('md');
+          }
+        }
+
+        function init(){
+         self.reserved = {
+          'from':'',
+          'to':'',
+          'price':'',
+          'distance':'',
+          'date':'',
+          'time':'',
+          'user':''
+        };
+        self.btnMsg = "Solicitar Viaje";
+        self.sending = false;
+        $('#from').val($state.params.from);
+        $('#to').val($state.params.to);
+        $('#tarifa').val($state.params.time);
+        self.data = $state.params;
+        self.data.price = "0.00";
+        self.reserve = reserve;
+        self.openModal = openModal;
+        $('html, body').animate({ scrollTop: 340 }, 'slow');    
+        
+        var myLatlng = new google.maps.LatLng(-32.888810, -68.850378);
+        var mapOptions = {
+          zoom: 13,
+          center: myLatlng,
+        };
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        calcRoute();
+        directionsDisplay.setMap(map); 
+        self.closed = false;
+        var today = new Date();
+        var today = parseInt(today.getDay());
+        if(today !== 0 && today !== 6){
+          $http.get('./dist/php/get_server_time.php').success(function(res){
+            console.log(res);
+            if(res === "true"){
+              self.closed = true;
+              self.btnMsg = "Cerrado";
+            } else {
+              self.closed = false;
+            }
+          });
+        }
+        else {
+          self.closed = true;
+          self.btnMsg = "Cerrado";
+        }
+      }
+      init();
+    }
+    function modalCtrl($scope,$state, $uibModalInstance,$sce,$compile,$rootScope){
+     $scope.to_trusted = function(someHTML) {
+      var compiledVal = $compile(someHTML)($scope);
+      var compiledHTML = compiledVal[0].outerHTML;
+      return $sce.trustAsHtml(compiledHTML);
+    }
+    if(sessionStorage.getItem('sskey')){
+      $scope.isLogged = true;
+      $scope.msg = "<span> El viaje ha sido solicitado satisfactoriamente, por favor espera la confirmaci&oacute;n de la reserva en tu correo.</span>";
+      $scope.close = function(){
+       $state.go('home',{},{reload:true});
+       $uibModalInstance.dismiss('cancel');
+     };
+   }else{
+    $scope.isLogged = false;
+
+    $scope.msg = "<span>Debe ingresar en la aplicaci&oacute;n para poder solicitar un viaje.<br/> En caso de no poseer un usuario deber&aacute; <a ui-sref='home.register'>Registrarse</a>.</span>";
+    $scope.toLogin = function(){
+     $state.go("home.login",{},{reload:true});
+     $uibModalInstance.dismiss('cancel');
+   };
+   $scope.cancel = function(){
+     $uibModalInstance.dismiss('cancel');
+   };
+ }
+ $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+  $uibModalInstance.dismiss('cancel');
+});
+}
+};
+module.exports = rateController;
+},{}],30:[function(require,module,exports){
+function uploadService(angular, app) {
+	'use strict';
+	app.service('uploadService', uploadService);
+	uploadService.$inject = ["$http", "$q"];
+	function uploadService($http, $q){
+		this.uploadForm = function (form, url) {
+			var deferred = $q.defer();
+			var formData = new FormData();
+			angular.forEach(form, function(key,value){
+				formData.append(value,key);
+			});
+			return $http.post(url, formData, {
+				transformRequest: angular.identity,
+				headers: {'Content-Type': undefined}
+			}).success(function (res) {
+				deferred.resolve(res);
+			}).error(function (msg, code) {
+				deferred.reject(msg);
+			});
+			return deferred.promise;
+		}
+	}
+}
+module.exports = uploadService;
+},{}]},{},[1]);

@@ -1,97 +1,106 @@
-	<div class="reqPackages container">
-		<link rel="stylesheet" type="text/css" href="./dist/routes/reqPackages/reqPackages.css" >		
-		<article>
-			<div class="content">
-				<div class="content row">
-					<div class="input-group">
-						<input type="text" class="form-control " name="search" id="search" ng-model="search" placeholder="Escribe tu b&uacute;squeda">
-						<i class="fa fa-search" aria-hidden="true"></i>
-					</div>
-					<div class="panel panel-default">
-						<table class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<td><span>Nombre</span></td>
-									<td><span>Apellido</span></td>
-									<td><span>E-Mail</span></td>
-									<td><span>Tel.</span></td>
-									<td><span>Fecha</span></td>
-									<td><span>Hora</span></td>
-									<td><span>Titulo de paquete</span></td>
-									<td><span>Precio</span></td>
-									<td><span>Imprimir</span></td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="reqPackages-list-item" ng-repeat="package in filtered =  (reqPackages.packages | filter:search) | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage | filter : paginate track by $index">
-									<td><span>{{package.name}}</span></td>
-									<td><span>{{package.lastname}}</span></td>
-									<td><span>{{package.email}}</span></td>
-									<td><span>{{package.tel}}</span></td>
-									<td><span>{{package.date}}</span></td>
-									<td><span>{{package.time}}</span></td>
-									<td><span>{{package.shortTitle}}</span></td>
-									<td><span>{{package.price | currency:undefined:0}}</span></td>			
-									<td class="text-center"><i class="fa fa-print" style="color:black;" tooltip-placement="left" uib-tooltip="imprimir" ng-click="reqPackages.imprimirViaje(package)"> </i></td>					
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<uib-pagination next-text="Siguiente" previous-text="Anterior" total-items="filtered.length" data-num-pages="reqTrips.noOfPages" ng-model="currentPage" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true"></uib-pagination>
+<div class="reqPackages container">
+	<link rel="stylesheet" type="text/css" href="./dist/routes/reqPackages/reqPackages.css">
+	<article>
+		<div class="content">
+			<div class="content row">
+				<div class="input-group">
+					<input type="text" class="form-control " name="search" id="search" ng-model="search" placeholder="Escribe tu b&uacute;squeda">
+					<i class="fa fa-search" aria-hidden="true"></i>
 				</div>
-			</div>	
-		</article>
-	</div>
-	<div id="printarea">
-		<div class="col-xs-12 text-center">
-			<h3>BRISAS VIP :: Servicio Diferencial</h3>
-			<h4>:: Solicitud de paquetes :: </h4>
+				<div class="panel panel-default">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<td><span>Nombre</span></td>
+								<td><span>Apellido</span></td>
+								<td><span>E-Mail</span></td>
+								<td><span>Tel.</span></td>
+								<td><span>Fecha</span></td>
+								<td><span>Hora</span></td>
+								<td><span>Titulo de paquete</span></td>
+								<td><span>Precio</span></td>
+								<td><span>Pagado</span></td>
+								<td><span>Imprimir</span></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="reqPackages-list-item" ng-repeat="package in filtered =  (reqPackages.packages | filter:search) | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage | filter : paginate track by $index">
+								<td><span>{{package.name}}</span></td>
+								<td><span>{{package.lastname}}</span></td>
+								<td><span>{{package.email}}</span></td>
+								<td><span>{{package.tel}}</span></td>
+								<td><span>{{package.date}}</span></td>
+								<td><span>{{package.time}}</span></td>
+								<td><span>{{package.shortTitle}}</span></td>
+								<td><span>{{package.price | currency:undefined:0}}</span></td>
+								<td ng-if="package.payed == 'true'"><span>S&iacute;</span></td>
+								<td ng-if="package.payed == 'false'"><span>No</span></td>
+								<td class="text-center"><i class="fa fa-print" style="color:black;" tooltip-placement="left" uib-tooltip="imprimir" ng-click="reqPackages.imprimirViaje(package)"> </i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<uib-pagination next-text="Siguiente" previous-text="Anterior" total-items="filtered.length" data-num-pages="reqTrips.noOfPages"
+					ng-model="currentPage" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true"></uib-pagination>
+			</div>
 		</div>
-		<table>
-			<h3>Información del viaje:</h3>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>C&oacute;digo de viaje:</strong></span></td>
-				<td class="tripTableCol"><span> # {{reqPackages.printTrip.id}} </span></td>
-			</tr>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>Nombre:</strong></span></td>
-				<td class="tripTableCol"><span>{{reqPackages.printTrip.name}} {{reqPackages.printTrip.lastname}}</span></td>
-			</tr>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>Email:</strong></span></td>
-				<td class="tripTableCol"><span>{{reqPackages.printTrip.email}}</span></td>
-			</tr>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>Tel.:</strong></span></td>
-				<td class="tripTableCol"><span>{{reqPackages.printTrip.tel}}</span></td>
-			</tr>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>Fecha:</strong></span></td>
-				<td class="tripTableCol"><span> {{reqPackages.printTrip.date}} </span></td>
-			</tr>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>Hora:</strong></span></td>
-				<td class="tripTableCol"><span>{{reqPackages.printTrip.time}}</span></td>
-			</tr>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>Paquete:</strong></span></td>
-				<td class="tripTableCol"><span>{{reqPackages.printTrip.shortTitle}}</span></td>
-			</tr>
-			<tr class="tripTableRow">
-				<td class="tripTableCol"><span><strong>Precio:</strong></span></td>
-				<td class="tripTableCol"><span>{{reqPackages.printTrip.price | currency:undefined:0}}</span></td>
-			</tr>
-		</table>
-		<div ng-if="reqPackages.printTrip.bonificado.length || reqPackages.printTrip.porcentaje">
-			<hr>
-			<h3>Bonificación:</h3>
-			<ul ng-if="reqPackages.printTrip.bonificado.length">
-				<li ng-repeat="bonificacion in reqPackages.printTrip.bonificado">{{bonificacion}}</li>
-			</ul>
-			<h4 ng-if="reqPackages.printTrip.porcentaje">Descuento por porcentaje:</h4>
-			<ul ng-if="reqPackages.printTrip.porcentaje">
-				<li>Precio original: {{reqPackages.printTrip.originalPrice | currency:undefined:0}}</li>
-				<li>Porcentaje de descuento: {{reqPackages.printTrip.porcentaje}} %</li>
-			</ul>
-		</div>
+	</article>
+</div>
+<div id="printarea">
+	<div class="col-xs-12 text-center">
+		<h3>BRISAS VIP :: Servicio Diferencial</h3>
+		<h4>:: Solicitud de paquetes :: </h4>
 	</div>
+	<table>
+		<h3>Información del viaje:</h3>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>C&oacute;digo de viaje:</strong></span></td>
+			<td class="tripTableCol"><span> # {{reqPackages.printTrip.id}} </span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Nombre:</strong></span></td>
+			<td class="tripTableCol"><span>{{reqPackages.printTrip.name}} {{reqPackages.printTrip.lastname}}</span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Email:</strong></span></td>
+			<td class="tripTableCol"><span>{{reqPackages.printTrip.email}}</span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Tel.:</strong></span></td>
+			<td class="tripTableCol"><span>{{reqPackages.printTrip.tel}}</span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Fecha:</strong></span></td>
+			<td class="tripTableCol"><span> {{reqPackages.printTrip.date}} </span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Hora:</strong></span></td>
+			<td class="tripTableCol"><span>{{reqPackages.printTrip.time}}</span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Paquete:</strong></span></td>
+			<td class="tripTableCol"><span>{{reqPackages.printTrip.shortTitle}}</span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Precio:</strong></span></td>
+			<td class="tripTableCol"><span>{{reqPackages.printTrip.price | currency:undefined:0}}</span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Pagado:</strong></span></td>
+			<td ng-if="reqPackages.printTrip.payed == 'true'"><span>S&iacute;</span></td>
+			<td ng-if="reqPackages.printTrip.payed == 'false'"><span>No</span></td>
+		</tr>
+	</table>
+	<div ng-if="reqPackages.printTrip.bonificado.length || reqPackages.printTrip.porcentaje">
+		<hr>
+		<h3>Bonificación:</h3>
+		<ul ng-if="reqPackages.printTrip.bonificado.length">
+			<li ng-repeat="bonificacion in reqPackages.printTrip.bonificado">{{bonificacion}}</li>
+		</ul>
+		<h4 ng-if="reqPackages.printTrip.porcentaje">Descuento por porcentaje:</h4>
+		<ul ng-if="reqPackages.printTrip.porcentaje">
+			<li>Precio original: {{reqPackages.printTrip.originalPrice | currency:undefined:0}}</li>
+			<li>Porcentaje de descuento: {{reqPackages.printTrip.porcentaje}} %</li>
+		</ul>
+	</div>
+</div>

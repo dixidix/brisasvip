@@ -54,6 +54,9 @@ html{
 		font-family:$roboto;
 		.header-wrapper{
 			height:480px;
+			@include responsive(large-desktop){
+				height:680px;
+			}
 			@media print {
 				height: 0;
 			}
@@ -68,7 +71,7 @@ html{
 				border-radius: 0;
 				&:focus, &:active:focus, &:active{
 					outline:none;
-					border-color:transparent;
+					border-color:$premium;
 					box-shadow:none;
 				}
 			}

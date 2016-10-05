@@ -62,6 +62,9 @@ html {
       cursor: pointer; }
     html body .header-wrapper {
       height: 480px; }
+      @media screen and (min-width: 1200px) {
+        html body .header-wrapper {
+          height: 680px; } }
       @media print {
         html body .header-wrapper {
           height: 0; } }
@@ -72,14 +75,14 @@ html {
         border-radius: 0; }
         html body .form-control:focus, html body .form-control:active:focus, html body .form-control:active, html body .btn:focus, html body .btn:active:focus, html body .btn:active {
           outline: none;
-          border-color: transparent;
+          border-color: #de9900;
           box-shadow: none; } }
     @media screen and (min-width: 1200px) {
       html body .form-control, html body .btn {
         border-radius: 0; }
         html body .form-control:focus, html body .form-control:active:focus, html body .form-control:active, html body .btn:focus, html body .btn:active:focus, html body .btn:active {
           outline: none;
-          border-color: transparent;
+          border-color: #de9900;
           box-shadow: none; } }
     html body .pagination {
       float: right; }

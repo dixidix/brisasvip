@@ -35,8 +35,14 @@
 	background-image: linear-gradient(rgba(0,0,0,0.6) 10%,rgba(0,0,0,0) 35%), url('./../../styles/images/header_ps2.jpg');
 	background-size:cover;
 	height:480px;	
-	@media screen and (min-width:1400px){
+	&-wrapper{
+		height:480px;	
+	}
+	@include responsive(large-desktop){
 		height: 680px;
+			&-wrapper{
+		height:680px;	
+	}
 	}
 	width:100%;
 	position:absolute;

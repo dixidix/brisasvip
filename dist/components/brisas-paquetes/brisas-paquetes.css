@@ -17,9 +17,9 @@
 .packages {
   padding-top: 80px;
   margin-bottom: 56px; }
-  @media screen and (min-width: 1400px) {
+  @media screen and (min-width: 1200px) {
     .packages {
-      padding-top: 300px; } }
+      padding-top: 150px; } }
   .packages h2 {
     font-family: "MuseoSans-500", Arial; }
   .packages p {
