@@ -17,6 +17,7 @@
 								<td><span>Tel.</span></td>
 								<td><span>Fecha</span></td>
 								<td><span>Hora</span></td>
+								<td><span>Fecha Solicitud</span></td>
 								<td><span>Titulo de paquete</span></td>
 								<td><span>Precio</span></td>
 								<td><span>Pagado</span></td>
@@ -24,13 +25,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="reqPackages-list-item" ng-repeat="package in filtered =  (reqPackages.packages | filter:search) | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage | filter : paginate track by $index">
+							<tr class="reqPackages-list-item" ng-repeat="package in filtered =  (reqPackages.packages | filter:search)| orderBy: '-request_date' | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage | filter : paginate track by $index ">
 								<td><span>{{package.name}}</span></td>
 								<td><span>{{package.lastname}}</span></td>
 								<td><span>{{package.email}}</span></td>
 								<td><span>{{package.tel}}</span></td>
 								<td><span>{{package.date}}</span></td>
 								<td><span>{{package.time}}</span></td>
+								<td><span>{{package.request_date}}</span></td>
 								<td><span>{{package.shortTitle}}</span></td>
 								<td><span>{{package.price | currency:undefined:0}}</span></td>
 								<td ng-if="package.payed == 'true'"><span>S&iacute;</span></td>
@@ -76,6 +78,10 @@
 		<tr class="tripTableRow">
 			<td class="tripTableCol"><span><strong>Hora:</strong></span></td>
 			<td class="tripTableCol"><span>{{reqPackages.printTrip.time}}</span></td>
+		</tr>
+		<tr class="tripTableRow">
+			<td class="tripTableCol"><span><strong>Fecha solicitud:</strong></span></td>
+			<td class="tripTableCol"><span>{{reqPackages.printTrip.request_date}}</span></td>
 		</tr>
 		<tr class="tripTableRow">
 			<td class="tripTableCol"><span><strong>Paquete:</strong></span></td>

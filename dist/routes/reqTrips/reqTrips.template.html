@@ -30,7 +30,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="trip-list-item" ng-repeat="trip in  filtered =  (reqTrips.trips | filter:search | filter:{state: filterState }) | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage | filter : paginate track by $index" ng-style="trip.state == 1 && {'background-color':'rgba(39, 255, 104, 0.1)'}  || trip.state == 2 && {'background-color':'rgba(255, 28, 28, 0.1)'}">
+								<tr class="trip-list-item" ng-repeat="trip in  filtered =  (reqTrips.trips | filter:search | orderBy: '-request_date' | filter:{state: filterState }) | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage | filter : paginate track by $index" ng-style="trip.state == 1 && {'background-color':'rgba(39, 255, 104, 0.1)'}  || trip.state == 2 && {'background-color':'rgba(255, 28, 28, 0.1)'}">
 									<td><span>{{trip.name}}</span></td>
 									<td><span>{{trip.lastname}}</span></td>
 									<td><span>{{trip.request_date}}</span></td>

@@ -622,9 +622,6 @@ function addPackageController(angular, app) {
               self.myZone = self.zonas[self.package.zone].value;
             });
           }
-          // $('html, body').animate({
-          //   scrollTop: $("#addPackage").offset().top
-          // }, 1000); 
           self.addPackage = addPackage;
           self.updatePackage = updatePackage;
           self.submit = submit;
